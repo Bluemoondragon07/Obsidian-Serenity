@@ -1,5 +1,6 @@
 ![](cover-big.png)
 
 # Serenity.
-> This theme is nothing. It is nothing. Because there is nothing. Only you and the words. And your mind. Fully. *Focused.*
+> There is nothing. Only you and the words. And your mind. In *sync*.
 >> All you have to do is train your mind on the words. And write.
+
