@@ -14,6 +14,31 @@
 
 ![400](checklists.png)
 
+##### Syntax
+
+```markdown
+- [/] incomplete
+- [-]  cancelled
+- [>] forwarded
+- [<] scheduling
+- [?] question
+- [!] important
+- [*] star
+- [“] quote
+- [l] location
+- [b] bookmark
+- [i] information
+- [S] savings
+- [I] idea
+- [p] pros
+- [c]  cons
+- [f] fire
+- [k] key
+- [w] win
+- [u] up
+- [d] down 
+```
+
 
 #### Callouts
 > Custom callouts. Keywords are the same as those for the checklists.
