@@ -1364,8 +1364,8 @@ border-left:2px solid var(--interactive-accent);
 /* ====== more compact settings style ====== */
 /* == credit: therazam (https://github.com/Bluemoondragon07/Obsidian-Serenity/issues/1) == */
 
-.compact-settings .horizontal-tab-nav-item, .vertical-tab-nav-item {
-    padding: 0.5em 1em;
+.compact-settings .horizontal-tab-nav-item, .compact-settings .vertical-tab-nav-item {
+    padding: 0.5em 1em !important;
 }
 
 .compact-settings .vertical-tab-header-group-title {
