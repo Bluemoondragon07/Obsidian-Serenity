@@ -15,6 +15,7 @@
 ![400](checklists.png)
 
 ##### Syntax
+Syntax is the same as that of the Minimal theme.
 
 ```markdown
 - [/] incomplete
@@ -40,8 +41,8 @@
 ```
 
 
-#### Callouts
-> Custom callouts. Keywords are the same as those for the checklists.
+#### Custom Callouts
+> Keywords are the same as those for the checklists.
 >For example, the *cancelled* callout is `>[!cancelled]` or `>[!-]`.
 
 ![](callouts.png)
