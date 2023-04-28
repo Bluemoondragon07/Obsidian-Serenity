@@ -39,7 +39,30 @@ Syntax is the same as that of the Minimal theme.
 - [u] up
 - [d] down 
 ```
+Plus some additional checkboxes.
 
+```
+- [B] beat
+- [i] info
+- [s] save (download)
+- [a] link 
+- [L] like
+- [e] event
+- [g] game
+- [h] home
+- [H] help 
+- [j] junk
+- [m] memo
+- [n] next
+- [N] navigation 
+- [o] open
+- [q] quick
+- [r] report
+- [t]  tip
+- [+] add
+- [v] visibility
+```
+      
 
 #### Custom Callouts
 > Keywords are the same as those for the checklists.
