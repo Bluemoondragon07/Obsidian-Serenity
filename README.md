@@ -55,5 +55,6 @@ Syntax is the same as that of the Minimal theme.
 -  [kepano - Minimal checkboxes](https://www.buymeacoffee.com/kepano)
 - [threethan - Material Flat Theme's FAB button](https://github.com/threethan/obsidian-material-flat-theme)
 - [therazam - compact settings style](https://github.com/Bluemoondragon07/Obsidian-Serenity/issues/1#issuecomment-1515320958)
+- [chrisgrieser - Shimmering Focus inspiration for backlinks](https://github.com/chrisgrieser/shimmering-focus)  
 
 </details>
