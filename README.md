@@ -39,11 +39,11 @@ Syntax is the same as that of the Minimal theme.
 - [u] up
 - [d] down 
 ```
+      
 Plus some additional checkboxes.
 
 ```
 - [B] beat
-- [i] info
 - [s] save (download)
 - [a] link 
 - [L] like
@@ -62,7 +62,8 @@ Plus some additional checkboxes.
 - [+] add
 - [v] visibility
 ```
-      
+ 
+   ![](checklists2.png)   
 
 #### Custom Callouts
 > Keywords are the same as those for the checklists.
