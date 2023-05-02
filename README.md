@@ -43,6 +43,7 @@ Syntax is the same as that of the Minimal theme.
 Plus some additional checkboxes.
 
 ```
+- [@] person/user
 - [B] beat
 - [s] save (download)
 - [a] link 
