@@ -161,10 +161,14 @@ body, .ia-font {
 }
 .austere-font {
     --font-default: 'Special Elite', cursive;
-    --font-secondary: 'Rubik Dirt', cursive;
+    --font-secondary: 'Kalam', cursive;
     --font-monospace: 'Sono', monospace;
 }
-
+.handwritten-font {
+    --font-default: 'Kalam', cursive;
+    --font-secondary: 'Edu TAS Beginner', cursive;
+    --font-monospace: 'Sono', monospace;
+}
 /* fonts from list select */
 .font-select {
     --font-default: var(--font-default-select), sans-serif;
@@ -197,7 +201,7 @@ body {
 }
 
 /* make edit mode use a different font than reading mode */
- .markdown-source-view .cm-line:not([class*="code"]) {
+ .markdown-source-view .cm-line:not([class*="code"]):not(.HyperMD-header) {
     font-family: var(--font-preview-view) !important;
 }
 
@@ -223,17 +227,20 @@ body {
 
 .active-line-highlight .cm-line,
 .active-line-highlight .callout,
-.active-line-highlight img {
+.active-line-highlight img,
+.active-line-highlight .inline-title {
     transition: opacity 0.25s !important;
 }
 .active-line-highlight .cm-active.cm-line,
 .active-line-highlight .cm-line:hover,
 .active-line-highlight .callout:hover,
-.active-line-highlight img:hover {
+.active-line-highlight img:hover,
+.active-line-highlight .inline-title:hover {
     opacity: 1 !important;
 }
 
-.active-line-highlight .cm-contentContainer .cm-line, .active-line-highlight .cm-contentContainer img, .active-line-highlight .cm-contentContainer .callout {
+.active-line-highlight .cm-contentContainer .cm-line, .active-line-highlight .cm-contentContainer img, .active-line-highlight .cm-contentContainer .callout,
+.active-line-highlight .markdown-source-view .inline-title {
    opacity: var(--inactive-line-opacity);
 }
 
@@ -244,9 +251,9 @@ body {
 
 
 /* style collapse indicators */
-.ul-folder-psp .nav-folder > .nav-folder-title .nav-folder-collapse-indicator.collapse-icon svg {
+.nav-folder > .nav-folder-title .nav-folder-collapse-indicator.collapse-icon svg {
     color: var(--text-muted) !important;
-   stroke-width: 2px !important;
+   stroke-width:2px !important;
 }
 .hide-folder-arrows .nav-folder-collapse-indicator {
     display: none;
@@ -255,7 +262,8 @@ body {
 
 
 /* style folder notes and files like links */
-.nav-folder.alx-folder-with-note>.nav-folder-title>.nav-folder-title-content, body:not(:not(.link-file)) .nav-file-title-content {
+.nav-folder.alx-folder-with-note>.nav-folder-title>.nav-folder-title-content, body:not(:not(.link-file)) .nav-file-title-content,
+.folder-note-underline .has-folder-note .nav-folder-title-content {
     text-decoration-line: underline;
     color: var(--link-color);
     text-decoration-color: hsla(var(--color-accent-hsl), 0.5);
@@ -264,18 +272,25 @@ body {
 }
 /* link-like hover effect for link-styled folders and files */
 body:not(:not(.link-file)) .nav-folder.alx-folder-with-note>.nav-folder .nav-folder-title:hover, body:not(:not(.link-file)) .nav-file:hover .nav-file-title,
+.folder-note-underline .nav-folder-title:hover,
 body:not(:not(.link-file)).nav-folder-title:hover /* also get rid of hover bg on normal folder */ {
     background-color: transparent !important;
 }
-body:not(:not(.link-file)) .nav-folder.alx-folder-with-note>.nav-folder-title:hover>.nav-folder-title-content, .nav-file:hover .nav-file-title-content {
+body:not(:not(.link-file)) .nav-folder.alx-folder-with-note>.nav-folder-title:hover>.nav-folder-title-content, .nav-file:hover .nav-file-title-content,
+.folder-note-underline .has-folder-note.nav-folder-title:hover > .nav-folder-title-content {
     color: var(--link-color-hover) !important;
 }
 
 .nav-file-title.is-active {
     background-color: transparent;
 }
+.nav-file-title.is-selected .nav-file-title-content, .nav-file-title.is-selected {
+    color: hsl(calc(var(--accent-h) - 25), var(--accent-s), calc(var(--accent-l) + 5%))!important;
+    background-color: transparent !important;
+    text-decoration-color: var(--color-green);
+}
 .nav-file-title.is-active .nav-file-title-content {
-    color: var(--interactive-accent) !important;
+    color: var(--interactive-accent);
     text-decoration: none;
     font-weight: bold;
 }
@@ -313,7 +328,7 @@ body:not(:not(.link-file)) .nav-folder.alx-folder-with-note>.nav-folder-title:ho
 .file-explorer-cards .nav-file {
 transition: 0.15s ease-out;
 margin: 10px 0px;
-background-color: var(--background-primary);
+background-color: rgba(255, 255, 255, 0.13);
 box-shadow: rgba(0, 0, 0, 0.12) 0px 0px 2px, rgba(0, 0, 0, 0.03) 1px 1px 8px;
 }
 .file-explorer-cards .nav-file-title {
@@ -356,7 +371,6 @@ padding: 10px 13px; /* when folder collapse indicators are hidden, increase padd
     margin-right: 7px;
     margin-left: 1em;
 }
-
 
 
 
@@ -481,8 +495,9 @@ body:not(.is-mobile):not(:not(.hide-view-header)) .view-header:not(:hover) {
 
  
 body:not(:not(.hide-titlebar-buttons)) .titlebar-button-container:not(:hover) {
+height: 30px;
+width: 20px;
 opacity: 0;
-height: 1px;
 }
 
 
@@ -495,12 +510,12 @@ height: 1px;
 
  /* hide file explorer buttons */
  .nav-buttons-container:not(:hover) {
-    height: 0px;
-    padding:0px;
+    height: 1px;
+    padding:2px;
     opacity: 0;
  }
 .nav-buttons-container {
-    transition: 0.1s opacity, 0.3s height, 0.3s padding;
+    transition: 0.1s opacity, 0.5s height, 0.5s padding;
 }
 /* =============== sidebar ======== */
 .workspace-leaf-content {
@@ -587,7 +602,7 @@ width: fit-content;
 }
 /* ===== dataview ===== */
 body {
-    --font-inline-field: var(--font-monospace);
+    --font-inline-field: inherit;
     --inline-field-size: var(--font-small);
 }
 
@@ -616,7 +631,13 @@ font-size: inherit;
     font-size: inherit;
 }
 
-/* dataview tables */
+/* ==== dataview tables ==== */
+body {
+    --dv-table-text-align: left;
+    --dv-table-white-space: initial;
+    --dv-table-row-alt-background: transparent;
+    --dv-table-column-alt-background: transparent;
+}
 .table-view-table {
     --table-header-background: transparent;
     --table-header-background-hover: transparent;
@@ -629,18 +650,47 @@ font-size: inherit;
 }
 
 .table-view-table thead > tr > th, .table-view-table tbody > tr > td {
-    white-space: pre;
+    white-space: var(--dv-table-white-space);
 }
 .table-view-table tbody > tr > td {
-    text-align: center !important;
-    padding: 1px;
+    text-align: var(--dv-table-text-align);
+    padding: 0px 0px 3px 10px;
 }
 .table-view-table tbody > tr > td:first-of-type {
     text-align: left !important;
 }
 
+/* alternate rows */
+.markdown-rendered .table-view-table tbody tr:nth-child(odd) {
+background-color: var(--dv-table-row-alt-background) !important;
+}
+.dv-alternate-table-rows {
+    --dv-table-row-alt-background: var(--background-primary-alt);
+}
+/* alternate columns */
+.markdown-rendered .table-view-table tbody tr > td:nth-child(2n + 2) {
+    background-color: var(--dv-table-column-alt-background);
+}
+.dv-alternate-table-columns {
+    --dv-table-column-alt-background: var(--background-primary-alt);
+}
 
-/* normal tables */
+/* borders */
+.dv-table-borders .table-view-table tbody > tr > td {
+    border: 0.9px solid var(--background-modifier-border);
+}
+/* normal header */
+.dv-table-header .table-view-table {
+    --table-header-background: var(--background-secondary);
+    --table-header-background-hover: var(--background-secondary);
+}
+.dv-table-header .table-view-table thead > tr > th {
+    border: 1px solid var(--background-modifier-border);
+    background-color: var(--table-header-background) !important;
+    font-weight: var(--table-header-weight);
+}
+
+/* ==== normal tables ====  */
 body {
     --table-text-size: var(--font-smaller);
     --table-header-font: var(--h1-font);
@@ -653,6 +703,7 @@ body {
     text-align: center;
     padding: 3px 1em;
     font-size: var(--font-ui-medium);
+    background-color: var(--table-header-background) !important;
     
 }
 .markdown-rendered tbody tr:hover {
@@ -667,7 +718,14 @@ body {
 .markdown-rendered table {
     min-width: 700px;
 }
-
+.alternate-table-rows {
+    --table-header-background: var(--background-secondary);
+    --table-row-alt-background: var(--background-primary-alt);
+}
+.alternate-table-columns {
+    --table-header-background: var(--background-secondary);
+    --table-column-alt-background: var(--background-primary-alt);
+}
 
 
 /* =============== Code and Codeblocks ============= */
@@ -692,6 +750,77 @@ body {
     font-family: var(--font-secondary);
 }
 
+/* ============== abbreviations =============== */
+abbr[title] {
+    text-decoration: underline dashed var(--color-green);
+    color: var(--color-green);
+}
+
+/* =========== custom data-comment attribute ============== */
+
+/* dot symbol after data-comment words */
+[data-comment]::after {
+    content: '';
+    margin-top: -0.3em;
+    position: absolute;
+    font-size: var(--font-smallest);
+    color: var(--color-accent);
+    margin-left: 2px;
+    opacity: 0.9;
+}
+
+/* comment modal on hover */
+[data-comment]:hover::after {
+    content: attr(data-comment);
+    background-color: var(--color-cyan);
+    color: white;
+    font-family: var(--font-secondary);
+    padding: 2px 5px;
+    box-shadow: var(--shadow-s);
+    border-radius: var(--radius-s);
+    opacity: 1;
+    animation: pop-right 200ms forwards ease-in-out;
+    max-width: 350px;
+}
+
+/* style the commented words */
+[data-comment] {
+    text-decoration: dashed underline var(--color-cyan);
+    text-underline-offset: 2px;
+}
+[data-comment]:hover {
+    color: var(--color-cyan);
+}
+
+/* ============= Custom Data-above Attribute ============== */
+
+/* annotation-like text */
+[data-above]:hover::after {
+    content: attr(data-above);
+    position: absolute;
+    margin-left: -270px;
+    text-align: center;
+    width: 500px;
+    font-size: var(--font-smallest);
+    margin-top: -1em;
+    color: var(--color-blue);    
+}
+
+/* style the annotated words, increase line height */
+[data-above] {
+    line-height: calc(var(--line-height-normal) + 0.7);
+    text-decoration: underline dotted var(--color-blue);
+    transition: 0.15s;
+}
+
+/* hover effect */
+[data-above]:hover {
+    color: var(--color-orange);
+    text-decoration-color: var(--color-orange);
+}
+
+
+
 /* ============= dividers/horizontal rules ============= */
 body {
     --hr-thickness: 1px;
@@ -700,6 +829,7 @@ body {
 
 .markdown-rendered hr {
     margin: 1em 0px;
+    clear: both;
 }
 
 /* ============ Page Gallery ============ */
@@ -709,12 +839,86 @@ body {
 box-shadow: none;
 text-shadow: none;
 }
-.page-gallery__image {
+
+/* make fallbacks and images less round */
+.page-gallery__tile-image--image,
+.page-gallery__tile-image--fallback,
+.page-gallery__tile-image--content {
+    border-radius: vaR(--radius-s) var(--radius-s) 0 0 ;
+}
+
+/* make images clearer */
+.page-gallery__tile-image--image {
     opacity: 1;
 }
-.page-gallery__image:hover {
-   box-shadow: var(--shadow-s);
+.page-gallery__tile-image--image:hover {
+   box-shadow: none;
 }
+.page-gallery__tile-image--image {
+    background-color: var(--background-primary-alt);
+}
+
+/* make fallback more harmonious with the theme */
+.page-gallery__tile-image--fallback {
+    background: vaR(--background-primary-alt);
+}
+.page-gallery__tile-image--fallback:hover {
+    background: var(--background-primary-alt);
+    box-shadow: none;
+}
+
+/* make content less distracting and more readable */
+.page-gallery__tile-image--content,
+.page-gallery__tile-image--content:hover {
+    background: var(--background-primary-alt);
+    box-shadow: none;
+    padding: 1em 1.5em;
+    overflow: hidden;
+    --h1-size: var(--font-ui-medium);
+    font-size: var(--font-ui-smaller);
+}
+.page-gallery__tile-image--content:hover {
+    box-shadow: none;
+}
+
+
+/* view buttons */
+.page-gallery__views-header-item.selected {
+    box-shadow: var(--color-accent-1) 1px 2px 0px 1px;
+    background: var(--color-accent-2);
+    color: var(--text-on-accent);
+}
+.page-gallery__views-header {
+    margin-bottom: 0.8em;
+}
+
+/* make fields more readable */
+.page-gallery__fields {
+    white-space: initial;
+    font-size: var(--font-small);
+    padding: 1em;
+}
+.page-gallery__field[data-page-gallery-field-expression="file.name"]:first-child, .page-gallery__field[data-page-gallery-field-expression="file.path"]:first-child {
+    font-size: calc(var(--font-text-size) + 1px);
+    margin-bottom: 0.4em;
+}
+
+
+/* tiles */
+.page-gallery__tile {
+    width: fit-content;
+    max-width: 300px;
+    min-width: 300px;
+    height: flex;
+    border-radius: var(--radius-s);
+    transition: 0.25s;
+}
+.page-gallery__tile:hover {
+transform: scale(1.05);
+box-shadow: var(--shadow-s);
+border: none;
+}
+
 
 /* =============== Callouts ================ */
 body {
@@ -870,7 +1074,7 @@ body {
 blockquote > blockquote p {
     border-left: none !important;
     text-align: right;
-    font-size: 0.8em;
+    font-size: 0.86em;
     padding: 0px 1em;
     font-family: var(--font-secondary);
     color: var(--text-muted);
@@ -888,12 +1092,39 @@ blockquote {
 blockquote p,
 blockquote ul,
 blockquote ol,
-blockquote img {
+blockquote img,
+blockquote h1,
+blockquote h2,
+blockquote h3,
+blockquote h4,
+blockquote h5,
+blockquote h6,
+blockquote hr {
     border-left: solid var(--blockquote-border-thickness) var(--blockquote-border-color);
-    padding: 0px 0px 0px var(--size-4-6);
+    padding: 5px 0px 0px var(--size-4-6);
     margin: 0px;
 
 }
+blockquote li {
+    margin-left: 1em;
+}
+/* remove extra top padding for first elements contained in blockquote. */
+blockquote p:first-of-type,
+blockquote ul:first-of-type,
+blockquote ol:first-of-type,
+blockquote img:first-of-type,
+blockquote h1:first-of-type,
+blockquote h2:first-of-type,
+blockquote h3:first-of-type,
+blockquote h4:first-of-type,
+blockquote h5:first-of-type,
+blockquote h6:first-of-type,
+blockquote hr:first-of-type{
+    padding: 0px 0px 0px var(--size-4-6);
+}
+
+
+
 
 
 /* ============ headings & inline title ============= */
@@ -905,6 +1136,7 @@ body {
     --h5-size: 1.08em;
     --h6-size: 1em;
     --inline-title-size: calc(var(--h1-size) + 0.5em);
+    --inline-title-align: center;
     --h1-font: var(--h-font-s);
     --h2-font: var(--h-font-s);
     --h3-font: var(--h-font-s);
@@ -912,21 +1144,33 @@ body {
     --h5-font: var(--h-font-s);
     --h6-font: var(--h-font-s);
     --h-font-s: inherit;
-    --h-weight-s: 500;
+    --h-weight-s: 600;
     --h1-weight:var(--h-weight-s);
     --h2-weight:var(--h-weight-s);
     --h3-weight:var(--h-weight-s);
     --h4-weight:var(--h-weight-s);
     --h5-weight:var(--h-weight-s);
     --h6-weight:var(--h-weight-s);
+    --h-align-s: left;
+    --h1-align: var(--h-align-s);
+    --h2-align: var(--h-align-s);
+    --h3-align: var(--h-align-s);
+    --h4-align: var(--h-align-s);
+    --h5-align: var(--h-align-s);
+    --h6-align: var(--h-align-s);
 }
 
+/* Remove underline for headings that are also links */
+[data-heading] a {
+    text-decoration: none !important;
+}
 
 /* center inline title */
 .markdown-reading-view .inline-title, .inline-title {
-text-align: center;
-font-family: var(--h1-font);
-text-transform: capitalize;
+text-align: var(--inline-title-align);
+}
+.markdown-reading-view .inline-title {
+    text-transform: capitalize;
 }
 
 /* increase heading margins */
@@ -942,12 +1186,14 @@ text-transform: capitalize;
     padding-bottom: 0.2em;
 }
 
+
 /* when bottom border line is toggled off */
-body:not(.h1-bottom-border) .markdown-rendered h1 {
+body:not(.h1-bottom-border) .markdown-rendered h1, body:not(.h1-bottom-border) .embed-title {
     padding-bottom: 0.2em;
     border-bottom: none;
 }
 
+/* other headings bottom borders */
 .h2-bottom-border .markdown-rendered h2,
 .h3-bottom-border .markdown-rendered h3,
 .h4-bottom-border .markdown-rendered h4,
@@ -957,15 +1203,39 @@ body:not(.h1-bottom-border) .markdown-rendered h1 {
     padding-bottom: 0.2em;
 }
 
+/* heading text aligns */
+
+.markdown-rendered h1, .HyperMD-header-1 {
+    text-align: var(--h1-align);
+}
+.markdown-rendered h2, .HyperMD-header-2 {
+    text-align: var(--h2-align);
+}
+.markdown-rendered h3, .HyperMD-header-3 {
+    text-align: var(--h3-align);
+}
+.markdown-rendered h4, .HyperMD-header-4 {
+    text-align: var(--h4-align);
+}
+.markdown-rendered h5, .HyperMD-header-5 {
+    text-align: var(--h5-align);
+}
+.markdown-rendered h6, .HyperMD-header-6 {
+    text-align: var(--h6-align);
+}
+
+
 /* ============ collapse indicators =============== */
-.view-content .show-collapse-indicators .heading-collapse-indicator.collapse-indicator,
-.show-collapse-indicators .view-content .heading-collapse-indicator.collapse-indicator {
+
+.show-collapse-indicators .view-content .heading-collapse-indicator.collapse-indicator,
+.show-collapse-indicators .HyperMD-header .collapse-indicator {
     opacity: 1 !important;
     margin-right: 0.3em; 
 }
 
-.view-content .show-collapse-indicators .heading-collapse-indicator.collapse-icon svg.svg-icon,
-.show-collapse-indicators .view-content .heading-collapse-indicator.collapse-icon svg.svg-icon {
+
+.show-collapse-indicators .view-content .heading-collapse-indicator.collapse-icon svg.svg-icon,
+.show-collapse-indicators .HyperMD-header .collapse-indicator svg.svg-icon {
     width: 0.5em !important;
     height: 0.5em !important;
     stroke-width: 3px !important;
@@ -978,7 +1248,8 @@ body:not(.h1-bottom-border) .markdown-rendered h1 {
 /* ============== paragraph spacing =========== */
 body {
     --p-indent: 15px;
-    --line-height-normal: 1.75;
+    --line-height-normal: 1.75; 
+    --p-margin: 10px;
 }
 /* even-p class makes all paragraphs evenly spaced, regardless of whether enter is pressed once or twice. I don't know why, but I just loooove even paragraphs! */
 .even-p .markdown-rendered br {
@@ -991,6 +1262,11 @@ display: block;
     text-indent: var(--p-indent);
 }
 
+p {
+    margin-block-start: var(--p-margin);
+    margin-block-end: vaR(--p-margin);
+}
+
 /* ================= links =============== */
 body {
     --link-decoration-thickness: 1.5px;
@@ -1000,6 +1276,9 @@ a {
     font-family: var(--link-font);
     text-underline-offset: 3.5px;
     text-decoration-color: hsla(var(--color-accent-hsl), 0.5);
+}
+a:hover {
+    text-decoration-color: var(--link-color-hover);
 }
 /* =============== lists ============ */
 body {
@@ -1125,16 +1404,10 @@ li[data-task="<"] > p > input:checked {
 input[data-task="?"]:checked,
 li[data-task="?"] > input:checked,
 li[data-task="?"] > p > input:checked {
-  --checkbox-marker-color: transparent;
   background-color: var(--color-yellow);
-  border-color: var(--color-yellow);
-  background-position: 50% 50%;
-  background-size: 200% 90%;
-  background-image: url('data:image/svg+xml,%3Csvg xmlns="http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg" width="20" height="20" preserveAspectRatio="xMidYMid meet" viewBox="0 0 16 16"%3E%3Cpath fill="white" fill-rule="evenodd" d="M4.475 5.458c-.284 0-.514-.237-.47-.517C4.28 3.24 5.576 2 7.825 2c2.25 0 3.767 1.36 3.767 3.215c0 1.344-.665 2.288-1.79 2.973c-1.1.659-1.414 1.118-1.414 2.01v.03a.5.5 0 0 1-.5.5h-.77a.5.5 0 0 1-.5-.495l-.003-.2c-.043-1.221.477-2.001 1.645-2.712c1.03-.632 1.397-1.135 1.397-2.028c0-.979-.758-1.698-1.926-1.698c-1.009 0-1.71.529-1.938 1.402c-.066.254-.278.461-.54.461h-.777ZM7.496 14c.622 0 1.095-.474 1.095-1.09c0-.618-.473-1.092-1.095-1.092c-.606 0-1.087.474-1.087 1.091S6.89 14 7.496 14Z"%2F%3E%3C%2Fsvg%3E'); }
-.theme-dark input[data-task="?"]:checked,
-.theme-dark li[data-task="?"] > input:checked,
-.theme-dark li[data-task="?"] > p > input:checked {
-  background-image: url('data:image/svg+xml,%3Csvg xmlns="http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg" width="20" height="20" preserveAspectRatio="xMidYMid meet" viewBox="0 0 16 16"%3E%3Cpath fill="black" fill-opacity="0.8" fill-rule="evenodd" d="M4.475 5.458c-.284 0-.514-.237-.47-.517C4.28 3.24 5.576 2 7.825 2c2.25 0 3.767 1.36 3.767 3.215c0 1.344-.665 2.288-1.79 2.973c-1.1.659-1.414 1.118-1.414 2.01v.03a.5.5 0 0 1-.5.5h-.77a.5.5 0 0 1-.5-.495l-.003-.2c-.043-1.221.477-2.001 1.645-2.712c1.03-.632 1.397-1.135 1.397-2.028c0-.979-.758-1.698-1.926-1.698c-1.009 0-1.71.529-1.938 1.402c-.066.254-.278.461-.54.461h-.777ZM7.496 14c.622 0 1.095-.474 1.095-1.09c0-.618-.473-1.092-1.095-1.092c-.606 0-1.087.474-1.087 1.091S6.89 14 7.496 14Z"%2F%3E%3C%2Fsvg%3E'); }
+  --checkbox-marker-color: transparent;
+  -webkit-mask-image: url('data:image/svg+xml,%3Csvg xmlns="http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg"  viewBox="0 0 23 23"%3E%3Cpath fill="currentColor" d="m15.07 11.25l-.9.92C13.45 12.89 13 13.5 13 15h-2v-.5c0-1.11.45-2.11 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41a2 2 0 0 0-2-2a2 2 0 0 0-2 2H8a4 4 0 0 1 4-4a4 4 0 0 1 4 4a3.2 3.2 0 0 1-.93 2.25M13 19h-2v-2h2M12 2A10 10 0 0 0 2 12a10 10 0 0 0 10 10a10 10 0 0 0 10-10c0-5.53-4.5-10-10-10Z"%2F%3E%3C%2Fsvg%3E'); }
+
 
 /* [/] Incomplete */
 input[data-task="/"]:checked,
@@ -1200,7 +1473,7 @@ body:not(.tasks) .markdown-source-view.mod-cm6 .HyperMD-task-line[data-task]:is(
 body:not(.tasks) .markdown-preview-view ul li[data-task="-"].task-list-item.is-checked,
 body:not(.tasks) li[data-task="-"].task-list-item.is-checked {
   color: var(--text-faint);
-  text-decoration: line-through solid var(--text-faint) 1px; }
+ }
 
 /* [*] Star */
 input[data-task="*"]:checked,
@@ -1507,6 +1780,154 @@ li[data-task="N"] > p > input:checked {
   -webkit-mask-image:url('data:image/svg+xml,%3Csvg xmlns="http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg"  viewBox="0 0 24 24"%3E%3Cpath fill="currentColor" d="M15 5.1L9 3L3 5.02v16.2l6-2.33l6 2.1l6-2.02V2.77L15 5.1zm0 13.79l-6-2.11V5.11l6 2.11v11.67z"%2F%3E%3C%2Fsvg%3E');
 }
 
+/* ================== Speech Bubbles Checkboxes =================== */
+/* ==== Based on the AnupPuccin theme ======== */
+body {
+    --speech-color: var(--text-normal);
+    --speech-opacity: 0.5;
+}
+
+/* all speechboxes */
+[data-task="0"],
+[data-task="1"],
+[data-task="2"],
+[data-task="3"],
+[data-task="4"],
+[data-task="5"],
+[data-task="6"],
+[data-task="7"],
+[data-task="8"],
+[data-task="9"] {
+    margin-inline-start: -15px;
+    padding: 3px 10px !important;
+    border-radius: 2.5px 15px 15px 16px;
+    margin: 0.5em 0;
+    max-width: fit-content;
+    color: var(--speech-color);
+    --bold-color: var(--text-normal);
+    --italic-color: var(--text-normal);
+    filter: saturate(calc( 1 / var(--speech-opacity)));
+}
+
+/*speechbox titles */
+[data-task="0"] strong:first-of-type,
+[data-task="1"] strong:first-of-type,
+[data-task="2"] strong:first-of-type,
+[data-task="3"] strong:first-of-type,
+[data-task="4"] strong:first-of-type,
+[data-task="5"] strong:first-of-type,
+[data-task="6"] strong:first-of-type,
+[data-task="7"] strong:first-of-type,
+[data-task="8"] strong:first-of-type,
+[data-task="9"]  strong:first-of-type {
+   display: block;
+   width: 100%;
+   font-size: 1.15em;
+}
+
+/* left-aligned speechboxes */
+.speech-align [data-task="0"],
+.speech-align [data-task="2"],
+.speech-align [data-task="4"],
+.speech-align [data-task="6"],
+.speech-align [data-task="8"],
+.speech-align [data-task="10"] {
+   clear: both;
+}
+
+
+/* right aligned speechboxes */
+.speech-align [data-task="1"],
+.speech-align [data-task="3"],
+.speech-align [data-task="5"],
+.speech-align [data-task="7"],
+.speech-align [data-task="9"] {
+    border-radius: 15px 2.5px 16px 15px;
+    float: right;
+    clear: both;
+}
+
+
+
+/* remove checkboxes for speech bubbles */
+[data-task="0"] .task-list-item-checkbox,
+[data-task="1"] .task-list-item-checkbox,
+[data-task="2"] .task-list-item-checkbox,
+[data-task="3"] .task-list-item-checkbox,
+[data-task="4"] .task-list-item-checkbox,
+[data-task="5"] .task-list-item-checkbox,
+[data-task="6"] .task-list-item-checkbox,
+[data-task="7"] .task-list-item-checkbox,
+[data-task="8"] .task-list-item-checkbox,
+[data-task="9"] .task-list-item-checkbox {
+    display: none;
+}
+
+[data-task="0"] {
+    background-color: rgba(var(--color-red-rgb), var(--speech-opacity));
+}
+[data-task="1"] {
+    background-color: rgba(var(--color-orange-rgb), var(--speech-opacity));
+}
+[data-task="2"] {
+    background-color: rgba(var(--color-yellow-rgb), var(--speech-opacity));
+}
+[data-task="3"] {
+    background-color: rgba(var(--color-green-rgb), var(--speech-opacity));
+}
+[data-task="4"] {
+    background-color: rgba(var(--color-cyan-rgb), var(--speech-opacity));
+}
+[data-task="5"] {
+    background-color: rgba(var(--color-blue-rgb), var(--speech-opacity));
+}
+[data-task="6"] {
+    background-color: rgba(var(--color-purple-rgb), var(--speech-opacity));
+}
+[data-task="7"] {
+    background-color: rgba(var(--color-pink-rgb), var(--speech-opacity));
+}
+[data-task="8"] {
+    background-color: rgba(var(--callout-quote), var(--speech-opacity));
+}
+[data-task="9"] {
+    background-color: rgba(var(--color-orange-rgb), var(--speech-opacity));
+}
+[data-task="9"] {
+    background: linear-gradient(to right, rgba(var(--color-orange-rgb), var(--speech-opacity)), rgba(var(--color-yellow-rgb), var(--speech-opacity)));
+}
+
+/* edit mode appearance */
+
+.HyperMD-task-line[data-task="0"],
+.HyperMD-task-line[data-task="1"],
+.HyperMD-task-line[data-task="2"],
+.HyperMD-task-line[data-task="3"],
+.HyperMD-task-line[data-task="4"],
+.HyperMD-task-line[data-task="5"],
+.HyperMD-task-line[data-task="6"],
+.HyperMD-task-line[data-task="7"],
+.HyperMD-task-line[data-task="8"],
+.HyperMD-task-line[data-task="9"] {
+    text-indent: 0px !important;
+    margin-top: 8px !important;
+    margin-bottom: 8px !important;
+}
+.HyperMD-list-line[data-task="0"],
+.HyperMD-list-line[data-task="1"],
+.HyperMD-list-line[data-task="2"],
+.HyperMD-list-line[data-task="3"],
+.HyperMD-list-line[data-task="4"],
+.HyperMD-list-line[data-task="5"],
+.HyperMD-list-line[data-task="6"],
+.HyperMD-list-line[data-task="7"],
+.HyperMD-list-line[data-task="8"],
+.HyperMD-list-line[data-task="9"] {
+    max-width: fit-content !important;
+    margin-top: 1em !important;
+
+}
+
 
 
 /* ================== tags ==================== */
@@ -1673,10 +2094,16 @@ border-left:2px solid var(--interactive-accent);
 .vertical-tab-header-group-title {
     font-size: var(--font-ui-medium);
     text-align: center;
-    border-bottom: 1px solid var(--background-modifier-border-hover);
+    border-bottom: 0.7px solid var(--background-modifier-border-hover);
     margin-bottom: 0.5em;
     padding: 5px 0px;
     color: var(--text-muted);
+}
+.setting-item {
+    border-width: 0px;
+}
+.setting-item-name {
+    font-size: calc(var(--font-ui-small) + 1px);
 }
 
 /* ====== modals ====== */
@@ -1735,6 +2162,7 @@ body {
 .internal-embed {
     border-left: none;
     padding: 0px;
+    margin: 2em auto;
 }
 .embed-title {
     font-size: var(--h1-size);
@@ -1746,8 +2174,12 @@ body {
     font-weight: var(--h1-weight);
 }
 
+.internal-embed[alt="hide-title"] .embed-title,
 .hide-embed-title .embed-title {
-display: none;
+    opacity: 0;
+    height: 0px;
+    padding: 0px;
+    margin: 0px;
 }
 
 /* embed link hover effect */
@@ -1770,10 +2202,43 @@ display: none;
 .card-embed .markdown-embed {
     background-color: var(--background-primary-alt);
     padding: 1em 1.5em;
-    border-radius: var(--radius-m);
     border: 1px solid var(--background-modifier-border);
+    border-radius: var(--radius-m);
     box-shadow: var(--shadow-s);
 }
+.theme-light.card-embed .markdown-embed {
+    border: none;
+    box-shadow: var(--background-modifier-border) 0px 0px 1px, var(--shadow-s);
+}
+
+/* ============ mermaid ============ */
+
+/* make pie chart legends more readable */
+.legend text {
+    overflow: scroll !important;
+    overflow-wrap: break-word !important;
+    white-space: initial !important;
+    word-break: break-all !important;
+    word-wrap: break-word !important;
+    font-size: var(--font-ui-smaller) !important;
+    fill: var(--text-normal) !important;
+}
+
+/* get rid of pie chart border and make the slices more vibrant. */
+.pieCircle {
+    stroke-width: 0px !important;
+    opacity: 1 !important;
+}
+
+
+/* fix pie chart slice number text size and color */
+.slice {
+    font-size: var(--font-ui-medium) !important;
+    fill: black !important;
+}
+
+
+
 
 /* ============= backlinks ============== */
 
@@ -1796,7 +2261,7 @@ display: none;
 }
 
 /* link-like appearance */
-.tree-item-inner {
+.embedded-backlinks .tree-item-inner {
     color: var(--link-color);
     font-size: var(--font-ui-small);
     text-decoration: var(--link-decoration);
@@ -1804,12 +2269,16 @@ display: none;
     text-underline-offset: 3.5px;
     text-decoration-color: hsla(var(--color-accent-hsl), 0.5);
 }
+.embedded-backlinks .tree-item-inner:hover {
+    text-decoration-color: var(--link-color-hover);
+    color: var(--link-color-hover);
+}
 /* list-like bullets */
 /* inspired by Shimmering Focus */
  .embedded-backlinks .tree-item-self::before {
     content: '●';
-    font-size: 9px;
-    color: var(--text-faint);
+    font-size: 8px;
+    color: var(--text-muted);
     margin-right: 10px;
 }
 
@@ -1822,12 +2291,26 @@ display: none;
 
 /* =================== plugins ================ */
 
+/* =========== Folder Notes plugin ================= */
+
+.folder-note-underline-path .has-folder-note.view-header-breadcrumb {
+    color: var(--link-color);
+    text-decoration-color:  hsla(var(--color-accent-hsl), 0.5);
+    text-underline-offset: 3px;
+    text-decoration-thickness: 1.5px;
+}
+.folder-note-underline-path .has-folder-note.view-header-breadcrumb:hover {
+    background-color: transparent;
+    color: var(--link-color-hover);
+    text-decoration-color: var(--link-color-hover);
+}
+
 /* ============= metatable plugin ============== */
 .obsidian-metatable table {
 min-width: 300px;
 }
 .obsidian-metatable table th {
-    background-color: var(--background-secondary-alt);
+    background-color: var(--background-primary-alt);
 }
 .obsidian-metatable table td {
     text-align: center;
@@ -1935,7 +2418,7 @@ body {
     }
     /* make text color darker in the default color scheme on low contrast */
 .theme-light:not(.medium-contrast-light):not(.high-contrast-light):not(.theme-catpp):not(.theme-nord-s):not(.theme-gruvbox-s):not(.theme-solarized-s):not(.rose-pine):not(.theme-everforest) {
-    --c-100: 29%;
+    --c-100: 30%;
 }
 
     /* medium contrast */
@@ -2007,6 +2490,8 @@ body {
 }
 
 /* ==== dark theme contrast == */
+
+/* medium contrast */
 .theme-dark:not(.low-contrast-dark):not(.high-contrast-dark), .theme-dark.medium-contrast-dark {
     /* base contrast */
     /* this is the lightest "l" value */
@@ -2016,7 +2501,7 @@ body {
     /* the higher the contrast, the greater the range between values. */
     --c-00:  var(--base-c-m);
     --c-05: calc(var(--base-c-m) + 1%);
-    --c-10: calc(var(--base-c-m) + 4.5%);
+    --c-10: calc(var(--base-c-m) + 2.5%);
     --c-20: calc(var(--base-c-m) - 2%);
 
     --c-25: calc(var(--base-c-m) + 3%);
@@ -2027,11 +2512,12 @@ body {
     --c-50: calc(var(--base-c-m) + 56%);
     --c-60: calc(var(--base-c-m) + 60%);
     --c-70: calc(var(--base-c-m) + 65%);
-    --c-100: calc(var(--base-c-m) + 67%);
+    --c-100: calc(var(--base-c-m) + 72%);
 
 
 }
 
+/* high contrast */
 .theme-dark.high-contrast-dark {
     /* base contrast */
     /* this is the lightest "l" value */
@@ -2045,17 +2531,18 @@ body {
     --c-20: calc(var(--base-c-m) - 2.7%) !important;
 
     --c-25: calc(var(--base-c-m) + 3%);
-    --c-30: calc(var(--base-c-m) + 18%);
-    --c-35: calc(var(--base-c-m) + 18%);
-    --c-40: calc(var(--base-c-m) + 11%);
+    --c-30: calc(var(--base-c-m) + 28%);
+    --c-35: calc(var(--base-c-m) + 29%);
+    --c-40: calc(var(--base-c-m) + 30%);
 
     --c-50: calc(var(--base-c-m) + 75%);
     --c-60: calc(var(--base-c-m) + 78%);
     --c-70: calc(var(--base-c-m) + 79%);
-    --c-100: calc(var(--base-c-m) + 80%);
+    --c-100: calc(var(--base-c-m) + 84%);
 
 
 }
+/* low contrast */
 .theme-dark.low-contrast-dark {
     /* base contrast */
     /* this is the lightest "l" value */
@@ -2136,6 +2623,7 @@ body {
 
 --text-muted: var(--color-base-50) !important;
 --background-modifier-form-field: var(--color-base-10);
+--background-modifier-message: var(--color-accent-1);
 
 }
 
@@ -2204,6 +2692,10 @@ body {
 }
 .theme-light.theme-solarized-s {
     --base-c: 93.5%;
+}
+.theme-light.low-contrast-light.theme-solarized-s {
+    --theme-tint-secondary:47;
+    --theme-sat-secondary: 70%;
 }
 .theme-dark.theme-solarized-s {
     --base-c: 15%;
@@ -2426,8 +2918,8 @@ body {
 /* === Nord Theme === */
 
 .theme-nord-s {
-    --checkbox-color: var(--color-cyan);
-    --checkbox-color-hover: var(--color-red);
+    --checkbox-color: var(--color-orange);
+    --checkbox-color-hover: var(--color-orange);
     --accent-h: 210 !important;
     --accent-s: 34% !important;
     --accent-l: 63% !important; 
@@ -2875,6 +3367,12 @@ settings:
         type: variable-text
         default: '1.75'
     -
+     id: p-margin
+     title: Paragraph Margin
+     description: The spacing between paragraphs.
+     default: '10px'
+     type: variable-text
+    -
         id: even-p
         title: Even Paragraphs
         type: class-toggle
@@ -2944,6 +3442,9 @@ settings:
             -
                 label: Round
                 value: cursive-font   
+            -
+                label: Handwritten
+                value: handwritten-font
             -
                 label: Web
                 value: web-font
@@ -3204,6 +3705,16 @@ settings:
         default: '600'
         type: variable-text
     -
+        id: h-align-s
+        title: Heading Alignment
+        description: The alignment used for all headings unless individually specified.
+        default: left
+        type: variable-select
+        options:
+            - left
+            - right
+            - center
+    -
         id: h1-heading
         title: Heading 1
         type: heading
@@ -3262,6 +3773,24 @@ settings:
             -
                 label: Light
                 value: 300
+    -
+        id: h1-align
+        title: Alignment
+        default: var(--h-align-s)
+        type: variable-select
+        options:
+            -
+                label: Default
+                value: var(--h-align-s)
+            -
+                label: Left
+                value: left
+            -
+                label: Right
+                value: right
+            -
+                label: Center
+                value: center
     -
         id: h1-bottom-border
         title: Bottom Border
@@ -3339,6 +3868,24 @@ settings:
                 label: Light
                 value: 300
     -
+        id: h2-align
+        title: Alignment
+        default: var(--h-align-s)
+        type: variable-select
+        options:
+            -
+                label: Default
+                value: var(--h-align-s)
+            -
+                label: Left
+                value: left
+            -
+                label: Right
+                value: right
+            -
+                label: Center
+                value: center
+    -
         id: h2-bottom-border
         title: Bottom Border
         type: class-toggle
@@ -3404,6 +3951,24 @@ settings:
                 label: Light
                 value: 300
     -
+        id: h3-align
+        title: Alignment
+        default: var(--h-align-s)
+        type: variable-select
+        options:
+            -
+                label: Default
+                value: var(--h-align-s)
+            -
+                label: Left
+                value: left
+            -
+                label: Right
+                value: right
+            -
+                label: Center
+                value: center
+    -
         id: h3-bottom-border
         title: Bottom Border
         type: class-toggle
@@ -3467,6 +4032,24 @@ settings:
             -
                 label: Light
                 value: 300
+    -
+        id: h4-align
+        title: Alignment
+        default: var(--h-align-s)
+        type: variable-select
+        options:
+            -
+                label: Default
+                value: var(--h-align-s)
+            -
+                label: Left
+                value: left
+            -
+                label: Right
+                value: right
+            -
+                label: Center
+                value: center
     -
         id: h4-bottom-border
         title: Bottom Border
@@ -3532,6 +4115,24 @@ settings:
                 label: Light
                 value: 300
     -
+        id: h5-align
+        title: Alignment
+        default: var(--h-align-s)
+        type: variable-select
+        options:
+            -
+                label: Default
+                value: var(--h-align-s)
+            -
+                label: Left
+                value: left
+            -
+                label: Right
+                value: right
+            -
+                label: Center
+                value: center
+    -
         id: h5-bottom-border
         title: Bottom Border
         type: class-toggle
@@ -3596,10 +4197,73 @@ settings:
                 label: Light
                 value: 300
     -
+        id: h6-align
+        title: Alignment
+        default: var(--h-align-s)
+        type: variable-select
+        options:
+            -
+                label: Default
+                value: var(--h-align-s)
+            -
+                label: Left
+                value: left
+            -
+                label: Right
+                value: right
+            -
+                label: Center
+                value: center
+    -
         id: h6-bottom-border
         title: Bottom Border
         type: class-toggle
         default: false
+    -
+        id: inline-title-heading
+        title: Inline Title
+        type: heading
+        collapsed: true
+        level: 2
+    -
+        id: inline-title-size
+        title: Font Size
+        type: variable-select
+        default: calc(var(--h1-size) + 0.5em)
+        options: 
+            -
+                label: Calculated
+                value: calc(var(--h1-size) + 0.5em)
+            -
+                label: Tiny
+                value: var(--font-text-size)
+            -
+                label: Small
+                value: 1.5em;
+            -
+                label: Medium
+                value: 1.8em
+            -
+                label: Big
+                value: 2.5em
+            -
+                label: Huge
+                value: 3.1em
+    -
+        id: inline-title-align
+        title: Text Align
+        type: variable-select
+        default: center
+        options:
+            - left
+            - center
+            - right
+
+    -
+        id: inline-title-weight
+        title: Font Weight
+        default: '700'
+        type: variable-text   
     -
         id: links-heading
         title: Links
@@ -3678,6 +4342,108 @@ settings:
         title: Checkbox Radius
         type: variable-text
         default: 60px
+    -  
+        id: speech-bubbles-heading
+        title: Speech Bubbles
+        description: Credit - AnuPpuccin Theme by Anubis
+        type: heading
+        collapsed: true
+        level: 3
+    -
+        id: speech-align
+        title: Alternate Speechbox Alignment
+        type: class-toggle
+        default: true
+    -
+        id: speech-opacity
+        title: Speech Bubble Opacity
+        type: variable-text
+        default: '0.5'
+    -
+        id: speech-color
+        title: Speech Bubble Color
+        type: variable-select
+        default: var(--text-normal)
+        options:
+            -
+                label: Inverted
+                value: var(--background-primary)
+            -
+                label: Normal
+                value: var(--text-normal)
+    -
+        id: tables-heading
+        title: Tables
+        type: heading
+        level: 2
+        collapsed: true
+    -
+        id: table-white-space
+        title: White Space
+        type: variable-select
+        default: normal
+        options:
+            - normal
+            - pre
+    -
+        id: table-column-max-width
+        title: Max Column Width
+        type: variable-text
+        default: none
+    -
+        id: alternate-table-rows
+        title: Alternating Table Row Colors
+        type: class-toggle
+        default: false
+    -
+        id: alternate-table-columns
+        title: Alternating Table Column Colors
+        type: class-toggle
+        default: false
+    -
+        id: dataview-tables-heading
+        title: Dataview Tables
+        type: heading
+        level: 3
+        collapsed: true
+    -
+        id: dv-table-text-align
+        title: Dataview Table Text Alignment
+        type: variable-select
+        default: left
+        options:
+            - left
+            - center
+            - right
+            - justified
+    -
+        id: dv-table-white-space
+        title: Dataview Table White Space
+        type: variable-select
+        default: normal
+        options:
+            - normal
+            - pre
+    -
+        id: dv-alternate-table-rows
+        title: Dataview Alternating Row Colors
+        type: class-toggle
+        default: false
+    -
+        id: dv-alternate-table-columns
+        title: Dataview Alternating Column Colors
+        type: class-toggle
+        default: false
+    -
+        id: dv-table-borders
+        title: Dataview Table Borders
+        type: class-toggle
+        default: false
+    -
+        id: dv-table-header
+        title: Dataview Normal Table Header
+        type: class-toggle
+        default: false
     -
         id: focus-mode-settings-heading
         title: Focus Mode Settings
@@ -3758,11 +4524,11 @@ settings:
         title: Standalone Inline Fields Font
         description: The font used for inline fields with hidden keys (fields wrapped in parentheses).
         type: variable-select
-        default: var(--font-monospace)
+        default: var(--font-default)
         options: 
             - 
-                label: Default Font
-                value: var(--font-default)
+                label: Default 
+                value: inherit
             -
                 label: Secondary Font
                 value: var(--font-secondary)
