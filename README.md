@@ -4,7 +4,9 @@
 > There is nothing. Only you and the words. And your mind. In *sync*.
 >> All you have to do is train your mind on the words. And write.
 
-<details> <summary> <em>Features</em> </summary>
+<br>
+
+## Features
 
 ### Custom Checklists & Callouts
 
@@ -108,7 +110,14 @@ Images on the same line as the speech bubble are also supported.
 
 ### Custom HTML Attributes
 
-[Video Demonstration](attributes.mp4)
+
+
+ 
+<video src="https://user-images.githubusercontent.com/121056178/236698461-aef8ce87-fa95-403e-8ab6-6cbf09be4c04.mp4" controls="controls" style="max-width: 730px;">
+</video>
+
+
+
 
 #### `data-comment`
 Initiate a custom "comment" tooltip on hover.
@@ -125,7 +134,7 @@ Show 'annotations' above the text on hover.
 
 The abbreviation element (`<abbr title="This shows on hover">text</abbr>`) has some extra styling applied to it to make it stand out more.
 
-</details>
+
 
 <details> <summary> <em>Credits</em> </summary>
 
