@@ -125,7 +125,6 @@ Initiate a custom "comment" tooltip on hover.
 ###### Example
 `<span data-comment="This is a comment">I will show a tooltip on hover!</span>`
 
-Enable the theme and <span data-comment="This is what a comment looks like!">try hovering over me!</span>
 
 #### `data-above`
 Show 'annotations' above the text on hover.
@@ -133,7 +132,6 @@ Show 'annotations' above the text on hover.
 ###### Example
 `<span data-above="I'm an annotation above the text!">I have annotations on hover!</span>`
 
-Enable the theme and <span data-above="I'm an annotation above the text!">try hovering over me!</span>
 
 #### Extra Attribute Styling
 
