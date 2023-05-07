@@ -65,6 +65,40 @@ Plus some additional checkboxes.
 ```
  
    ![](checklists2.png)   
+   
+#### Speech Bubbles
+> Credit: AnuPpuccin Theme
+>>  [Buy Anubis a coffee](https://www.buymeacoffee.com/anubisnekhet)
+
+![](speech-bubbles.png)
+
+
+##### Syntax
+
+Syntax for individual speech bubbles is the same as that of the AnuPpuccin theme. 
+
+```
+- [0] Speech Bubble 1
+- [1] Speech Bubble 2
+- [2] Speech Bubble 3
+- [3] Speech Bubble 4
+- [4] Speech Bubble 5
+- [5] Speech Bubble 6
+- [6] Speech Bubble 7
+- [7] Speech Bubble 8
+- [8] Speech Bubble 9
+- [9] Speech Bubble 10
+```
+
+###### Inside a speech bubble
+The first **bold** text in a speech bubble will have its own line and will be treated like a title.
+
+```
+- [0] **Jim** Hi, I'm Jim.
+```
+
+This will have **Jim** show up as speech bubble title.
+Images on the same line as the speech bubble are also supported.
 
 #### Custom Callouts
 > Keywords are the same as those for the checklists.
@@ -72,12 +106,32 @@ Plus some additional checkboxes.
 
 ![](callouts.png)
 
+### Custom HTML Attributes
+
+[Video Demonstration](attributes.mp4)
+
+#### `data-comment`
+Initiate a custom "comment" tooltip on hover.
+
+###### Example
+`<span data-comment="This is a comment">I will show a tooltip on hover!</span>`
+
+#### `data-above`
+Show 'annotations' above the text on hover.
+
+`<span data-above="I'm an annotation above the text!">I have annotations on hover!</span>
+
+#### Extra Attribute Styling
+
+The abbreviation element (`<abbr title="This shows on hover">text</abbr>`) has some extra styling applied to it to make it stand out more.
+
 </details>
 
 <details> <summary> <em>Credits</em> </summary>
 
 
 -  [kepano - Minimal checkboxes](https://www.buymeacoffee.com/kepano)
+- [Anubis - AnuPpuccin Speech Bubbles](https://www.buymeacoffee.com/anubisnekhet)
 - [threethan - Material Flat Theme's FAB button](https://github.com/threethan/obsidian-material-flat-theme)
 - [therazam - compact settings style](https://github.com/Bluemoondragon07/Obsidian-Serenity/issues/1#issuecomment-1515320958)
 - [chrisgrieser - Shimmering Focus inspiration for backlinks](https://github.com/chrisgrieser/shimmering-focus)  
