@@ -255,7 +255,7 @@ body {
     color: var(--text-muted) !important;
    stroke-width:2px !important;
 }
-.hide-folder-arrows .nav-folder-collapse-indicator {
+.hide-folder-arrows .nav-folder-title:not(:has(.svelte-ner10q)) .nav-folder-collapse-indicator {
     display: none;
 }
 
@@ -266,7 +266,7 @@ body {
 .folder-note-underline .has-folder-note .nav-folder-title-content {
     text-decoration-line: underline;
     color: var(--link-color);
-    text-decoration-color: hsla(var(--color-accent-hsl), 0.5);
+    text-decoration-color: var(--link-decoration-color);
     text-decoration-thickness: var(--link-decoration-thickness);
     text-underline-offset: 2px;
 }
@@ -295,9 +295,10 @@ body:not(:not(.link-file)) .nav-folder.alx-folder-with-note>.nav-folder-title:ho
     font-weight: bold;
 }
 
-.hide-folder-notes .nav-folder.alx-folder-with-note>.nav-folder-title>.nav-folder-title-content {
-    text-decoration-line: none;
-    color: inherit;
+.hide-folder-notes .nav-folder.alx-folder-with-note>.nav-folder-title>.nav-folder-title-content,
+.hide-folder-notes.folder-note-underline .has-folder-note.nav-folder-title>.nav-folder-title-content {
+    text-decoration-line: none !important;
+    color: inherit !important;
 }
 
 /* "prominent folders" class */
@@ -372,6 +373,56 @@ padding: 10px 13px; /* when folder collapse indicators are hidden, increase padd
     margin-left: 1em;
 }
 
+/* Tag Folders plug-in */
+
+/* prevent tag overflow */
+.taglist.svelte-ner10q {
+    white-space: initial;
+    min-width: fit-content;
+}
+
+
+/* folder focus mode */
+
+.folder-focus .nav-folder .nav-folder {
+    opacity: var(--inactive-pane-opacity); /* set all folders to low opacity */
+    border: none;
+}
+.folder-focus .nav-folder .nav-folder:has(.is-active), /* folder that has the active note */
+.folder-focus .nav-folder .nav-folder:hover { /* folder (excluding the root folder) that is hovered over */
+    opacity: 1 !important;
+}
+
+.folder-focus .nav-folder .nav-folder .nav-folder:has(.is-active) {
+    padding: 8px;
+    margin-left: -17px !important; /* decrease the 'nested' appearance of folder that has the active note*/
+}
+
+/* put a border around the folder that has the active file */
+.folder-focus .nav-folder .nav-folder .nav-folder:has(.is-active) .nav-folder-children {
+    border-left: 1px solid var(--color-accent-2) !important;
+}
+
+.folder-focus .nav-folder .nav-folder:has(.is-active) > .nav-folder-title /* title of folder with the active note (excluding root folder) */
+ { 
+    font-size: var(--font-ui-medium) !important; 
+}
+
+/* (Scrapped) hide the files of folders that aren't under the cursor, even if they aren't collapsed */
+/*
+.folder-focus .nav-folder .nav-folder:not(:has(.is-active)):not(:hover) .nav-folder-children:not(:hover) {
+display: none; 
+opacity: 0;
+}
+*/
+
+/* messing around with transitions and animation speeds */
+.folder-focus .nav-folder .nav-folder {
+    transition: all 0.5s !important;
+    transition-delay: all 2s !important;
+    animation-delay: all 2s !important;
+    animation-duration: all 0.27s !important;
+ }
 
 
 /* ===================== hide elements ======================== */
@@ -698,6 +749,7 @@ body {
     --table-header-background: var(--background-secondary);
     --table-header-background-hover: var(--background-secondary);
 }
+
 .markdown-rendered thead tr > th {
     border-bottom: 1px solid var(--background-modifier-border);
     text-align: center;
@@ -716,7 +768,7 @@ body {
     padding: 0px 8px;
 }
 .markdown-rendered table {
-    min-width: 700px;
+    margin: 1em auto;
 }
 .alternate-table-rows {
     --table-header-background: var(--background-secondary);
@@ -740,15 +792,24 @@ body {
 }
 
 /* ================= highlights ============== */
-.markdown-rendered mark, .cm-highlight {
+.markdown-rendered mark, .cm-highlight
+ {
     background-color: transparent !important;
     text-decoration: underline 2.5px;
-    text-underline-offset: auto;
     text-underline-offset: 4px;
     text-decoration-color: var(--text-accent);
     font-weight: bold;
     font-family: var(--font-secondary);
 }
+.search-result-file-matched-text,
+.suggestion-highlight {
+   background-color: transparent !important;
+   text-underline-offset: auto;
+   text-decoration-color: var(--text-accent) !important;
+   text-decoration: underline 2px;
+   font-family: var(--font-secondary);
+}
+
 
 /* ============== abbreviations =============== */
 abbr[title] {
@@ -880,6 +941,8 @@ text-shadow: none;
 .page-gallery__tile-image--content:hover {
     box-shadow: none;
 }
+
+
 
 
 /* view buttons */
@@ -1224,7 +1287,45 @@ body:not(.h1-bottom-border) .markdown-rendered h1, body:not(.h1-bottom-border) .
     text-align: var(--h6-align);
 }
 
+/* ======== heading level indicators in edit mode ========= */
 
+.heading-syntax .HyperMD-header-1::before,
+.heading-syntax .HyperMD-header-2::before,
+.heading-syntax .HyperMD-header-3::before,
+.heading-syntax .HyperMD-header-4::before,
+.heading-syntax .HyperMD-header-5::before,
+.heading-syntax .HyperMD-header-6::before {
+font-size: 0.7rem;
+font-weight: normal;
+font-family: inherit;
+text-transform: uppercase;
+padding-right: 5px;
+border-radius: var(--radius-s);
+}
+
+.heading-syntax .HyperMD-header-1::before {
+    content: "H1";
+ }
+ .heading-syntax .HyperMD-header-2::before {
+    content: "H2";
+ }
+ .heading-syntax .HyperMD-header-3::before {
+    content: "H3";
+ }
+ .heading-syntax .HyperMD-header-4::before {
+    content: "H4";
+ }
+ .heading-syntax .HyperMD-header-5::before {
+    content: "H5";
+ }
+ .heading-syntax .HyperMD-header-6::before {
+    content: "H6";
+ }
+
+.cm-formatting {
+    opacity: 0.75;
+    color: inherit;
+}
 /* ============ collapse indicators =============== */
 
 .show-collapse-indicators .view-content .heading-collapse-indicator.collapse-indicator,
@@ -1271,11 +1372,12 @@ p {
 body {
     --link-decoration-thickness: 1.5px;
     --link-font: var(--font-secondary);
+    --link-decoration-color: hsla(var(--color-accent-hsl), 0.5);
 }
 a {
     font-family: var(--link-font);
     text-underline-offset: 3.5px;
-    text-decoration-color: hsla(var(--color-accent-hsl), 0.5);
+    text-decoration-color: var(--link-decoration-color);
 }
 a:hover {
     text-decoration-color: var(--link-color-hover);
@@ -2263,52 +2365,127 @@ body {
 
 /* ============= backlinks ============== */
 
+
 /* remove collapse indicator and details for backlinks */
 .embedded-backlinks .tree-item-icon.collapse-icon,
 .embedded-backlinks .search-result-file-matches,
-.embedded-backlinks .tree-item-flair-outer,
-.embedded-backlinks .tree-item-self.is-clickable[aria-label="Click to collapse"],
-.embedded-backlinks .tree-item-self.is-clickable[aria-label="Click to expand"] {
+.embedded-backlinks .tree-item-flair-outer {
     display: none;
 }
+
+/* make backlink headings blend in with the rest of the note */
+.backlink-pane .tree-item-self.is-clickable[aria-label="Click to collapse"] .tree-item-inner,
+.backlink-pane .tree-item-self.is-clickable[aria-label="Click to expand"] .tree-item-inner {
+font-weight: bold!important; 
+font-size: var(--font-ui-small);
+color: transparent; /* this makes the actual text invisible. the other styling here is for the ::before  below content to inherit */
+}
+
+/* custom backlink text */
+.backlink-pane .tree-item-self.is-clickable[aria-label] .tree-item-inner::before {
+content: "Linked In";
+position: absolute;
+color: var(--text-normal);
+}
+.backlink-pane .tree-item-self.is-clickable[aria-label]:nth-child(3) .tree-item-inner::before{
+content: "Mentioned In";
+}
+
+/* disable clicking for the backlink headigns */
+.backlink-pane .tree-item-self.is-clickable[aria-label="Click to collapse"] ,
+.backlink-pane .is-clickable[aria-label="Click to expand"]  {
+pointer-events: none;
+}
+
+
+
+
 /* make backlinks show even when the header is collapsed */
 .embedded-backlinks .search-result-container {
     display: block !important;
 }
 
-/* make backlinks more minimalistic */ 
 .embedded-backlinks {
-    margin: 0px !important;
+    margin: 0px !important; /* decrease margin */
 }
 
 /* link-like appearance */
-.embedded-backlinks .tree-item-inner {
+.embedded-backlinks .tree-item-self:not([aria-label]) .tree-item-inner {
     color: var(--link-color);
     font-size: var(--font-ui-small);
     text-decoration: var(--link-decoration);
     font-family: var(--link-font);
     text-underline-offset: 3.5px;
-    text-decoration-color: hsla(var(--color-accent-hsl), 0.5);
+    text-decoration-color: var(--link-decoration-color);
 }
-.embedded-backlinks .tree-item-inner:hover {
+.embedded-backlinks .tree-item-self:not([aria-label]) .tree-item-inner:hover {
     text-decoration-color: var(--link-color-hover);
     color: var(--link-color-hover);
 }
+.embedded-backlinks .tree-item-self:hover {
+    background-color: transparent !important; /* get rid of background color on hover for all backlink items */
+}
 /* list-like bullets */
 /* inspired by Shimmering Focus */
- .embedded-backlinks .tree-item-self::before {
+ .embedded-backlinks .tree-item-self:not([aria-label])::before {
     content: '●';
-    font-size: 8px;
+    font-size: 0.45em;
     color: var(--text-muted);
     margin-right: 10px;
 }
 
 .embedded-backlinks .search-empty-state {
-    font-size: var(--font-ui-small) !important;
+    font-size: var(--font-ui-smaller) !important;
 }
 
+/* =============== search results =================== */
+.search-result {
+    border: 1px solid var(--background-modifier-border);
+    margin: -1px 0;
+    padding: 6px 5px;
+    background-color: var(--background-primary) !important;
+}
+.search-result:nth-child(2),
+.search-result:first-child {
+    border-top-left-radius: var(--radius-s);
+    border-top-right-radius: var(--radius-s);
+}
+.search-result:last-child {
+    border-bottom-left-radius: var(--radius-s);
+    border-bottom-right-radius: var(--radius-s);
+}
 
+/* backlinks in sidebar */
+.embedded-backlinks .search-result {
+    border: none;
+    border-radius: revert;
+    margin: revert;
+    padding: revert;
+    background-color: revert;
+}
 
+.search-result-file-title,
+.search-result-file-title {
+    font-weight: bold !important;
+}
+.embedded-backlinks .search-result-file-title {
+    font-weight: normal !important;
+}
+
+ .search-result-file-matches {
+    border: none !important;
+    box-shadow: none;
+    font-size: calc(var(--font-ui-small) - 1.5px);
+}
+
+/* collapse arrow */
+.tree-item-icon.collapse-icon svg {
+    stroke-width: 2.5px;
+}
+.tree-item:not(.is-collapsed) .tree-item-icon.collapse-icon svg {
+    color: var(--text-accent);
+    stroke-width: 3px;
+}
 
 /* =================== plugins ================ */
 
@@ -2316,7 +2493,7 @@ body {
 
 .folder-note-underline-path .has-folder-note.view-header-breadcrumb {
     color: var(--link-color);
-    text-decoration-color:  hsla(var(--color-accent-hsl), 0.5);
+    text-decoration-color: var(--link-decoration-color);
     text-underline-offset: 3px;
     text-decoration-thickness: 1.5px;
 }
@@ -2336,6 +2513,7 @@ min-width: 300px;
 .obsidian-metatable table td {
     text-align: center;
 }
+
 
 
 /* ========= timeline plugin =========== */
@@ -2383,6 +2561,12 @@ font-size: inherit;
     color: var(--text-accent);
     margin-right: 5px !important;
 }
+
+/* ================= Canvas ==================== */
+.canvas-node-content-blocker {
+    display: none !important;
+}
+
 
 /* =================== Color Schemes ================== */
 
@@ -2445,7 +2629,7 @@ body {
     /* medium contrast */
 
 .theme-light:not(.low-contrast-light):not(.high-contrast-light), .theme-light.medium-contrast-light {
-    --color-accent-2: hsl(calc(var(--accent-h) - 4), calc(var(--accent-s) + 4%), calc(var(--accent-l) + 7%)) !important;
+    --color-accent-2: hsl(calc(var(--accent-h) - 4), calc(var(--accent-s) + 4%), calc(var(--accent-l) + 7%));
 
     /* base contrast */
     /* this is the lightest "l" value */
@@ -2483,8 +2667,8 @@ body {
 /* high contrast  */
 
 .theme-light.high-contrast-light {
-    --color-accent-2: hsl(calc(var(--accent-h) - 6), calc(var(--accent-s) + 10%), calc(var(--accent-l) - 5%)) !important;
-    --color-accent-1: hsl(calc(var(--accent-h) - 6), calc(var(--accent-s) + 10%), calc(var(--accent-l) - 3%)) !important;
+    --color-accent-2: hsl(calc(var(--accent-h) - 6), calc(var(--accent-s) + 10%), calc(var(--accent-l) - 5%));
+    --color-accent-1: hsl(calc(var(--accent-h) - 6), calc(var(--accent-s) + 10%), calc(var(--accent-l) - 3%));
 
     /* base contrast */
     /* this is the lightest "l" value */
@@ -2663,7 +2847,31 @@ body {
     --accent-h: 228;
     --accent-s: 70%;
     --accent-l: 66%;
+    --color-red: #f45757;
+    --color-red-rgb: 244, 87, 87;
 }
+.theme-normal.blue-accent {
+    --color-accent: #0fbce7;
+    --color-accent-1: #06c4f4;
+    --color-accent-2: #06cafa !important;
+    --link-decoration-color: #0fc5f24c;
+    --link-unresolved-decoration-color: #0fc5f24c;
+}
+.theme-normal.green-accent {
+    --color-accent: #38ab70;
+    --color-accent-1: #2aaf6a;
+    --color-accent-2: #26d37a !important;
+    --link-decoration-color: #29c87652;
+    --link-unresolved-decoration-color: #29c87652;
+}
+.theme-normal.yellow-accent {
+    --color-accent: #ffb700;
+    --color-accent-1: #ffb700;
+    --color-accent-2: #ffb700 !important;
+    --link-decoration-color: #ffb7005e;
+    --link-unresolved-decoration-color: #ffb7005e;
+}
+
 /* == default dark theme == */
 .theme-dark, .theme-normal.theme-dark {
     --base-c: 15%;
@@ -3016,19 +3224,12 @@ body {
 /* == catppuccin theme == */
 .theme-catpp {
     --theme-tint: 220;
-    --theme-sat: 20%;
+    --theme-sat: 24%;
     --theme-tint-secondary: 220;
     --theme-sat-secondary: 22%;
     --theme-tint-text: 234;
-    --theme-sat-text: 20%;
+    --theme-sat-text: 24%;
     --background-modifier-hover: rgba(var(--color-purple-rgb), 0.25);
-    --color-accent-1: var(--color-purple);
-    --color-accent-2: var(--color-pink);
-    --interactive-accent: var(--color-blue);
-    --text-accent: var(--color-green);
-    --link-color: var(--color-purple);
-    --link-color-hover: var(--color-pink);
-    --link-unresolved-color: var(--color-cyan);
     --checkbox-color: var(--color-green);
     --checkbox-color-hover: var(--color-cyan);
     --bold-color: var(--color-blue);
@@ -3037,9 +3238,18 @@ body {
     --accent-s: 97% !important;
     --accent-l: 72% !important; 
 }
+.theme-catpp:not(.red-accent):not(.orange-accent):not(.yellow-accent):not(.green-accent):not(.cyan-accent):not(.blue-accent):not(.purple-accent):not(.pink-accent) {
+    --color-accent-1: var(--color-purple);
+    --color-accent-2: var(--color-pink);
+    --interactive-accent: var(--color-blue);
+    --text-accent: var(--color-green);
+    --link-color: var(--color-purple);
+    --link-color-hover: var(--color-pink);
+    --link-unresolved-color: var(--color-cyan);
+}
 .theme-light.theme-catpp {
-    --base-c: 94%;
-    --color-red: #d20f39;
+    --base-c: 91.5%;
+    --color-red: hsl(347, 87%, 44%);
     --color-red-rgb: 210, 15, 57;
     --color-orange: #dd7878;
     --color-orange-rgb: 220, 138, 120;
@@ -3070,7 +3280,7 @@ body {
     --theme-tint-text: 232;
     --theme-sat-text: 23%;
     --theme-tint: 227;
-    --theme-sat: 20%;
+    --theme-sat: 40%;
 
     --accent-h: 193 !important;
     --accent-s: 43% !important;
@@ -3102,6 +3312,65 @@ body {
     --h6-color: var(--color-orange);
 
 }
+
+/* Color Accents */
+.red-accent {
+    --color-accent: var(--color-red);
+    --color-accent-1: var(--color-red);
+    --color-accent-2: rgba(var(--color-red-rgb), 0.8) !important;
+    --link-decoration-color: rgba(var(--color-red-rgb), 0.4);
+    --link-unresolved-decoration-color: rgba(var(--color-red-rgb), 0.4);
+}
+.orange-accent {
+    --color-accent: var(--color-orange);
+    --color-accent-1: var(--color-orange);
+    --color-accent-2: rgba(var(--color-orange-rgb), 0.8) !important;
+    --link-decoration-color: rgba(var(--color-orange-rgb), 0.4);
+    --link-unresolved-decoration-color: rgba(var(--color-orange-rgb), 0.4);
+}
+.yellow-accent {
+    --color-accent: var(--color-yellow);
+    --color-accent-1: var(--color-yellow);
+    --color-accent-2: rgba(var(--color-yellow-rgb), 0.8) !important;
+    --link-decoration-color: rgba(var(--color-yellow-rgb), 0.4);
+    --link-unresolved-decoration-color: rgba(var(--color-yellow-rgb), 0.4);
+}
+.green-accent {
+    --color-accent: var(--color-green);
+    --color-accent-1: var(--color-green);
+    --color-accent-2: rgba(var(--color-green-rgb), 0.8) !important;
+    --link-decoration-color: rgba(var(--color-green-rgb), 0.4);
+    --link-unresolved-decoration-color: rgba(var(--color-green-rgb), 0.4);
+}
+.cyan-accent {
+    --color-accent: var(--color-cyan);
+    --color-accent-1: var(--color-cyan);
+    --color-accent-2: rgba(var(--color-cyan-rgb), 0.8) !important;
+    --link-decoration-color: rgba(var(--color-cyan-rgb), 0.4);
+    --link-unresolved-decoration-color: rgba(var(--color-cyan-rgb), 0.4);
+}
+.blue-accent {
+    --color-accent: var(--color-blue);
+    --color-accent-1: var(--color-blue);
+    --color-accent-2: rgba(var(--color-blue-rgb), 0.8) !important;
+    --link-decoration-color: rgba(var(--color-blue-rgb), 0.4);
+    --link-unresolved-decoration-color: rgba(var(--color-blue-rgb), 0.4);
+}
+.purple-accent {
+    --color-accent: var(--color-purple);
+    --color-accent-1: var(--color-purple);
+    --color-accent-2: rgba(var(--color-purple-rgb), 0.8) !important;
+    --link-decoration-color: rgba(var(--color-purple-rgb), 0.4);
+    --link-unresolved-decoration-color: rgba(var(--color-purple-rgb), 0.4);
+}
+.pink-accent {
+    --color-accent: var(--color-pink);
+    --color-accent-1: var(--color-pink);
+    --color-accent-2: rgba(var(--color-pink-rgb), 0.8) !important;
+    --link-decoration-color: rgba(var(--color-pink-rgb), 0.4);
+    --link-unresolved-decoration-color: rgba(var(--color-pink-rgb), 0.4);
+}
+
 
 /* ========== scrollbars =========== */
 
@@ -3251,6 +3520,39 @@ settings:
             -
                 label: Gruvbox
                 value: theme-gruvbox-s
+    -
+        id: color-accent-class-select
+        title: Accent Color
+        type: class-select
+        default: Auto
+        options:
+            -
+                label: Auto
+                value: auto-accent
+            -
+                label: Red
+                value: red-accent
+            -
+                label: Orange
+                value: orange-accent
+            -
+                label: Yellow
+                value: yellow-accent
+            -   
+                label: Green
+                value: green-accent 
+            -   
+                label: Cyan
+                value: cyan-accent
+            -
+                label: Blue
+                value: blue-accent
+            -
+                label: Purple
+                value: purple-accent
+            -
+                label: Pink
+                value: pink-accent
     -
         id: contrast-light
         title: Light Mode Contrast
@@ -3702,6 +4004,12 @@ settings:
         title: Show Collapse Indicators
         type: class-toggle
         description: Always show collapse indicators for headings.
+        default: false
+    -
+        id: heading-syntax
+        title: Heading Markers in Edit Mode
+        description: Show heading level indicators in edit mode.
+        type: class-toggle
         default: false
     -
         id: h-font-s
@@ -4496,6 +4804,12 @@ settings:
         description: control the opacity of inactive panes (enable the setting above to see effect)
         default: '0.55'
         type: variable-text
+    -
+        id: folder-focus
+        title: Folder Focus
+        description: Focus on the folder that holds the active file.
+        type: class-toggle
+        default: false
     -
         id: hidden-elements-heading
         title: Hidden Elements
