@@ -1201,9 +1201,13 @@ body {
     font-weight: bold !important;
 }
 
-.cm-quote-1 {
+.HyperMD-quote-1 {
     font-style: italic;
 }
+.HyperMD-quote-1 .cm-em {
+    font-style: normal;
+}
+
 .HyperMD-callout .cm-quote-1{
     font-style: normal;
 }
@@ -2933,11 +2937,11 @@ body {
     --color-red-rgb: 244, 87, 87;
 }
 .theme-normal.blue-accent {
-    --color-accent: #06b3de;
-    --color-accent-1: #05beed;
-    --color-accent-2: #04c5f6 !important;
-    --link-decoration-color: #09afe179;
-    --link-unresolved-decoration-color: #0fc5f24c;
+    --color-accent: rgb(21, 189, 236);
+    --color-accent-1: rgb(21, 189, 236);
+    --color-accent-2: rgb(21, 189, 236) !important;
+    --link-decoration-color: rgba(8, 187, 237, 0.42);
+    --link-unresolved-decoration-color: rgba(21, 189, 236, 0.265);
 }
 .theme-normal.green-accent {
     --color-accent: #38ab70;
