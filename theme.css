@@ -388,18 +388,18 @@ padding: 10px 13px; /* when folder collapse indicators are hidden, increase padd
     opacity: var(--inactive-pane-opacity); /* set all folders to low opacity */
     border: none;
 }
-.folder-focus .nav-folder .nav-folder:has(.is-active), /* folder that has the active note */
-.folder-focus .nav-folder .nav-folder:hover { /* folder (excluding the root folder) that is hovered over */
+.nav-folder .nav-folder:has(.is-active), /* folder that has the active note */
+ .nav-folder .nav-folder:hover { /* folder (excluding the root folder) that is hovered over */
     opacity: 1 !important;
 }
 
-.folder-focus .nav-folder .nav-folder .nav-folder:has(.is-active) {
+.folder-focus .nav-folder .nav-folder:has(.is-active) {
     padding: 8px;
     margin-left: -17px !important; /* decrease the 'nested' appearance of folder that has the active note*/
 }
 
 /* put a border around the folder that has the active file */
-.folder-focus .nav-folder .nav-folder .nav-folder:has(.is-active) .nav-folder-children {
+.folder-focus .nav-folder .nav-folder:has(.is-active) .nav-folder-children {
     border-left: 1px solid var(--color-accent-2) !important;
 }
 
@@ -635,9 +635,10 @@ width: fit-content;
 }
 
 /* ======== images ======== */
-.markdown-rendered img {
+.markdown-rendered img,
+img {
     display: block;
-    margin: auto;
+    margin: 1em auto;
     border-radius: var(--radius-s);
 }
 
@@ -651,6 +652,64 @@ width: fit-content;
 .theme-dark.high-contrast img {
     filter: none !important;
 }
+
+/* === image alts (captions)  === */
+
+/* == pure css captions (internal images only) == */
+
+/* reading mode */
+.img-captions:not(:has(.image-captions-figure)) .image-embed[alt]:after {
+    content: attr(alt);
+    display: block;
+    font-size: 90%;
+    line-height: 1.4;
+    color: var(--text-faint);
+    text-align: center;
+    font-weight: bold;
+}
+
+/* edit mode */
+.img-captions img[alt]:after {
+    content: attr(alt);
+    display: block;
+    font-size: 90%;
+    color: var(--text-faint);
+    text-align: center;
+}
+
+/* excluded alts */
+/* (use a # to exclude any alts you don't want to see.) */
+.image-embed[alt~="banner"]:after,
+.image-embed[alt*="#"]:after,
+span[alt*="banner"] .image-captions-caption,
+span[alt*="#"] .image-captions-caption {
+    display: none !important;
+}
+
+/* == Image Captions Plug-in == */
+.image-captions-figure,
+.theme-light .image-captions-figure,
+.theme-dark .image-captions-figure {
+    padding: 0; background: transparent;
+    margin: 1em auto;
+    border-radius: var(--radius-s);
+}
+
+.image-captions-caption {
+    font-style: italic;
+    font-size: var(--font-small);
+    color: var(--text-muted);
+    background-color: var(--background-secondary);
+}
+
+
+/* ====== code mirror formatting ===== */
+.cm-formatting {
+    opacity: 1 !important;
+    color: var(--color-accent) !important;
+    font-weight: normal !important;
+}
+
 /* ===== dataview ===== */
 body {
     --font-inline-field: inherit;
@@ -994,14 +1053,17 @@ body {
 }
 .callout {
     background-color: rgba(var(--callout-color), 0.17);
+    border: 1px rgba(var(--callout-color), var(--c-30)) solid;
 }
 .callout p {
     margin: 0px !important;
 }
 .callout-title {
     gap: 1em;
-    border: 1px rgba(var(--callout-color), var(--c-30)) solid;
     border-radius: var(--callout-radius) var(--callout-radius) 0px 0px;
+}
+.callout.is-collapsible:not(.is-collapsed) .callout-title {
+    border-bottom: 1px rgba(var(--callout-color), var(--c-30)) solid;
 }
 .callout.is-collapsed .callout-title {
     border-radius: var(--callout-radius);
@@ -1013,16 +1075,16 @@ body {
 .callout-content {
     font-family: var(--font-secondary);
     font-size: var(--font-small);
-    border: var(--background-modifier-border) solid 1px;
-    border-top: none;
     border-radius: 0px 0px var(--callout-radius) var(--callout-radius);
 }
+
 
 /* move callout fold arrow */
 .callout-fold {
     align-self: flex-start;
     padding-right: 0px;
 }
+
 
 /* === change default callout appearance === */
 
@@ -1125,6 +1187,25 @@ body {
 .callout[data-callout="prize"] {
   --callout-color: var(--color-purple-rgb);
   --callout-icon: lucide-cake;
+}
+
+/* code mirror formatting */
+.cm-formatting-quote {
+    color: var(--text-muted) !important;
+    font-style: normal !important;
+}
+
+.cm-hmd-callout {
+    color: var(--text-accent) !important;
+    border-radius: var(--radius-s);
+    font-weight: bold !important;
+}
+
+.cm-quote-1 {
+    font-style: italic;
+}
+.HyperMD-callout .cm-quote-1{
+    font-style: normal;
 }
 
 /* =========== blockquotes ========= */
@@ -1322,9 +1403,9 @@ border-radius: var(--radius-s);
     content: "H6";
  }
 
-.cm-formatting {
-    opacity: 0.75;
-    color: inherit;
+.cm-formatting-header {
+    opacity: 0.5 !important;
+    color: inherit !important;
 }
 /* ============ collapse indicators =============== */
 
@@ -2505,7 +2586,8 @@ pointer-events: none;
 
 /* ============= metatable plugin ============== */
 .obsidian-metatable table {
-min-width: 300px;
+min-width: 350px;
+margin: 0.3em 0 1em 0;
 }
 .obsidian-metatable table th {
     background-color: var(--background-primary-alt);
@@ -2678,12 +2760,12 @@ body {
     /* these represent hsl "l" values. */
     --c-00:  var(--base-c-high);
     --c-05: calc(var(--base-c-high) - 5%);
-    --c-10: calc(var(--base-c-high) - 7%);
-    --c-20: calc(var(--base-c-high) - 10%);
+    --c-10: calc(var(--base-c-high) - 5%);
+    --c-20: calc(var(--base-c-high) - 7%);
 
-    --c-25: calc(var(--base-c) - 14%);
-    --c-30: calc(var(--base-c) - 32%);
-    --c-35: calc(var(--base-c) - 32%);
+    --c-25: calc(var(--base-c) - 20%);
+    --c-30: calc(var(--base-c) - 21%);
+    --c-35: calc(var(--base-c) - 22%);
     --c-40: calc(var(--base-c) - 13%);
 
     --c-50: 55%;
@@ -2851,10 +2933,10 @@ body {
     --color-red-rgb: 244, 87, 87;
 }
 .theme-normal.blue-accent {
-    --color-accent: #0fbce7;
-    --color-accent-1: #06c4f4;
-    --color-accent-2: #06cafa !important;
-    --link-decoration-color: #0fc5f24c;
+    --color-accent: #06b3de;
+    --color-accent-1: #05beed;
+    --color-accent-2: #04c5f6 !important;
+    --link-decoration-color: #09afe179;
     --link-unresolved-decoration-color: #0fc5f24c;
 }
 .theme-normal.green-accent {
@@ -4627,6 +4709,17 @@ settings:
         type: variable-text
         default: var(--radius-s)
     -
+        id: images-heading
+        title: Images
+        type: heading
+        level: 2
+        collapsed: true
+    -
+        id: img-captions
+        type: class-toggle
+        title: Captions
+        description: Image alts appear as captions. Alts containing a hashtag (#) will remain hidden. NOTE - This only works for internal images.
+    -
         id: embeds-heading
         title: Embeds
         type: heading
@@ -4807,7 +4900,7 @@ settings:
     -
         id: folder-focus
         title: Folder Focus
-        description: Focus on the folder that holds the active file.
+        description: (Experimental) Focus on the folder that holds the active file.
         type: class-toggle
         default: false
     -
