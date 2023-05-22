@@ -259,7 +259,7 @@ body:not(:not(.iA-cursor)) .cursorWrapper .x-cursor {
     width: var(--cursor-width);
     left: -1px;
     position: relative;
-    top: calc( calc(var(--font-text-size) * -0.1) - var(--header-height));
+    top: calc( calc(var(--font-text-size) * -0.01) - var(--header-height));
     height: calc(var(--cursor-height) + 0.2em);
     transition: opacity;
 }
@@ -271,12 +271,12 @@ body:not(:not(.iA-cursor)) .cursorWrapper .x-cursor::after{
 /* cursor animation */
 body:not(:not(.iA-cursor))  .cursorWrapper .x-cursor0,
 body:not(:not(.iA-cursor))  .cursorWrapper .x-cursor1 {
-    animation: step-end cursorblink 0.85s 0s both infinite;
+    animation: step-end cursorblink 0.95s 0s both infinite;
 }
 
 .cursor-tween:not(:not(.iA-cursor)) .cursorWrapper .x-cursor0,
 .cursor-tween:not(:not(.iA-cursor)) .cursorWrapper .x-cursor1 {
-    animation: cursorblink2 0.85s 0s both infinite;
+    animation: cursorblink2 0.9s 0s both infinite;
 }
 
 @keyframes cursorblink {
@@ -805,8 +805,10 @@ span[alt*="#"] .image-captions-caption {
 /* ====== code mirror formatting ===== */
 .cm-formatting {
     opacity: 1 !important;
-    color: var(--color-accent) !important;
-    font-weight: normal !important;
+    font-weight: normal;
+}
+.cm-formatting-strong {
+    font-weight: bold;
 }
 
 /* ===== dataview ===== */
