@@ -209,8 +209,8 @@ body {
   .markdown-source-view.mod-cm6.is-readable-line-width .cm-sizer,
   .markdown-source-view.mod-cm6.is-readable-line-width .cm-content,
   .markdown-source-view.mod-cm6.is-readable-line-width .cm-line  {
-    min-width: var(--editing-file-line-width) !important; 
-    margin: 0;
+    width: var(--editing-file-line-width) !important; 
+    margin: auto;
     padding: 0;
   }
  
