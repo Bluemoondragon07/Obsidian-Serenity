@@ -209,9 +209,9 @@ body {
   .markdown-source-view.mod-cm6.is-readable-line-width .cm-sizer,
   .markdown-source-view.mod-cm6.is-readable-line-width .cm-content,
   .markdown-source-view.mod-cm6.is-readable-line-width .cm-line  {
-    max-width: var(--editing-file-line-width);
-    margin-left: auto;
-    margin-right: auto;
+    min-width: var(--editing-file-line-width) !important; 
+    margin: 0;
+    padding: 0;
   }
  
 /* cursor/caret */
@@ -235,13 +235,77 @@ body {
 .active-line-highlight .cm-line:hover,
 .active-line-highlight .callout:hover,
 .active-line-highlight img:hover,
-.active-line-highlight .inline-title:hover {
+.active-line-highlight .markdown-source-view .inline-title:hover {
     opacity: 1 !important;
 }
 
 .active-line-highlight .cm-contentContainer .cm-line, .active-line-highlight .cm-contentContainer img, .active-line-highlight .cm-contentContainer .callout,
 .active-line-highlight .markdown-source-view .inline-title {
    opacity: var(--inactive-line-opacity);
+}
+
+
+/* cursor effect with Ninja Cursor plugin */
+/* inspired by iA Writer */
+body {
+    --cursor-width: 2.5px;
+    --cursor-color: var(--interactive-accent);
+}
+
+/* main cursor appearance */
+body:not(:not(.iA-cursor)) .cursorWrapper .x-cursor {
+    opacity: 1;
+    background: var(--cursor-color);
+    width: var(--cursor-width);
+    left: -1px;
+    position: relative;
+    top: calc( calc(var(--font-text-size) * -0.1) - var(--header-height));
+    height: calc(var(--cursor-height) + 0.2em);
+    transition: opacity;
+}
+/* remove flashing */
+body:not(:not(.iA-cursor)) .cursorWrapper .x-cursor::after{
+    display: none;
+}
+
+/* cursor animation */
+body:not(:not(.iA-cursor))  .cursorWrapper .x-cursor0,
+body:not(:not(.iA-cursor))  .cursorWrapper .x-cursor1 {
+    animation: step-end cursorblink 0.85s 0s both infinite;
+}
+
+.cursor-tween:not(:not(.iA-cursor)) .cursorWrapper .x-cursor0,
+.cursor-tween:not(:not(.iA-cursor)) .cursorWrapper .x-cursor1 {
+    animation: cursorblink2 0.85s 0s both infinite;
+}
+
+@keyframes cursorblink {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0;
+    }
+}
+
+@keyframes cursorblink2 {
+    0% {
+        opacity: 1;
+    }
+    30% {
+        opacity: 1;
+    }
+    80% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+/* remove normal cursor when ninjacursor is installed */
+body:not(:not(.iA-cursor)):has(.x-cursor) .cm-editor * {
+caret-color: transparent;
 }
 
 /* ============= file explorer ============ */
@@ -426,6 +490,24 @@ opacity: 0;
 
 
 /* ===================== hide elements ======================== */
+
+
+
+/* hide backlinks */
+body:not(:not(.hide-backlinks)) .markdown-source-view  .embedded-backlinks,
+body:not(:not(.hide-backlinks)) .markdown-source-view .footnotes {
+    display: none;
+}
+
+/* hide inline title */
+.hide-inline-title-editing .markdown-source-view .inline-title {
+display: none;
+}
+
+.hide-inline-title .markdown-reading-view .inline-title {
+    display: none;
+}
+
 .nav-folder.mod-root > .nav-folder-title { 
 display: none;
 }
@@ -441,15 +523,17 @@ body {
 
 
 /* hide ribbon */
-body:not(:not(.hide-ribbon)) .workspace-ribbon:not(:hover) {
-    opacity: 0;
+body:not(:not(.hide-ribbon)):not(.opacity-hide) .workspace-ribbon:not(:hover) {
     width: 0px;
     max-width: 0px;
     min-width: 0px;
     padding: 2px;
     margin-right: 1px;
 } 
-body:not(.hide-ribbon) .workspace-ribbon.is-collapsed {
+body:not(:not(.hide-ribbon)) .workspace-ribbon:not(:hover) {
+    opacity: 0;
+} 
+body:not(.hide-ribbon):not(.hide-tabs) .workspace-ribbon.is-collapsed {
     border-right: var(--divider-width) solid var(--divider-color) !important;
 }
 
@@ -465,12 +549,20 @@ body:not(.hide-ribbon) .workspace-ribbon.is-collapsed {
 }
 
 
+
 /* hide tabs above notes */
-body:not(.is-mobile):not(:not(.hide-tabs)) .workspace-split.mod-vertical.mod-root .workspace-tab-header-container:not(:hover) {
-    opacity: 0;
+body:not(.is-mobile):not(:not(.hide-tabs)):not(.opacity-hide) .workspace-split.mod-vertical.mod-root .workspace-tab-header-container:not(:hover) {
     height: 1em;
     width: 100%;
     margin-bottom: 0em;
+}
+body:not(.is-mobile):not(:not(.hide-tabs)) .workspace-split.mod-vertical.mod-root .workspace-tab-header-container:not(:hover) {
+    opacity: 0;
+}
+
+/* transition animation */
+.workspace-split.mod-vertical.mod-root .workspace-tab-header-container {
+    transition: all 0.25s !important;
 }
 
 /* tab title */
@@ -483,7 +575,10 @@ body:not(.is-mobile):not(:not(.hide-tabs)) .workspace-split.mod-vertical.mod-roo
 .workspace-split.mod-horizontal.mod-left-split .workspace-tab-header-container {
     border: none;
     margin: 2px auto;
-
+    transition: all 0.25s !important;
+}
+.workspace-split.mod-horizontal.mod-left-split .workspace-tab-header-container:not(:hover) {
+    opacity: 0;
 }
 
 /* style tab close button */
@@ -521,6 +616,8 @@ background-color: var(--background-primary);
 
 body:not(.is-mobile):not(:not(.hide-view-header)) .view-header:not(:hover) {
     opacity: 0;
+}
+body:not(.is-mobile):not(:not(.hide-view-header)):not(.opacity-hide) .view-header:not(:hover) {
    height: 1em;
 }
 
@@ -561,9 +658,11 @@ opacity: 0;
 
  /* hide file explorer buttons */
  .nav-buttons-container:not(:hover) {
+    opacity: 0;
+ }
+body:not(.opacity-hide) .nav-buttons-container:not(:hover) {
     height: 1px;
     padding:2px;
-    opacity: 0;
  }
 .nav-buttons-container {
     transition: 0.1s opacity, 0.5s height, 0.5s padding;
@@ -1435,7 +1534,7 @@ border-radius: var(--radius-s);
 body {
     --p-indent: 15px;
     --line-height-normal: 1.75; 
-    --p-margin: 10px;
+    --p-margin: 20px;
 }
 /* even-p class makes all paragraphs evenly spaced, regardless of whether enter is pressed once or twice. I don't know why, but I just loooove even paragraphs! */
 .even-p .markdown-rendered br {
@@ -2864,7 +2963,6 @@ body {
 .theme-light {
 --background-modifier-hover: rgba(var(--mono-rgb-100), 0.05);
 
-
 /* base colors */
   --color-base-00: hsl(var(--theme-tint), var(--theme-sat), var(--c-00));
   --color-base-05: hsl(var(--theme-tint), var(--theme-sat-secondary), var(--c-05));
@@ -2937,8 +3035,9 @@ body {
     --color-red-rgb: 244, 87, 87;
 }
 .theme-normal.blue-accent {
+    --color-accent-hsl: 193, 85%, 50%;
     --color-accent: rgb(21, 189, 236);
-    --color-accent-1: rgb(21, 189, 236);
+    --color-accent-1: hsl(193, 85%, 50%);
     --color-accent-2: rgb(21, 189, 236) !important;
     --link-decoration-color: rgba(8, 187, 237, 0.42);
     --link-unresolved-decoration-color: rgba(21, 189, 236, 0.265);
@@ -3477,7 +3576,10 @@ body:not(.custom-font) .setting-item[data-id=font-secondary-custom],
 body:not(.custom-font) .setting-item[data-id=font-monospace-custom],
 body:not(.active-pane-highlight) .setting-item[data-id=inactive-pane-opacity],
 body:not(.active-line-highlight) .setting-item[data-id=inactive-line-opacity],
-body:not(.indent-p) .setting-item[data-id=p-indent] {
+body:not(.indent-p) .setting-item[data-id=p-indent],
+body:not(.iA-cursor) .setting-item[data-id=cursor-color],
+body:not(.iA-cursor) .setting-item[data-id=cursor-tween],
+body:not(.iA-cursor) .setting-item[data-id=cursor-width] {
   display: none;
 }
 
@@ -3779,7 +3881,7 @@ settings:
      id: p-margin
      title: Paragraph Margin
      description: The spacing between paragraphs.
-     default: '10px'
+     default: '20px'
      type: variable-text
     -
         id: even-p
@@ -4940,6 +5042,33 @@ settings:
         type: class-toggle
         default: true
     -
+        id: hide-backlinks
+        title: Hide Backlinks Pane in Edit Mode
+        type: class-toggle
+        default: true
+    -
+        id: hide-inline-title
+        title: Hide Inline Title (Reading Mode)
+        type: class-toggle
+        default: false
+    -
+        id: hide-inline-title-editing
+        title: Hide Inline Title (Edit Mode)
+        type: class-toggle
+        default: false
+    -
+        id: animations-heading
+        title: Animations
+        type: heading
+        level: 3
+        collapsed: true
+    -
+        id: opacity-hide
+        title: Opacity Transitions Only
+        description: Animations that would typically move elements around (like hiding the tab bar) are reduced to opacity animations only. This means only the opacity will be affected; no actual movements.
+        type: class-toggle
+        default: false
+    -
         id: plugins-heading
         title: Plug-Ins
         type: heading 
@@ -4995,7 +5124,72 @@ settings:
         id: colorful-folder-icons
         title: Use accent color for folder icons
         type: class-toggle
-        defaulst: false
+        default: false
+    -
+        id: ninja-cursor-heading
+        title: Ninja Cursor
+        type: heading
+        level: 3
+        collapsed: true
+    -
+        id: iA-cursor
+        title: Custom Cursor Styling
+        description: iA-Writer-esque cursor styling
+        type: class-toggle
+        default: true
+    -
+        id: cursor-tween
+        title: Tween Cursor Animation
+        description: Give the blinking cursor a smooth opacity transition.
+        type: class-toggle
+        default: false
+    -
+        id: cursor-width
+        title: Cursor Thickness
+        description: Control the cursor thickness
+        type: variable-number-slider
+        default: 2.5
+        min: 0.5
+        max: 4
+        format: px
+        step: 0.5
+    -
+        id: cursor-color
+        title: Cursor Color
+        type: variable-select
+        default: var(--interactive-accent)
+        allowEmpty: false
+        options:
+            - 
+                label: Interactive Accent
+                value: var(--interactive-accent)
+            -
+                label: Red
+                value: var(--color-red)
+            -
+                label: Orange
+                value: var(--color-orange)
+            -
+                label: Cyan
+                value: var(--color-cyan)
+            -
+                label: Blue
+                value: var(--color-blue)
+            -
+                label: Purple
+                value: var(--color-purple)
+            -
+                label: Pink
+                value: var(--color-pink)
+            -
+                label: Faint Text
+                value: var(--text-faint)
+            -
+                label: Muted Text
+                value: var(--text-muted)
+            -
+                label: Text
+                value: var(--text-normal)
     -
         id: modals-heading
         title: Modals
@@ -5008,7 +5202,6 @@ settings:
         description: credit - therazam (https://github.com/Bluemoondragon07/Obsidian-Serenity/issues/1)
         type: class-toggle
         default: false
-
 
 
 */
