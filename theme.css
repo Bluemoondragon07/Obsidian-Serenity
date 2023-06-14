@@ -171,7 +171,7 @@ body, .ia-font {
 }
 /* fonts from list select */
 .font-select {
-    --font-default: var(--font-default-select), sans-serif;
+    --font-default: var(--font-default-select), var(--font-secondary-select), sans-serif;
     --font-secondary: var(--font-secondary-select), sans-serif;
     --font-monospace: var(--font-monospace-select), monospace;
 
@@ -245,7 +245,9 @@ body {
 .active-line-highlight.opacity-hover .cm-line:hover,
 .active-line-highlight .callout:hover,
 .active-line-highlight img:hover,
-.active-line-highlight .markdown-source-view .inline-title:hover {
+.active-line-highlight .markdown-source-view .inline-title:hover,
+.source-line-effect .markdown-source-view:not(.is-live-preview) .cm-line,
+.preview-line-effect .markdown-source-view.is-live-preview  .cm-line {
     opacity: 1 !important;
     filter: none !important;
 }
@@ -1141,8 +1143,6 @@ text-shadow: none;
 }
 
 
-
-
 /* view buttons */
 .page-gallery__views-header-item.selected {
     box-shadow: var(--color-accent-1) 1px 2px 0px 1px;
@@ -1180,6 +1180,19 @@ box-shadow: var(--shadow-s);
 border: none;
 }
 
+
+/* group collapse buttons */
+.page-gallery__group-collapse {
+    visibility:hidden;
+}
+.page-gallery__group-collapse::before {
+    visibility:visible !important;
+    content: "˅";
+    font-family: sans-serf, var(--font-default);
+}
+.page-gallery__group-collapse[title="Expand"]::before{
+    content: ">";
+}
 
 /* =============== Callouts ================ */
 body {
@@ -2463,6 +2476,11 @@ border-left:2px solid var(--interactive-accent);
  background-color: var(--background-primary);
 }
 
+/* remove weird border */
+.modal {
+    border: none;
+}
+
 /* transition animation */
 @keyframes slide-up {
     0% {
@@ -2591,7 +2609,6 @@ body {
 
 /* ============= backlinks ============== */
 
-
 /* remove collapse indicator and details for backlinks */
 body:not(:not(.simple-backlinks)) .embedded-backlinks .tree-item-icon.collapse-icon,
 body:not(:not(.simple-backlinks)) .embedded-backlinks .search-result-file-matches,
@@ -2599,6 +2616,11 @@ body:not(:not(.simple-backlinks)) .embedded-backlinks .tree-item-flair-outer {
     display: none;
 }
 
+/* remove top border for backlinks */
+body:not(:not(.simple-backlinks)) .embedded-backlinks {
+    border-top: none;
+    padding-top: 2em;
+}
 
 /* disable clicking for the backlink headigns */
 body:not(:not(.simple-backlinks)) .backlink-pane .tree-item-self.is-clickable[aria-label]  {
@@ -2606,10 +2628,12 @@ pointer-events: none;
 display: none;
 }
 
+    
+
 /* make backlinks show even when the header is collapsed */
 body:not(:not(.simple-backlinks)) .embedded-backlinks .search-result-container {
     display: block !important;
-    border-bottom: 1px solid var(--background-modifier-border);
+    border-bottom: none;
     margin-bottom: 0.5em;
 }
 
@@ -3003,13 +3027,13 @@ body {
     --c-20: calc(var(--base-c-m) - 2%);
 
     --c-25: calc(var(--base-c-m) + 3%);
-    --c-30: calc(var(--base-c-m) + 11%);
-    --c-35: calc(var(--base-c-m) + 11%);
-    --c-40: calc(var(--base-c-m) + 11%);
+    --c-30: calc(var(--base-c-m) + 18%);
+    --c-35: calc(var(--base-c-m) + 18%);
+    --c-40: calc(var(--base-c-m) + 18%);
 
-    --c-50: calc(var(--base-c-m) + 56%);
-    --c-60: calc(var(--base-c-m) + 60%);
-    --c-70: calc(var(--base-c-m) + 65%);
+    --c-50: calc(var(--base-c-m) + 60%);
+    --c-60: calc(var(--base-c-m) + 64%);
+    --c-70: calc(var(--base-c-m) + 70%);
     --c-100: calc(var(--base-c-m) + 80%);
 
 
@@ -3045,7 +3069,7 @@ body {
     /* base contrast */
     /* this is the lightest "l" value */
     --base-c: 0%;
-    --base-c-m: calc(var(--base-c) - 2%);
+    --base-c-m: calc(var(--base-c) + 1%);
 
     /* these represent hsl "l" values. */
     /* the higher the contrast, the greater the range between values. */
@@ -3055,9 +3079,9 @@ body {
     --c-20: calc(var(--base-c-m) + 1%) !important;
 
     --c-25: calc(var(--base-c-m) +  2%);
-    --c-30: calc(var(--base-c-m) + 8%);
-    --c-35: calc(var(--base-c-m) + 8%);
-    --c-40: calc(var(--base-c-m) + 8%);
+    --c-30: calc(var(--base-c-m) + 12%);
+    --c-35: calc(var(--base-c-m) + 12%);
+    --c-40: calc(var(--base-c-m) + 12%);
 
     --c-50: calc(var(--base-c-m) + 47%);
     --c-60: calc(var(--base-c-m) + 50%);
@@ -3098,7 +3122,8 @@ body {
 
 .theme-dark,
 .is-mobile.theme-dark {
---color-accent-2: hsl(calc(var(--accent-h) - 4), calc(var(--accent-s) + 4%), calc(var(--accent-l) + 7%));
+--color-accent-2: hsl(calc(var(--accent-h) - 4), calc(var(--accent-s) + 4%), calc(var(--accent-l) + 5%));
+--color-accent-1: hsl(calc(var(--accent-h) + 4), calc(var(--accent-s) + 4%), calc(var(--accent-l) + 6%));
 
 
   /* base colors */
@@ -3607,6 +3632,63 @@ body {
 
 }
 
+/* === Ayu Theme === */
+
+
+
+.theme-light.theme-ayu-s {
+    --accent-h: 35 !important;
+    --accent-s: 100% !important;
+    --accent-l: 60% !important; 
+    --base-c: 98.5%;
+    --color-red-rgb: 240, 113, 113;
+    --color-red: rgb(240, 113, 113);
+    --color-green-rgb: 156, 208, 0;
+    --color-green: rgb(156, 208, 0);
+    --color-orange-rgb: 250, 141, 62;
+    --color-orange: rgb(250, 141, 62);
+    --color-yellow-rgb: 242, 174, 73;
+    --color-yellow: rgb(242, 174, 73);
+    --color-cyan-rgb: 76, 191, 153;
+    --color-cyan: rgb(76, 191, 153);
+    --color-blue-rgb: 85, 180, 212;
+    --color-blue: rgb(85, 180, 212);
+    --color-purple-rgb: 71, 138, 204;
+    --color-purple: rgb(71, 138, 204);
+    --color-pink-rgb: 180, 142, 173;
+    --color-pink: hsl(270, 45%, 64%);
+}
+.theme-dark.theme-ayu-s {
+    --accent-h: 40 !important;
+    --accent-s: 100% !important;
+    --accent-l: 70% !important;
+    --base-c: 26%;
+    --theme-tint-text: 223;
+    --theme-sat-text: 20%;
+    --theme-tint-secondary: 223;
+    --theme-sat-secondary: 0%;
+    --theme-sat: 10%;
+    --theme-tint: 223;
+    --color-red-rgb: 242, 135, 121;
+    --color-red: rgb(242, 135, 121);
+    --color-green-rgb: 213, 255, 128;
+    --color-green: rgb(213, 255, 128);
+    --color-orange-rgb: 255, 173, 102;
+    --color-orange: rgb(255, 173, 102);
+    --color-yellow-rgb: 255, 209, 115;
+    --color-yellow: rgb(255, 209, 115);
+    --color-cyan-rgb: 149, 230, 203;
+    --color-cyan: rgb(149, 230, 203);
+    --color-blue-rgb: 92, 207, 230;
+    --color-blue: #5ccfe6;
+    --color-purple-rgb: 128, 191, 255;
+    --color-purple: rgb(128, 191, 255);
+    --color-pink-rgb: 223, 191, 255;
+    --color-pink: rgb(223, 191, 255);
+    
+}
+
+
 /* Color Accents */
 .red-accent {
     --color-accent: var(--color-red) !important;
@@ -3697,6 +3779,7 @@ body:not(.active-pane-highlight) .setting-item[data-id=inactive-pane-blur],
 body:not(.active-line-highlight) .setting-item[data-id=inactive-line-opacity],
 body:not(.active-line-highlight) .setting-item[data-id=inactive-line-blur],
 body:not(.active-line-highlight) .setting-item[data-id=opacity-hover],
+body:not(.active-line-highlight) .setting-item[data-id=line-effect-select],
 body:not(.indent-p) .setting-item[data-id=p-indent],
 body:not(.iA-cursor) .setting-item[data-id=cursor-color],
 body:not(.iA-cursor) .setting-item[data-id=cursor-tween],
@@ -3847,6 +3930,9 @@ settings:
             -
                 label: Obsidian
                 value: theme-normal
+            -
+                label: Ayu
+                value: theme-ayu-s
             -
                 label: Catppuccin
                 value: theme-catpp
@@ -5372,6 +5458,21 @@ settings:
         description: Have the current line fully visible when writing. Everything else will be faded out.
         type: class-toggle
         default: true
+    -
+        id: line-effect-select
+        title: Show Active Line Effects In...
+        type: class-select
+        default: none
+        options:
+            -
+                label: Both Source and Live Preview modes
+                value: none
+            -
+                label: Live Preview only
+                value: source-line-effect
+            -
+                label: Source Mode only
+                value: preview-line-effect
     -
         id: inactive-line-opacity
         title: Inactive Line Opacity
