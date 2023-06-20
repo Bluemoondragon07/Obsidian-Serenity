@@ -114,22 +114,23 @@
 
 /* font bundles */
 body, .ia-font {
-    --font-default: 'iA Writer Quattro S', 'Nanum Gothic Coding', "MS PGothic",'PingFang SC', '蘋方', '蘋方 SC', "Microsoft YaHei Light", ui-sans-serif, sans-serif;
+    --font-text-theme: 'iA Writer Quattro S', 'Nanum Gothic Coding', "MS PGothic",'PingFang SC', '蘋方', '蘋方 SC', "Microsoft YaHei Light", ui-sans-serif, sans-serif;
+    --font-interface: var(--font-text-theme);
     --font-secondary: 'iA Writer Duo S';
     --font-monospace: 'iA Writer Mono S';
 }
 .gothic-font {
     --font-secondary: 'Century Gothic', 'Nanum Gothic', sans-serif;
-    --font-default: 'Karla', 'Gotham Book', sans-serif;
+    --font-text-theme: 'Karla', 'Gotham Book', sans-serif;
     --font-monospace: 'Inconsolata', 'Consolas', 'Source Code Pro', monospace;
 }
 .obsidian-font {
-    --font-default: 'Inter';
+    --font-text-theme: 'Inter';
     --font-secondary: 'Avenir Next';
     --font-monospace: 'Source Code Pro', monospace;
 }
 .cursive-font {
-    --font-default: 'UD Digi Kyokasho NK-R','Varela Round', cursive;
+    --font-text-theme: 'UD Digi Kyokasho NK-R','Varela Round', cursive;
     --font-secondary: Comfortaa, cursive;
     --h1-font: var(--font-secondary);
     --h2-font: var(--font-secondary);
@@ -139,39 +140,39 @@ body, .ia-font {
     --h6-font: var(--font-secondary);
 }
 .google-font {
-    --font-default: 'Noto Sans', sans-serif;
+    --font-text-theme: 'Noto Sans', sans-serif;
     --font-secondary: 'Roboto', system-ui, sans-serif;
     --font-monospace: 'Noto Sans Mono', 'Source Code Pro', monospace;
 }
 .serif-font {
     --font-secondary: 'Martel', Cambria, Times, 'Times New Roman', 'Sawarabi Mincho', sans-serif;
-    --font-default:  'Lora', 'Sitka Small', Cochin, Georgia, 'Sawarabi Mincho', sans-serif;
+    --font-text-theme:  'Lora', 'Sitka Small', Cochin, Georgia, 'Sawarabi Mincho', sans-serif;
     --font-monospace: 'Source Code Pro', monospace;
     
 }
 .robust-font {
-    --font-default: 'Lexend', sans-serif;
+    --font-text-theme: 'Lexend', sans-serif;
     --font-secondary: 'Figtree', sans-serif;
     --font-monospace: 'iA Writer Mono S', monospace;
 }
 .web-font {
-    --font-default: 'Titillium Web', Corbel, 'DotGothic16', monospace;
+    --font-text-theme: 'Titillium Web', Corbel, 'DotGothic16', monospace;
     --font-secondary: 'Exo', 'DotGothic16', monospace;
     --font-monospace: 'iA Writer Duo S', monospace;
 }
 .austere-font {
-    --font-default: 'Special Elite', cursive;
+    --font-text-theme: 'Special Elite', cursive;
     --font-secondary: 'Kalam', cursive;
     --font-monospace: 'Sono', monospace;
 }
 .handwritten-font {
-    --font-default: 'Kalam', 'Klee One', cursive;
+    --font-text-theme: 'Kalam', 'Klee One', cursive;
     --font-secondary: 'Edu TAS Beginner', 'Klee One', cursive;
     --font-monospace: 'Sono', monospace;
 }
 /* fonts from list select */
 .font-select {
-    --font-default: var(--font-default-select), var(--font-secondary-select), sans-serif;
+    --font-text-theme: var(--font-default-select), var(--font-secondary-select), sans-serif;
     --font-secondary: var(--font-secondary-select), sans-serif;
     --font-monospace: var(--font-monospace-select), monospace;
 
@@ -187,7 +188,7 @@ body {
     --font-monospace-custom: 'iA Writer Mono S';
 }
 .custom-font {
-    --font-default: var(--font-default-custom) !important;
+    --font-text-theme: var(--font-default-custom) !important;
     --font-secondary: var(--font-secondary-custom) !important;
     --font-monospace: var(--font-monospace-custom) !important;
 }
@@ -207,14 +208,14 @@ body {
 
 /* make edit mode use a different readable line length than reading mode */
   .markdown-source-view:not(.screenplay).mod-cm6.is-readable-line-width .cm-sizer,
-  .markdown-source-view.mod-cm6.is-readable-line-width .cm-content,
-  .markdown-source-view.mod-cm6.is-readable-line-width .cm-line  {
+  .markdown-source-view:not(.is-mobile).mod-cm6.is-readable-line-width .cm-content,
+  .markdown-source-view:not(.is-mobile).mod-cm6.is-readable-line-width .cm-line  {
     width: var(--editing-file-line-width) !important; 
     max-width: 100%;
     padding: 0;
   }
 
-body:not(.screenplay) .cm-gutters {
+.workspace-leaf-content:not(.screenplay)[data-type="markdown"] .cm-gutters {
     position: absolute !important;
 }  
 .cm-gutterElement.cm-active {
@@ -231,6 +232,7 @@ body:not(.screenplay) .cm-gutters {
 body {
     --inactive-line-opacity: 0.4;
     --inactive-line-blur: 0px;
+    --active-line-size: inherit;
 }
 
 
@@ -238,7 +240,7 @@ body {
 .active-line-highlight .callout,
 .active-line-highlight img,
 .active-line-highlight .inline-title {
-    transition: opacity 0.2s !important;
+    transition: opacity 0.2s, font-size 0.2s !important;
 }
 
 .active-line-highlight .cm-active.cm-line,
@@ -250,6 +252,12 @@ body {
 .preview-line-effect .markdown-source-view.is-live-preview  .cm-line {
     opacity: 1 !important;
     filter: none !important;
+}
+
+/* font size effect */
+.active-line-highlight .cm-active.cm-line:not(.HyperMD-header),
+.active-line-highlight.opacity-hover .cm-line:not(.HyperMD-header):hover {
+    font-size: var(--active-line-size) !important;
 }
 
 .active-line-highlight .cm-contentContainer .cm-line, .active-line-highlight .cm-contentContainer img, .active-line-highlight .cm-contentContainer .callout,
@@ -276,6 +284,42 @@ body {
 */
 
 
+/* =========== Serenity Mode ======== */
+body {
+    --serenity-mode-font-size: 17px;
+}
+
+/* global serenity mode values */
+.serenity-mode:not(.serenity-src):not(.serenity-lp) .markdown-source-view,
+.serenity-mode.serenity-lp:has([data-mode="source"] .is-live-preview) .markdown-source-view,
+.serenity-mode.serenity-src:has([data-mode="source"] .markdown-source-view:not(.is-live-preview)) {
+    --font-text-size: var(--serenity-mode-font-size) !important;
+}
+
+/* both live preview and source mode*/
+.serenity-mode:not(.serenity-src):not(.serenity-lp):has([data-mode="source"]) .workspace-tab-header-container,
+.serenity-mode:not(.serenity-src):not(.serenity-lp):has([data-mode="source"]) .workspace-ribbon,
+.serenity-mode:not(.serenity-src):not(.serenity-lp):has([data-mode="source"]) .view-header,
+.serenity-mode:not(.serenity-src):not(.serenity-lp):has([data-mode="source"]) .embedded-backlinks,
+.serenity-mode:not(.serenity-src):not(.serenity-lp):has([data-mode="source"]) .inline-title,
+/* live preview */
+.serenity-mode.serenity-lp:has([data-mode="source"] .is-live-preview) .workspace-tab-header-container,
+.serenity-mode.serenity-lp:has([data-mode="source"] .is-live-preview)  .workspace-ribbon,
+.serenity-mode.serenity-lp:has([data-mode="source"] .is-live-preview)  .view-header,
+.serenity-mode.serenity-lp:has([data-mode="source"] .is-live-preview) .embedded-backlinks,
+.serenity-mode.serenity-lp:has([data-mode="source"] .is-live-preview) .inline-title,
+/* source mode */
+.serenity-mode.serenity-src:has([data-mode="source"] .markdown-source-view:not(.is-live-preview)) .workspace-tab-header-container,
+.serenity-mode.serenity-src:has([data-mode="source"] .markdown-source-view:not(.is-live-preview))  .workspace-ribbon,
+.serenity-mode.serenity-src:has([data-mode="source"] .markdown-source-view:not(.is-live-preview))  .view-header,
+.serenity-mode.serenity-src:has([data-mode="source"] .markdown-source-view:not(.is-live-preview)) .embedded-backlinks,
+.serenity-mode.serenity-src:has([data-mode="source"] .markdown-source-view:not(.is-live-preview)) .inline-title {
+display: none !important;
+}
+
+
+
+/* =========== cursor =============== */
 /* cursor effect with Ninja Cursor plugin */
 /* inspired by iA Writer */
 body {
@@ -480,10 +524,11 @@ padding: 10px 13px; /* when folder collapse indicators are hidden, increase padd
 
 /* folder focus mode */
 
-.folder-focus .nav-folder .nav-folder {
-    opacity: var(--inactive-pane-opacity); /* set all folders to low opacity */
+.folder-focus .nav-folder .nav-folder{
+    opacity: var(--inactive-pane-opacity); /* set all folders and files to low opacity */
     border: none;
 }
+
 .nav-folder .nav-folder:has(.is-active), /* folder that has the active note */
  .nav-folder .nav-folder:hover { /* folder (excluding the root folder) that is hovered over */
     opacity: 1 !important;
@@ -496,13 +541,14 @@ padding: 10px 13px; /* when folder collapse indicators are hidden, increase padd
 
 /* put a border around the folder that has the active file */
 .folder-focus .nav-folder .nav-folder:has(.is-active) .nav-folder-children {
-    border-left: 1px solid var(--color-accent-2) !important;
+    border-left: 1.5px solid var(--color-accent-2) !important;
 }
 
 .folder-focus .nav-folder .nav-folder:has(.is-active) > .nav-folder-title /* title of folder with the active note (excluding root folder) */
  { 
     font-size: var(--font-ui-medium) !important; 
 }
+
 
 /* (Scrapped) hide the files of folders that aren't under the cursor, even if they aren't collapsed */
 /*
@@ -535,15 +581,17 @@ body:not(:not(.hide-backlinks)) .markdown-source-view .footnotes {
 .hide-inline-title-editing .markdown-source-view .inline-title {
 display: none;
 }
-
 .hide-inline-title .markdown-reading-view .inline-title {
     display: none;
 }
 
-.nav-folder.mod-root > .nav-folder-title { 
+
+/* hide vault title */
+body:not(:not(.hide-vault-title)) .nav-folder.mod-root > .nav-folder-title { 
 display: none;
 }
 
+/* some quick variables */
 body {
     --tab-width: 200px;
     --tab-outline-width: 0.7px;
@@ -605,11 +653,18 @@ body:not(.is-mobile):not(:not(.hide-tabs)) .workspace-split.mod-vertical.mod-roo
 
 /* file explorer tabs */
 .workspace-split.mod-horizontal.mod-left-split .workspace-tab-header-container {
+    border-left: 0.5px solid var(--background-modifier-border);
+    border-bottom-left-radius: var(--tab-curve);
+    margin-left: 2em;
+}
+
+body:not(:not(.hide-file-tabs)) .workspace-split.mod-horizontal.mod-left-split .workspace-tab-header-container {
     border: none;
     margin: 2px auto;
     transition: all 0.25s !important;
 }
-.workspace-split.mod-horizontal.mod-left-split .workspace-tab-header-container:not(:hover) {
+
+body:not(:not(.hide-file-tabs))  .workspace-split.mod-horizontal.mod-left-split .workspace-tab-header-container:not(:hover) {
     opacity: 0;
 }
 
@@ -689,10 +744,10 @@ opacity: 0;
 
 
  /* hide file explorer buttons */
- .nav-buttons-container:not(:hover) {
+body:not(:not(.hide-file-buttons)) .nav-buttons-container:not(:hover) {
     opacity: 0;
  }
-body:not(.opacity-hide) .nav-buttons-container:not(:hover) {
+body:not(.opacity-hide):not(:not(.hide-file-buttons)) .nav-buttons-container:not(:hover) {
     height: 1px;
     padding:2px;
  }
@@ -869,7 +924,7 @@ font-size: var(--inline-field-size);
 background-color: transparent;
 padding-left: 0px;
 padding-right: 0px;
-font-family: var(--font-default);
+font-family: var(--font-text);
 font-size: inherit;
 }
 .dataview.inline-field-key::after {
@@ -881,6 +936,11 @@ font-size: inherit;
     font-family: inherit;
     font-size: inherit;
 }
+
+/* hide duplicate tag # in inline fields */
+.dataview.inline-field-value a.tag:nth-of-type(odd) {
+    display: none;
+  }
 
 /* ==== dataview tables ==== */
 body {
@@ -989,6 +1049,10 @@ body {
 }
 .markdown-rendered pre code {
     color: var(--code-normal);
+}
+
+.HyperMD-codeblock.cm-line {
+    padding-left: 15px !important;
 }
 
 /* ================= highlights ============== */
@@ -1188,7 +1252,7 @@ border: none;
 .page-gallery__group-collapse::before {
     visibility:visible !important;
     content: "˅";
-    font-family: sans-serf, var(--font-default);
+    font-family: sans-serf, var(--font-text);
 }
 .page-gallery__group-collapse[title="Expand"]::before{
     content: ">";
@@ -1605,6 +1669,12 @@ p {
     margin-block-end: vaR(--p-margin);
 }
 
+/* Hanging Indents Class */
+.hanging-indent {
+    padding-left: 0.5in ;
+    text-indent: -0.5in ;
+}
+
 /* ================= links =============== */
 body {
     --link-decoration-thickness: 1.5px;
@@ -1824,9 +1894,8 @@ li[data-task="*"] > p > input:checked {
   -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' class='h-5 w-5' viewBox='0 0 20 20' fill='currentColor'%3E%3Cpath d='M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z' /%3E%3C/svg%3E"); }
   
   li[data-task="*"]  {
-    text-decoration: underline 2px solid var(--color-yellow);
+    text-decoration: underline 1.5px solid var(--color-yellow);
     text-underline-offset: 4px;
-    
   }
 
 
@@ -2472,8 +2541,8 @@ border-left:2px solid var(--interactive-accent);
 
 /* background overlay */
 .modal-bg {
- opacity: 0.6 !important;   
- background-color: var(--background-primary);
+ opacity: 0.5 !important;   
+ background: radial-gradient(circle, var(--background-primary), var(--text-faint));
 }
 
 /* remove weird border */
@@ -2514,6 +2583,7 @@ body {
     font-size: var(--font-ui-smaller);
     text-align: left;
     border-bottom: none;
+    padding-left: 5px;
 }
 
 /* ========= tooltips ======== */
@@ -2566,7 +2636,8 @@ body {
 }
 
 /* card embed class */
-.card-embed .markdown-embed {
+.card-embed .markdown-embed,
+.markdown-embed[alt~=card-embed] {
     background-color: var(--background-primary-alt);
     padding: 1em 1.5em;
     border: 1px solid var(--background-modifier-border);
@@ -2661,7 +2732,7 @@ body:not(:not(.simple-backlinks)) .embedded-backlinks .tree-item-self:hover {
 /* inspired by Shimmering Focus */
 body:not(:not(.simple-backlinks)) .embedded-backlinks .tree-item-self:not([aria-label])::before {
     content: '●';
-    font-size: 0.45em;
+    font-size: 5.7px;
     color: var(--text-muted);
     margin-right: 10px;
 }
@@ -3033,8 +3104,8 @@ body {
 
     --c-50: calc(var(--base-c-m) + 60%);
     --c-60: calc(var(--base-c-m) + 64%);
-    --c-70: calc(var(--base-c-m) + 70%);
-    --c-100: calc(var(--base-c-m) + 80%);
+    --c-70: calc(var(--base-c-m) + 66%);
+    --c-100: calc(var(--base-c-m) + 68%);
 
 
 }
@@ -3662,7 +3733,7 @@ body {
     --accent-h: 40 !important;
     --accent-s: 100% !important;
     --accent-l: 70% !important;
-    --base-c: 26%;
+    --base-c: 20%;
     --theme-tint-text: 223;
     --theme-sat-text: 20%;
     --theme-tint-secondary: 223;
@@ -3688,6 +3759,15 @@ body {
     
 }
 
+/* colorful headings */
+.theme-ayu-s.colorful-headings-s {
+    --h1-color: var(--color-blue);
+    --h2-color: var(--color-purple);
+    --h3-color: var(--color-pink);
+    --h4-color: var(--color-red);
+    --h5-color: var(--color-orange);
+    --h6-color: var(--color-yellow);
+}
 
 /* Color Accents */
 .red-accent {
@@ -3767,6 +3847,8 @@ body ::-webkit-scrollbar {
 
 /* ============== Style Settings ========== */
 /* ======= hide certain options depending on what classes are activated ====== */
+
+/* font options */
 body:not(.font-select) .setting-item[data-id=font-default-select],
 body:not(.font-select) .setting-item[data-id=font-secondary-select],
 body:not(.font-select) .setting-item[data-id=font-monospace-select],
@@ -3774,23 +3856,40 @@ body:not(.font-bundle) .setting-item[data-id=font-bundle-select],
 body:not(.custom-font) .setting-item[data-id=font-default-custom],
 body:not(.custom-font) .setting-item[data-id=font-secondary-custom],
 body:not(.custom-font) .setting-item[data-id=font-monospace-custom],
+/* active pane highlight options */
 body:not(.active-pane-highlight) .setting-item[data-id=inactive-pane-opacity],
 body:not(.active-pane-highlight) .setting-item[data-id=inactive-pane-blur],
+/* active line highlight options */
 body:not(.active-line-highlight) .setting-item[data-id=inactive-line-opacity],
 body:not(.active-line-highlight) .setting-item[data-id=inactive-line-blur],
 body:not(.active-line-highlight) .setting-item[data-id=opacity-hover],
 body:not(.active-line-highlight) .setting-item[data-id=line-effect-select],
+body:not(.active-line-highlight) .setting-item[data-id=active-line-size],
+/* indent paragraph option */
 body:not(.indent-p) .setting-item[data-id=p-indent],
+/* Ninja Cursor Options */
 body:not(.iA-cursor) .setting-item[data-id=cursor-color],
 body:not(.iA-cursor) .setting-item[data-id=cursor-tween],
 body:not(.iA-cursor) .setting-item[data-id=cursor-width],
-body:not(.custom-color-scheme-light) .setting-item[data-id*=custom-theme][data-id*="l"],
-body:not(.custom-color-scheme-light) .setting-item[data-id*="custom-c-"][data-id*="l"],
-body:not(.custom-color-scheme-light) .setting-item[data-id*="c-l"],
-body:not(.custom-color-scheme-dark) .setting-item[data-id*="c-d"],
-body:not(.custom-color-scheme-dark) .setting-item[data-id*=custom-theme][data-id*="d"],
-body:not(.custom-color-scheme-dark) .setting-item[data-id*="custom-c-"][data-id*="d"],
-body:not(.custom-color-scheme-dark) .setting-item[data-id*="c-d"]
+/* Custom Light Theme options */
+body:not(.custom-color-scheme-light) .setting-item[data-id*="custom-theme-tint"][data-id*="-l"],
+body:not(.custom-color-scheme-light) .setting-item[data-id*="custom-theme-sat"][data-id*="-l"],
+body:not(.custom-color-scheme-light) .setting-item[data-id*="custom-theme-base"][data-id*="-l"],
+body:not(.custom-color-scheme-light) .setting-item[data-id*="custom-base"][data-id*="-l"],
+body:not(.custom-color-scheme-light) .setting-item[data-id*="custom-c-20"][data-id*="-l"],
+body:not(.custom-color-scheme-light) .setting-item[data-id*="custom-text"][data-id*="-l"],
+body:not(.custom-color-scheme-light) .setting-item[data-id*="custom-border"][data-id*="-l"],
+/* Custom dark theme options */
+body:not(.custom-color-scheme-dark)  .setting-item[data-id*="custom-theme-tint"][data-id*="-d"],
+body:not(.custom-color-scheme-dark) .setting-item[data-id*="custom-theme-sat"][data-id*="-d"],
+body:not(.custom-color-scheme-dark) .setting-item[data-id*="custom-theme-base"][data-id*="-d"],
+body:not(.custom-color-scheme-dark) .setting-item[data-id*="custom-base"][data-id*="-d"],
+body:not(.custom-color-scheme-dark) .setting-item[data-id*="custom-c-20"][data-id*="-d"],
+body:not(.custom-color-scheme-dark) .setting-item[data-id*="custom-text"][data-id*="-d"],
+body:not(.custom-color-scheme-dark) .setting-item[data-id*="custom-border"][data-id*="-d"],
+/* Serenity Mode */
+body:not(.serenity-mode) .setting-item[data-id*="serenity-mode-select"],
+body:not(.serenity-mode) .setting-item[data-id*="serenity-mode-font-size"]
  {
   display: none;
 }
@@ -4047,7 +4146,7 @@ settings:
         min: 0
         format: '%'
         max: 100
-        step: 1
+        step: 0.25
         default: 100
     -
         id: custom-base-c-l
@@ -4056,7 +4155,7 @@ settings:
         min: 0
         format: '%'
         max: 100
-        step: 1
+        step: 0.25
         default: 99
     -
         id: custom-theme-tint-secondary-l
@@ -4073,7 +4172,7 @@ settings:
         min: 0
         format: '%'
         max: 100
-        step: 1
+        step: 0.25
         default: 77
     -
         id: custom-c-20-l
@@ -4082,7 +4181,7 @@ settings:
         min: 0
         format: '%'
         max: 100
-        step: 1
+        step: 0.25
         default: 97
     -
         id: custom-theme-tint-text-l
@@ -4099,7 +4198,7 @@ settings:
         min: 0
         format: '%'
         max: 100
-        step: 1
+        step: 0.25
         default: 25
     -
         id: custom-text-c-l
@@ -4108,7 +4207,7 @@ settings:
         min: 0
         format: '%'
         max: 100
-        step: 1
+        step: 0.25
         default: 43
     -
         id: custom-border-c-l
@@ -4117,7 +4216,7 @@ settings:
         min: 0
         format: '%'
         max: 100
-        step: 1
+        step: 0.25
         default: 82
     -
 -
@@ -4146,7 +4245,7 @@ settings:
         min: 0
         format: '%'
         max: 100
-        step: 1
+        step: 0.25
         default: 63
     -
         id: custom-base-c-d
@@ -4155,7 +4254,7 @@ settings:
         min: 0
         format: '%'
         max: 100
-        step: 1
+        step: 0.25
         default: 9
     -
         id: custom-theme-tint-secondary-d
@@ -4172,7 +4271,7 @@ settings:
         min: 0
         format: '%'
         max: 100
-        step: 1
+        step: 0.25
         default: 50
     -
         id: custom-c-20-d
@@ -4181,7 +4280,7 @@ settings:
         min: 0
         format: '%'
         max: 100
-        step: 1
+        step: 0.25
         default: 13
     -
         id: custom-theme-tint-text-d
@@ -4198,7 +4297,7 @@ settings:
         min: 0
         format: '%'
         max: 100
-        step: 1
+        step: 0.25
         default: 19
     -
         id: custom-text-c-d
@@ -4207,7 +4306,7 @@ settings:
         min: 0
         format: '%'
         max: 100
-        step: 1
+        step: 0.25
         default: 73
     -
         id: custom-border-c-d
@@ -4216,7 +4315,7 @@ settings:
         min: 0
         format: '%'
         max: 100
-        step: 1
+        step: 0.25
         default: 31
     -
         id: file-explorer-heading
@@ -4224,6 +4323,11 @@ settings:
         type: heading
         level: 2 
         collapsed: true
+    -
+        id: hide-vault-title
+        title: Hide Vault Tite
+        type: class-toggle
+        default: true
     -
         id: hide-folder-notes
         title: Hide Folder Notes
@@ -4300,7 +4404,7 @@ settings:
         options:
             -
                 label: Default Font
-                value: var(--font-default)
+                value: var(--font-text)
             -
                 label: Secondary Font
                 value: var(--font-secondary)
@@ -4503,7 +4607,7 @@ settings:
         type: variable-select
         default: 'iA Writer Duo S'
         options: 
-            - var(--font-default)
+            - var(--font-text)
             -   'Alegreya'
             -   'Almarai'
             -   'Anonymous Pro'
@@ -4658,12 +4762,12 @@ settings:
         id: h-font-s
         title: Heading Font
         description: The font used for all headings unless individually specified.
-        default: var(--font-default)
+        default: var(--font-text)
         type: variable-select
         options: 
             -
                 label: Default Font
-                value: var(--font-default)
+                value: var(--font-text)
             -
                 label: Secondary Font
                 value: var(--font-secondary)
@@ -4708,7 +4812,7 @@ settings:
                 value: var(--h-font-s)
             -
                 label: Default Font
-                value: var(--font-default)
+                value: var(--font-text)
             -
                 label: Secondary Font
                 value: var(--font-secondary)
@@ -4885,7 +4989,7 @@ settings:
             -
             
                 label: Default Font
-                value: var(--font-default)
+                value: var(--font-text)
             -
                 label: Secondary Font
                 value: var(--font-secondary)
@@ -4967,7 +5071,7 @@ settings:
                 value: var(--h-font-s)
             -
                 label: Default Font
-                value: var(--font-default)
+                value: var(--font-text)
             -
                 label: Secondary Font
                 value: var(--font-secondary)
@@ -5049,7 +5153,7 @@ settings:
                 value: var(--h-font-s)
             -
                 label: Default Font
-                value: var(--font-default)
+                value: var(--font-text)
             -
                 label: Secondary Font
                 value: var(--font-secondary)
@@ -5131,7 +5235,7 @@ settings:
                 value: var(--h-font-s)
             -
                 label: Default Font
-                value: var(--font-default)
+                value: var(--font-text)
             -
                 label: Secondary Font
                 value: var(--font-secondary)
@@ -5247,7 +5351,7 @@ settings:
         title: Link Font
         type: variable-text
         default: var(--font-secondary)
-        description: Secondary font by default. You can reference other fonts with var(--font-default), var(--font-monospace), 'Noto Sans', and so on and so forth.
+        description: Secondary font by default. You can reference other fonts with var(--font-text), var(--font-monospace), 'Noto Sans', and so on and so forth.
     -
         id: tags-heading
         title: Tags
@@ -5489,6 +5593,12 @@ settings:
         format: px
         step: 0.5
     -
+        id: active-line-size
+        title: Active Line Font Size
+        type: variable-text
+        default: inherit
+        description: Change the font size of the active line.
+    -
         id: opacity-hover
         title: Clarify Text on Hover
         description: When this is enabled, hovering over text while in edit mode will remove the opacity and blur effects as if the text under the cursor were the active line.
@@ -5546,8 +5656,18 @@ settings:
         type: class-toggle
         default: true
     -
+        id: hide-file-tabs
+        title: Hide File Explorer Tabs
+        type: class-toggle
+        default: true
+    -
+        id: hide-file-buttons
+        title: Hide File Explorer Buttons
+        type: class-toggle
+        default: true
+    -
         id: hide-tabs
-        title: Hide Tabs
+        title: Hide Workspace Tabs
         type: class-toggle
         default: true
     -
@@ -5557,7 +5677,7 @@ settings:
         default: true
     -
         id: hide-titlebar-buttons
-        title: Hide Close or Minimize Window Buttons
+        title: Hide Window Buttons
         type: class-toggle
         default: true
     -
@@ -5598,6 +5718,39 @@ settings:
         type: class-toggle
         default: false
     -
+        id: serenity-mode-heading
+        title: Serenity Mode
+        type: heading
+        level: 3
+        collapsed: true
+    -  
+        id: serenity-mode
+        title: Enable Serenity Mode
+        description: Hide EVERYTHING on screen except the note you're working on. WARNING - You will only be able to exit editing mode with the Edit/Reading mode toggle hotkey (CTRL + E).
+        type: class-toggle
+        default: false
+    -
+        id: serenity-mode-select
+        title:  Only Use Serenity Mode in...
+        type: class-select
+        default: serenity-both
+        options:
+            -   
+                label: Live Preview
+                value: serenity-lp
+            -
+                label: Source Mode
+                value: serenity-src
+            -   
+                label: Live Preview AND Source Mode
+                value: serenity-both
+    -
+        id: serenity-mode-font-size
+        title: Font Size in Serenity Mode
+        description: To keep the font size dynamic and unchanged, type "var(--font-text-size)"
+        type: variable-text
+        default: '18px'
+    -
         id: plugins-heading
         title: Plug-Ins
         type: heading 
@@ -5614,7 +5767,7 @@ settings:
         title: Standalone Inline Fields Font
         description: The font used for inline fields with hidden keys (fields wrapped in parentheses).
         type: variable-select
-        default: var(--font-default)
+        default: var(--font-text)
         options: 
             - 
                 label: Default 
