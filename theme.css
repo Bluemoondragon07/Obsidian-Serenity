@@ -318,6 +318,77 @@ display: none !important;
 }
 
 
+/* Pure Serenity Mode */
+.theme-light.pure-serenity-light.serenity-mode:not(.serenity-src):not(.serenity-lp):has([data-mode=source]),
+.theme-light.pure-serenity-light.serenity-mode.serenity-lp:has([data-mode="source"] .is-live-preview),
+.theme-light.pure-serenity-light.serenity-mode.serenity-src:has([data-mode="source"] .markdown-source-view:not(.is-live-preview)) {
+    --color-base-00: #ffffff !important;
+    --color-base-05: #ffffff !important;
+    --color-base-10: #ffffff !important;
+    --color-base-20: #ffffff !important;
+    --color-base-25: #ffffff !important;
+    --color-base-30: #ffffff !important;
+    --color-base-35: #ffffff  !important;
+    --color-base-40: #000000 !important;
+    --color-base-50: #000000 !important;
+    --color-base-60: #000000 !important;
+    --color-base-70: #000000 !important;
+    --color-base-100: #000000 !important;
+}
+.theme-dark.pure-serenity-dark.serenity-mode:not(.serenity-src):not(.serenity-lp):has([data-mode=source]),
+.theme-dark.pure-serenity-dark.serenity-mode.serenity-lp:has([data-mode="source"] .is-live-preview) ,
+.theme-dark.pure-serenity-dark.serenity-mode.serenity-src:has([data-mode="source"] .markdown-source-view:not(.is-live-preview))  {
+    
+    --color-base-00: #000000;
+    --color-base-05: #000000;
+    --color-base-10: #000000;
+    --color-base-20: #000000;
+    --color-base-25: #000000;
+    --color-base-30: #000000;
+    --color-base-35: #000000;
+    --color-base-40: #ffffff;
+    --color-base-50: #ffffff;
+    --color-base-60: #ffffff;
+    --color-base-70: #ffffff;
+    --color-base-100: #ffffff;
+}
+
+/* Inverted Pure Serenity Mode */
+.theme-light.pure-serenity-light.pure-serenity-invert-light.serenity-mode:not(.serenity-src):not(.serenity-lp):has([data-mode=source]),
+.theme-light.pure-serenity-light.pure-serenity-invert-light.serenity-mode.serenity-lp:has([data-mode="source"] .is-live-preview) ,
+.theme-light.pure-serenity-light.pure-serenity-invert-light.serenity-mode.serenity-src:has([data-mode="source"] .markdown-source-view:not(.is-live-preview))  {
+    --color-base-00: #000000 !important;
+    --color-base-05: #000000 !important;
+    --color-base-10: #000000 !important;
+    --color-base-20: #000000 !important;
+    --color-base-25: #000000 !important;
+    --color-base-30: #000000 !important;
+    --color-base-35: #000000 !important;
+    --color-base-40: #ffffff !important;
+    --color-base-50: #ffffff !important;
+    --color-base-60: #ffffff !important;
+    --color-base-70: #ffffff !important;
+    --color-base-100: #ffffff !important;
+}
+
+
+.theme-dark.pure-serenity-dark.pure-serenity-invert-dark.serenity-mode:not(.serenity-src):not(.serenity-lp):has([data-mode=source]),
+.theme-dark.pure-serenity-dark.serenity-mode.pure-serenity-invert-dark.serenity-lp:has([data-mode="source"] .is-live-preview) ,
+.theme-dark.pure-serenity-dark.pure-serenity-invert-dark.serenity-mode.serenity-src:has([data-mode="source"] .markdown-source-view:not(.is-live-preview)) {
+    --color-base-00: #ffffff !important;
+    --color-base-05: #ffffff !important;
+    --color-base-10: #ffffff !important;
+    --color-base-20: #ffffff !important;
+    --color-base-25: #ffffff !important;
+    --color-base-30: #ffffff !important;
+    --color-base-35: #ffffff  !important;
+    --color-base-40: #000000 !important;
+    --color-base-50: #000000 !important;
+    --color-base-60: #000000 !important;
+    --color-base-70: #000000 !important;
+    --color-base-100: #000000 !important;
+}
+
 
 /* =========== cursor =============== */
 /* cursor effect with Ninja Cursor plugin */
@@ -3889,7 +3960,13 @@ body:not(.custom-color-scheme-dark) .setting-item[data-id*="custom-text"][data-i
 body:not(.custom-color-scheme-dark) .setting-item[data-id*="custom-border"][data-id*="-d"],
 /* Serenity Mode */
 body:not(.serenity-mode) .setting-item[data-id*="serenity-mode-select"],
-body:not(.serenity-mode) .setting-item[data-id*="serenity-mode-font-size"]
+body:not(.serenity-mode) .setting-item[data-id*="serenity-mode-font-size"],
+body:not(.serenity-mode) .setting-item[data-id*="pure-serenity-light"],
+body:not(.serenity-mode) .setting-item[data-id*="pure-serenity-dark"],
+body:not(.serenity-mode) .setting-item[data-id*="pure-serenity-invert-light"],
+body:not(.serenity-mode) .setting-item[data-id*="pure-serenity-invert-dark"],
+body:not(.pure-serenity-light) .setting-item[data-id*="pure-serenity-invert-light"],
+body:not(.pure-serenity-dark) .setting-item[data-id*="pure-serenity-invert-dark"]
  {
   display: none;
 }
@@ -5750,6 +5827,28 @@ settings:
         description: To keep the font size dynamic and unchanged, type "var(--font-text-size)"
         type: variable-text
         default: '18px'
+    -
+        id: pure-serenity-light
+        title: Pure Serenity - Light Mode
+        description: Change the light mode colors to be pure black and white in edit mode, ignoring the theme.
+        type: class-toggle
+        default: false
+    -
+        id: pure-serenity-dark
+        title: Pure Serenity - Dark Mode
+        description: Change the dark mode colors to be pure black and white in edit mode, ignoring the theme.
+        type: class-toggle
+        default: false
+    -
+        id: pure-serenity-invert-light
+        title: Invert Edit Mode Colors in Light Mode
+        type: class-toggle
+        default: false
+    -
+        id: pure-serenity-invert-dark
+        title: Invert Edit Mode Colors in Dark Mode
+        type: class-toggle
+        default: false
     -
         id: plugins-heading
         title: Plug-Ins
