@@ -6,7 +6,7 @@
 
 <br>
 
-## Features
+<details> <summary> Features </summary>
 
 ### Custom Checklists & Callouts
 
@@ -112,11 +112,6 @@ Images on the same line as the speech bubble are also supported.
 
 
 
- 
-<video src="https://user-images.githubusercontent.com/121056178/236698461-aef8ce87-fa95-403e-8ab6-6cbf09be4c04.mp4" controls="controls" style="max-width: 730px;">
-</video>
-
-
 
 
 #### `data-comment`
@@ -137,7 +132,15 @@ Show 'annotations' above the text on hover.
 
 The abbreviation element (`<abbr title="This shows on hover">text</abbr>`) has some extra styling applied to it to make it stand out more.
 
+</details>
 
+
+<details> <summary>Recommended Plugins</summary
+
+- [Focus Active Sentence](https://github.com/artisticat1/focus-active-sentence) by artistcat1 - iA Writer-like sentence by sentence focus.
+- [Ninja Cursor](https://github.com/vrtmrz/ninja-cursor) by vrtmrz - activate with this theme for an iA Writer-like cursor.
+
+</details>
 
 <details> <summary> <em>Credits</em> </summary>
 
