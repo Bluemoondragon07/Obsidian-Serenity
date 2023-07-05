@@ -322,13 +322,13 @@ display: none !important;
 .theme-light.pure-serenity-light.serenity-mode:not(.serenity-src):not(.serenity-lp):has([data-mode=source]),
 .theme-light.pure-serenity-light.serenity-mode.serenity-lp:has([data-mode="source"] .is-live-preview),
 .theme-light.pure-serenity-light.serenity-mode.serenity-src:has([data-mode="source"] .markdown-source-view:not(.is-live-preview)) {
-    --color-base-00: #ffffff !important;
-    --color-base-05: #ffffff !important;
-    --color-base-10: #ffffff !important;
-    --color-base-20: #ffffff !important;
-    --color-base-25: #ffffff !important;
-    --color-base-30: #ffffff !important;
-    --color-base-35: #ffffff  !important;
+    --color-base-00: #f9f9f9 !important;
+    --color-base-05: #f9f9f9  !important;
+    --color-base-10: #f9f9f9  !important;
+    --color-base-20: #f9f9f9  !important;
+    --color-base-25: #f9f9f9 !important;
+    --color-base-30: #f9f9f9  !important;
+    --color-base-35: #f9f9f9   !important;
     --color-base-40: #000000 !important;
     --color-base-50: #000000 !important;
     --color-base-60: #000000 !important;
@@ -1522,6 +1522,7 @@ blockquote > blockquote {
 blockquote {
     border: none !important;
     margin: 2em;
+    overflow: hidden;
 }
 /* put border on elements inside a blockquote instead */
 blockquote p,
@@ -2530,7 +2531,7 @@ body.is-mobile .view-action:nth-last-of-type(2) {
     margin: 16px;
     position: absolute;
     transform: translate(-50%, -50%);
-    left: calc(100% - 44px - 16px);
+    left: calc(100% - 60px - 30px);
     justify-content: center;
     align-items: center;
     width: 60px;
@@ -2538,7 +2539,7 @@ body.is-mobile .view-action:nth-last-of-type(2) {
     border-radius: 100px;
     box-shadow: var(--shadow-s);
     top: calc(100vh - 60px - 64px - 16px);
-    z-index: 10;
+    z-index: 100 !important;
 }
 
 /* make buttons rounder on mobile */
@@ -2607,6 +2608,33 @@ border-left:2px solid var(--interactive-accent);
 .setting-item-name {
     font-size: calc(var(--font-ui-small) + 1px);
 }
+
+/* ==== buttons ===== */
+body {
+    --interactive-normal: var(--background-secondary-alt) !important;
+    --input-shadow: var(--background-modifier-border) 0 0 0 0.8px !important;
+    --input-shadow-hover: hsla(var(--color-accent-hsl), 0.6) 0 0 0px 1px !important;
+    --interactive-hover: hsla(var(--color-accent-hsl), 0.1) !important;
+}
+button {
+    transition: 100ms;
+}
+button.mod-cta {
+    box-shadow: none;
+}
+button.mod-cta:hover {
+    background-color: var(--interactive-hover);
+    box-shadow: var(--input-shadow-hover);
+    color: var(--text-accent);
+} 
+
+
+select:focus, .dropdown:focus {
+    box-shadow: var(--input-shadow-hover);
+    background-color:  var(--interactive-hover);
+}
+
+
 
 /* ====== modals ====== */
 
@@ -3070,20 +3098,17 @@ body {
         --c-35: calc(var(--base-c-low) - 80%);
         --c-40: calc(var(--base-c-low) - 10%);
     
-        --c-50: calc(var(--base-c) - 39%);
-        --c-60: calc(var(--base-c) - 49%);
-        --c-70: calc(var(--base-c) - 50%);
-        --c-100: calc(var(--base-c) / 2.8);
+        --c-50: calc(var(--text-base) + 45%);
+        --c-60: calc(var(--text-base) + 19%);
+        --c-70: calc(var(--text-base) + 26%);
+        --c-100: calc(var(--text-base) + 12%);
 
         --color-base-10: hsl(var(--theme-tint), calc(var(--theme-sat) / 1.2) , var(--c-10)) !important;
         --color-base-20: hsl(var(--theme-tint-secondary), calc(var(--theme-sat-secondary) * 1.2) , var(--c-20));
         --color-base-30:  hsl(var(--theme-tint), calc(var(--theme-sat-text) + 5%), 85%) !important;
         --color-base-35:  hsl(var(--theme-tint), calc(var(--theme-sat-text) + 5%), 50%, 0.18) !important;
     }
-    /* make text color darker in the default color scheme on low contrast */
-.theme-light:not(.medium-contrast-light):not(.high-contrast-light):not(.theme-catpp):not(.theme-nord-s):not(.theme-gruvbox-s):not(.theme-solarized-s):not(.rose-pine):not(.theme-everforest) {
-    --c-100: 30%;
-}
+
 
     /* medium contrast */
 
@@ -3106,21 +3131,19 @@ body {
     --c-35: calc(var(--base-c) - 70%);
     --c-40: calc(var(--base-c) - 10%);
 
-    --c-50: calc(var(--base-c) - 55%);
-    --c-60: calc(var(--base-c) - 60%);
-    --c-70: calc(var(--base-c) - 66%);
-    --c-100: calc(var(--base-c) / 3.9);
+    --c-50: calc(var(--text-base) + 30%);
+    --c-60: calc(var(--text-base) + 15%);
+    --c-70: calc(var(--text-base) + 20%);
+    --c-100: calc(var(--text-base) + 5%);
 
     --color-base-30:  hsl(var(--theme-tint), calc(var(--theme-sat-text) + 5%), 85%) !important;
     --color-base-35:  hsl(var(--theme-tint), calc(var(--theme-sat-text) + 5%), 50%, 0.28) !important;
     --c-20: calc(var(--base-c-bg) - 5%);
 }
 
-
-/* make text color darker in the default color scheme on medium contrast */
-.theme-light:not(.low-contrast-light):not(.high-contrast-light):not(.theme-catpp):not(.theme-nord-s):not(.theme-gruvbox-s):not(.theme-solarized-s):not(.theme-rose-pine):not(.theme-everforest) {
-    --c-100: 15%;
-    --c-10: calc(var(--base-c-bg) - 5%);
+.medium-contrast-light.theme-light:not(.theme-everforest):not(.theme-catpp):not(.theme-nord-s):not(.theme-gruvbox-s):not(.theme-rose-pine):not(.theme-solarized-s) {
+    --c-05: calc(var(--base-c-bg) - 4.5%);
+    --c-10: calc(var(--base-c-bg) - 4.5%);
 }
 
 /* high contrast  */
@@ -3140,15 +3163,17 @@ body {
     --c-10: calc(var(--base-c-high) - 5%);
     --c-20: calc(var(--base-c-high) - 7%);
 
-    --c-25: calc(var(--base-c) - 20%);
-    --c-30: calc(var(--base-c) - 21%);
-    --c-35: calc(var(--base-c) - 22%);
-    --c-40: calc(var(--base-c) - 13%);
+    --c-25: calc(var(--base-c) - 26%);
+    --c-30: calc(var(--base-c) - 27%);
+    --c-35: calc(var(--base-c) - 28%);
+    --c-40: calc(var(--base-c) - 20%);
 
-    --c-50: 55%;
-    --c-60: 50%;
-    --c-70: 35%;
-    --c-100: 5%;
+    --c-50: calc(var(--text-base) + 35%);
+    --c-60: calc(var(--text-base) + 12%);
+    --c-70: calc(var(--text-base) + 26%);
+    --c-100: calc(var(--text-base) - 1%);
+
+    
 
 
 }
@@ -3169,8 +3194,8 @@ body {
     --c-20: calc(var(--base-c-m) - 2%);
 
     --c-25: calc(var(--base-c-m) + 3%);
-    --c-30: calc(var(--base-c-m) + 18%);
-    --c-35: calc(var(--base-c-m) + 18%);
+    --c-30: calc(var(--base-c-m) + 3%);
+    --c-35: calc(var(--base-c-m) + 5%);
     --c-40: calc(var(--base-c-m) + 18%);
 
     --c-50: calc(var(--base-c-m) + 60%);
@@ -3195,7 +3220,7 @@ body {
     --c-20: calc(var(--base-c-m) - 2.7%) !important;
 
     --c-25: calc(var(--base-c-m) + 3%);
-    --c-30: calc(var(--base-c-m) + 28%);
+    --c-30: calc(var(--base-c-m) + 6%);
     --c-35: calc(var(--base-c-m) + 29%);
     --c-40: calc(var(--base-c-m) + 30%);
 
@@ -3221,7 +3246,7 @@ body {
     --c-20: calc(var(--base-c-m) + 1%) !important;
 
     --c-25: calc(var(--base-c-m) +  2%);
-    --c-30: calc(var(--base-c-m) + 12%);
+    --c-30: calc(var(--base-c-m) + 3%);
     --c-35: calc(var(--base-c-m) + 12%);
     --c-40: calc(var(--base-c-m) + 12%);
 
@@ -3257,6 +3282,8 @@ body {
   --color-base-100: hsl(var(--theme-tint-text), var(--theme-sat-text), var(--c-100));
 
   --background-modifier-message: var(--color-accent-1);
+
+  --text-base: 15%;
 }
 
 /* == dark theme == */
@@ -3353,12 +3380,12 @@ body {
 
 /* == solarized theme == */
 .theme-solarized-s {
-    --theme-tint: 47;
+    --theme-tint: 48.5;
     --theme-sat: 100%;
     --theme-tint-secondary: 43;
     --theme-sat-secondary: 52%;
     --theme-tint-text: 194;
-    --theme-sat-text: 30%;
+    --theme-sat-text: 22%;
     --accent-h: 175 !important;
     --accent-s: 59% !important;
     --accent-l: 40% !important;
@@ -3378,10 +3405,11 @@ body {
     --color-purple: #6c71c4;
     --color-pink-rgb: 211, 54, 130;
     --color-pink: #d33682;
+    --text-base: 30%;
 
 }
 .theme-light.theme-solarized-s {
-    --base-c: 93.5%;
+    --base-c: 92.8%;
 }
 .theme-light.low-contrast-light.theme-solarized-s {
     --theme-tint-secondary:47;
@@ -3420,6 +3448,7 @@ body {
     --accent-h: 3 !important;
     --accent-s: 53% !important;
     --accent-l: 67% !important;
+    --text-base: 25%;
 
     --color-red: #b4637a;
     --color-pink: #d7827e;
@@ -3437,6 +3466,9 @@ body {
     --color-cyan-rgb: 86, 148, 159;
     --color-blue-rgb: 40, 105, 131;
     --color-purple-rgb: 144, 122, 169;
+}
+.theme-light.low-contrast-light.theme-rose-pine {
+    --base-c: 96%;
 }
 .theme-dark.theme-rose-pine {
     --base-c: 18%;
@@ -3514,6 +3546,7 @@ body {
 }
 .theme-light.theme-everforest {
     --base-c: 94%;
+    --text-base: 25%;
 }
 .theme-dark.theme-everforest {
     --accent-h: 68 !important;
@@ -3683,18 +3716,25 @@ body {
 }
 
 /* == catppuccin theme == */
+.theme-catpp.theme-light.low-contrast-light {
+    --theme-sat: 30%;
+    --theme-sat-secondary: 30%;
+    --base-c: 95%;
+}
+.theme-catpp.theme-light.high-contrast-light {
+    --base-c: 93.5%;
+}
+
 .theme-catpp {
     --theme-tint: 220;
-    --theme-sat: 24%;
+    --theme-sat: 45%;
     --theme-tint-secondary: 220;
-    --theme-sat-secondary: 22%;
+    --theme-sat-secondary: 35%;
     --theme-tint-text: 234;
     --theme-sat-text: 24%;
     --background-modifier-hover: rgba(var(--color-purple-rgb), 0.25);
     --checkbox-color: var(--color-green);
     --checkbox-color-hover: var(--color-cyan);
-    --bold-color: var(--color-blue);
-    --italic-color: var(--color-orange);
     --accent-h: 231 !important;
     --accent-s: 97% !important;
     --accent-l: 72% !important; 
@@ -3709,7 +3749,7 @@ body {
     --link-unresolved-color: var(--color-cyan);
 }
 .theme-light.theme-catpp {
-    --base-c: 91.5%;
+    --base-c: 94%;
     --color-red: hsl(347, 87%, 44%);
     --color-red-rgb: 210, 15, 57;
     --color-orange: #dd7878;
@@ -3779,14 +3819,15 @@ body {
 
 
 .theme-light.theme-ayu-s {
+    --text-base: 30%;
     --accent-h: 35 !important;
     --accent-s: 100% !important;
     --accent-l: 60% !important; 
-    --base-c: 98.5%;
+    --base-c: 100%;
     --color-red-rgb: 240, 113, 113;
     --color-red: rgb(240, 113, 113);
     --color-green-rgb: 156, 208, 0;
-    --color-green: rgb(156, 208, 0);
+    --color-green: rgb(141, 187, 0);
     --color-orange-rgb: 250, 141, 62;
     --color-orange: rgb(250, 141, 62);
     --color-yellow-rgb: 242, 174, 73;
@@ -3801,16 +3842,17 @@ body {
     --color-pink: hsl(270, 45%, 64%);
 }
 .theme-dark.theme-ayu-s {
+    --text-on-accent: black;
     --accent-h: 40 !important;
     --accent-s: 100% !important;
     --accent-l: 70% !important;
-    --base-c: 20%;
+    --base-c: 24%;
     --theme-tint-text: 223;
-    --theme-sat-text: 20%;
+    --theme-sat-text: 24%;
     --theme-tint-secondary: 223;
-    --theme-sat-secondary: 0%;
-    --theme-sat: 10%;
-    --theme-tint: 223;
+    --theme-sat-secondary: 25%;
+    --theme-sat: 13%;
+    --theme-tint: 40;
     --color-red-rgb: 242, 135, 121;
     --color-red: rgb(242, 135, 121);
     --color-green-rgb: 213, 255, 128;
@@ -3832,12 +3874,12 @@ body {
 
 /* colorful headings */
 .theme-ayu-s.colorful-headings-s {
-    --h1-color: var(--color-blue);
-    --h2-color: var(--color-purple);
-    --h3-color: var(--color-pink);
-    --h4-color: var(--color-red);
+    --h1-color: var(--color-purple);
+    --h2-color: var(--color-blue);
+    --h3-color: var(--color-green);
+    --h4-color: var(--color-yellow);
     --h5-color: var(--color-orange);
-    --h6-color: var(--color-yellow);
+    --h6-color: var(--color-red);
 }
 
 /* Color Accents */
@@ -4000,6 +4042,13 @@ height: 5px;
 filter: none !important;
 }
 
+/* ==== special setting styles ==== */
+.setting-item[data-id="colorful-headings-s"] .checkbox-container.is-enabled {
+    background-image: linear-gradient(to bottom, #b827fc 0%, #2c90fc 25%, #b8fd33 50%, #fec837 75%, #fd1892 100%);
+  
+}
+
+
 /* ===== settings heading levels ==== */
 .style-settings-heading[data-level="0"] .setting-item-name {
     font-size: 1.1em !important;
@@ -4085,6 +4134,58 @@ color: var(--text-accent);
     text-decoration-color: inherit;
 }
 
+/* ========= MAKE.md plugin ================ */
+
+/* reduce spacing in inline context properties */
+.mk-file-context-row {
+    padding: 2px 6px;
+}
+.mk-file-context-section {
+    gap: 0;
+}
+.mk-file-context-field {
+    color: var(--text-muted); /* tweak color for inline context fields */
+    width: fit-content;
+    margin-right: 20px;
+  }
+
+  /* make inputs look nicer */
+  input.mk-cell-text:focus-visible {
+    border-bottom: 2px solid var(--text-accent);
+    border-radius: 0;
+  }
+  
+  .mk-header.mod-header input,
+  .mk-header.mod-header input:hover {
+    transition: 0.25s;
+    border-radius: 3px 3px 0 0;
+  }
+
+div.mk-file-context-component:last-child:has(.mk-file-context-row) {
+    border-radius: var(--radius-m);
+    background-color: var(--background-secondary-alt);
+    padding: var(--size-4-4);
+    border: 1px solid vaR(--background-modifier-border);
+    margin-bottom: 1em;
+    transition: 200ms height, 150ms padding, 100ms margin, 70ms opacity;
+}
+.mk-file-icon {
+    z-index: 100 !important;
+    transform: scale(1.1) !important;
+  }
+
+body:not(:not(.hover-context)) .mod-header.mk-header:not(:hover) div.mk-file-context-component:last-child  {
+height: 0;
+padding: 0;
+overflow: hidden;
+opacity: 0;
+}
+ 
+/* hide icon placeholder in reading mode when there is no icon */
+.markdown-reading-view .mk-file-icon-placeholder {
+    display: none;
+}
+  
 /* @settings
 
 name: Serenity
@@ -4494,6 +4595,7 @@ settings:
         type: heading
         level: 2
         collapsed: true
+    
     -
         id: paragraphs-heading
         title: Paragraphs
@@ -4812,6 +4914,96 @@ settings:
         title: Custom Font Monospace
         type: variable-text
         default: 'iA Writer Mono S'
+    -
+        id: bold-italic-colors-heading
+        title: Bold & Italic Colors
+        type: heading
+        level: 3
+        collapsed: true
+    -
+        id: bold-color
+        title: Bold Color
+        default: var(--text-normal)
+        type: variable-select
+        options:
+            -
+                label: accent
+                value: var(--color-accent-1)
+            -
+                label: red
+                value: var(--color-red)
+            -
+                label: orange
+                value: var(--color-orange)
+            -
+                label: yellow
+                value: var(--color-yellow)
+            -
+                label: green
+                value: var(--color-green)
+            -
+                label: cyan
+                value: var(--color-cyan)
+            -
+                label: blue
+                value: var(--color-blue)
+            -
+                label: purple
+                value: var(--color-purple)
+            -
+                label: pink
+                value: var(--color-pink)
+            -
+                label: faint
+                value: var(--text-faint)
+            -
+                label: muted
+                value: var(--text-muted)
+            -
+                label: normal
+                value: var(--text-normal)
+    -
+        id: italic-color
+        title: italic Color
+        default: var(--text-normal)
+        type: variable-select
+        options:
+            -
+                label: accent
+                value: var(--color-accent-1)
+            -
+                label: red
+                value: var(--color-red)
+            -
+                label: orange
+                value: var(--color-orange)
+            -
+                label: yellow
+                value: var(--color-yellow)
+            -
+                label: green
+                value: var(--color-green)
+            -
+                label: cyan
+                value: var(--color-cyan)
+            -
+                label: blue
+                value: var(--color-blue)
+            -
+                label: purple
+                value: var(--color-purple)
+            -
+                label: pink
+                value: var(--color-pink)
+            -
+                label: faint
+                value: var(--text-faint)
+            -
+                label: muted
+                value: var(--text-muted)
+            -
+                label: normal
+                value: var(--text-normal)
     -
         id: headings-heading
         title: Headings
@@ -5830,7 +6022,7 @@ settings:
     -
         id: pure-serenity-light
         title: Pure Serenity - Light Mode
-        description: Change the light mode colors to be pure black and white in edit mode, ignoring the theme.
+        description: Change the light mode colors to be a dim shade of grey in edit mode, ignoring the theme.
         type: class-toggle
         default: false
     -
@@ -5971,6 +6163,17 @@ settings:
             -
                 label: Text
                 value: var(--text-normal)
+    -
+        id: MAKEmd-heading
+        title: MAKE.md
+        type: heading
+        level: 3
+        collapsed: true
+    -   
+        id: hover-context
+        title: Hide Inline Contexts until Hover
+        type: class-toggle
+        default: true
     -
         id: modals-heading
         title: Modals
