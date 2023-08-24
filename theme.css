@@ -193,6 +193,14 @@ body {
     --font-monospace: var(--font-monospace-custom) !important;
 }
 
+/* default font weight */
+body {
+    --font-weight-default: 400;
+}
+body, .vertical-tab-nav-item {
+    font-weight: var(--font-weight-default);
+}
+
 
 /* ============= Markdown ============= */
 body {
@@ -302,18 +310,21 @@ body {
 .serenity-mode:not(.serenity-src):not(.serenity-lp):has([data-mode="source"]) .view-header,
 .serenity-mode:not(.serenity-src):not(.serenity-lp):has([data-mode="source"]) .embedded-backlinks,
 .serenity-mode:not(.serenity-src):not(.serenity-lp):has([data-mode="source"]) .inline-title,
+.serenity-mode:not(.serenity-src):not(.serenity-lp):has([data-mode="source"]) .mk-header.cm-line,
 /* live preview */
 .serenity-mode.serenity-lp:has([data-mode="source"] .is-live-preview) .workspace-tab-header-container,
 .serenity-mode.serenity-lp:has([data-mode="source"] .is-live-preview)  .workspace-ribbon,
 .serenity-mode.serenity-lp:has([data-mode="source"] .is-live-preview)  .view-header,
 .serenity-mode.serenity-lp:has([data-mode="source"] .is-live-preview) .embedded-backlinks,
 .serenity-mode.serenity-lp:has([data-mode="source"] .is-live-preview) .inline-title,
+.serenity-mode.serenity-lp:has([data-mode="source"] .is-live-preview) .mk-header.cm-line,
 /* source mode */
 .serenity-mode.serenity-src:has([data-mode="source"] .markdown-source-view:not(.is-live-preview)) .workspace-tab-header-container,
 .serenity-mode.serenity-src:has([data-mode="source"] .markdown-source-view:not(.is-live-preview))  .workspace-ribbon,
 .serenity-mode.serenity-src:has([data-mode="source"] .markdown-source-view:not(.is-live-preview))  .view-header,
 .serenity-mode.serenity-src:has([data-mode="source"] .markdown-source-view:not(.is-live-preview)) .embedded-backlinks,
-.serenity-mode.serenity-src:has([data-mode="source"] .markdown-source-view:not(.is-live-preview)) .inline-title {
+.serenity-mode.serenity-src:has([data-mode="source"] .markdown-source-view:not(.is-live-preview)) .inline-title,
+.serenity-mode.serenity-src:has([data-mode="source"] .markdown-source-view:not(.is-live-preview)) .mk-header.cm-line {
 display: none !important;
 }
 
@@ -390,7 +401,33 @@ display: none !important;
 }
 
 
+/* ============ Pure Markdown Mode ============ */
+.pure-md:has([data-mode="source"] .markdown-source-view:not(.is-live-preview)) .cm-editor *:not(.inline-title) {
+font-size: var(--font-text-size) !important; /* uniform font size */
+}
+.pure-md:has([data-mode="source"] .markdown-source-view:not(.is-live-preview)) .cm-editor  .cm-formatting {
+    opacity: 1 !important; /* consistent color for formatting elements */
+}
+.pure-md:has([data-mode="source"] .markdown-source-view:not(.is-live-preview)) .HyperMD-header::before {
+    display: none !important; /* remove heading level indicators, if active (leaving only #s)  */
+}
+.pure-md:has([data-mode="source"] .markdown-source-view:not(.is-live-preview)) .cm-line:not(.cm-active) .cm-formatting.cm-formatting-header { /* make heading formatting #s float in source mode, iA-Writer-syle. */
+    position: absolute;
+    margin-left: -100px;
+    width: 100px;
+    text-align: right !important;
+}
+.pure-md:has([data-mode="source"] .markdown-source-view:not(.is-live-preview)) .HyperMD-header:hover .cm-formatting { /* make #s on headings disappear when they are hovered (to make room for collapse indicators */
+display: none;
+}
 /* =========== cursor =============== */
+
+/* change caret color */
+.cm-contentContainer * {
+    caret-color: var(--color-accent-1);
+}
+
+
 /* cursor effect with Ninja Cursor plugin */
 /* inspired by iA Writer */
 body {
@@ -406,25 +443,51 @@ body:not(:not(.iA-cursor)) .cursorWrapper .x-cursor {
     left: -1px;
     position: relative;
     top: calc( calc(var(--font-text-size) * -0.01) - var(--header-height));
-    height: var(--cursor-height);
+    height: calc(var(--cursor-height) + 1px);
     transition: opacity;
 }
 /* remove flashing */
 body:not(:not(.iA-cursor)) .cursorWrapper .x-cursor::after{
     display: none;
 }
+body:not(:not(.iA-cursor)) .cm-cursorLayer {
+    animation: none !important;
+    visibility: hidden !important;
+}
+
+/* add glow effect in dark mode */
+.theme-dark.cursor-glow:not(:not(.iA-cursor)) .cursorWrapper .x-cursor {
+    box-shadow: 0px 0px 30px hsl(var(--accent-h), var(--accent-s), 75%) , 0px 0px 10px hsl(var(--accent-h), var(--accent-s),60%) ;
+}
 
 /* cursor animation */
-body:not(:not(.iA-cursor))  .cursorWrapper .x-cursor0,
 body:not(:not(.iA-cursor))  .cursorWrapper .x-cursor1 {
+    animation: step-end cursorblink-alt 0.95s 0s both infinite;
+}
+body:not(:not(.iA-cursor))  .cursorWrapper .x-cursor0 {
     animation: step-end cursorblink 0.95s 0s both infinite;
 }
 
-.cursor-tween:not(:not(.iA-cursor)) .cursorWrapper .x-cursor0,
-.cursor-tween:not(:not(.iA-cursor)) .cursorWrapper .x-cursor1 {
+
+
+
+.cursor-tween:not(:not(.iA-cursor)) .cursorWrapper .x-cursor0{
     animation: cursorblink2 0.9s 0s both infinite;
 }
 
+.cursor-tween:not(:not(.iA-cursor)) .cursorWrapper .x-cursor1 {
+    animation: cursorblink-alt 0.9s 0s both infinite;
+}
+
+
+@keyframes cursorblink-alt {
+0% {
+opacity: 1;
+}
+100% {
+    opacity: 1;
+}
+}
 @keyframes cursorblink {
     0% {
         opacity: 1;
@@ -478,7 +541,7 @@ body {
     color: var(--link-color);
     text-decoration-color: var(--link-decoration-color);
     text-decoration-thickness: var(--link-decoration-thickness);
-    text-underline-offset: 2px;
+
 }
 /* link-like hover effect for link-styled folders and files */
 body:not(:not(.link-file)) .nav-folder.alx-folder-with-note>.nav-folder .nav-folder-title:hover, body:not(:not(.link-file)) .nav-file:hover .nav-file-title,
@@ -643,7 +706,7 @@ opacity: 0;
 
 
 /* hide backlinks */
-body:not(:not(.hide-backlinks)) .markdown-source-view  .embedded-backlinks,
+body:not(:not(.hide-backlinks)) .markdown-source-view  .embedded-backlinks:not(.mk-inline-context),
 body:not(:not(.hide-backlinks)) .markdown-source-view .footnotes {
     display: none;
 }
@@ -667,8 +730,10 @@ body {
     --tab-width: 200px;
     --tab-outline-width: 0.7px;
     --tab-divider-color: var(--color-base-30);
-    --titlebar-background: var(--background-primary);
     --titlebar-background-focused: var(--background-secondary);
+}
+body:not(:not(.flat-mode)) {
+    --titlebar-background: var(--background-primary);
     --ribbon-background: var(--background-primary);
 }
 
@@ -684,8 +749,12 @@ body:not(:not(.hide-ribbon)):not(.opacity-hide) .workspace-ribbon:not(:hover) {
 body:not(:not(.hide-ribbon)) .workspace-ribbon:not(:hover) {
     opacity: 0;
 } 
-body:not(.hide-ribbon):not(.hide-tabs) .workspace-ribbon.is-collapsed {
+body:not(.hide-ribbon):not(.hide-tabs) .workspace-ribbon.is-collapsed,
+body:not(.hide-ribbon):not(:not(.flat-mode)) .workspace-ribbon:not(.is-collapsed) {
     border-right: var(--divider-width) solid var(--divider-color) !important;
+}
+body:not(.hide-ribbon):not(:not(.flat-mode)):not(.hide-file-tabs) .workspace-ribbon:not(.is-collapsed):before {
+    border-right: var(--divider-width) solid var(--divider-color);
 }
 
 .workspace-ribbon {
@@ -694,10 +763,43 @@ body:not(.hide-ribbon):not(.hide-tabs) .workspace-ribbon.is-collapsed {
 }
 
 /* sidebar toggle button */
-.workspace-ribbon.mod-left:before {
-    border-bottom: 2px var(--background-primary) solid;
-    background-color: var(--background-primary);
+body:not(:not(.flat-mode)) .workspace-ribbon.mod-left:before {
+    border-bottom: 2px var(--background-primary) solid !important;
+    background-color: var(--background-primary) !important;
 }
+body:not(.flat-mode) .workspace-ribbon.mod-left:hover:before,
+body:not(.flat-mode) .workspace-ribbon.mod-left:hover:before:hover,
+body:not(.flat-mode) .workspace-ribbon.mod-left:not(.is-collapsed):before {
+border-bottom: 2px var(--background-secondary) solid ;
+}
+/* remove bottom border when tabs are hidden */
+.hide-tabs .workspace-ribbon.mod-left.is-collapsed:before {
+    border-bottom: 2px solid var(--background-primary) !important;
+}
+.hide-file-tabs .workspace-ribbon.mod-left:before {
+    background-color: var(--background-primary) !important;
+}
+body:not(:not(.flat-mode)) .workspace-ribbon:not(.is-collapsed).mod-left:before {
+    border-bottom: 2px var(--background-primary) solid !important;
+    background-color: var(--background-primary) !important;
+}
+
+/* change ribbon color and border when tabs are hovered */
+
+/* note flat color mode */
+body:not(.flat-mode).hide-tabs:has(.workspace-tab-header-container:hover) .workspace-ribbon.mod-left:before,
+body:not(.flat-mode):not(.hide-tabs):not(.hide-ribbon) .workspace-ribbon.mod-left:before,
+body:not(.flat-mode):not(.hide-tabs).hide-ribbon .workspace-ribbon.mod-left:hover:before,
+body:not(.flat-mode):not(.hide-file-tabs).hide-ribbon .workspace-ribbon.mod-left:hover:before {
+    opacity: 1;
+    background-color: var(--titlebar-background-focused) !important;
+    border-bottom: var(--divider-width) solid var(--divider-color) !important;
+}
+/* flat color mode */
+.hide-ribbon:not(.hide-tabs) .workspace-ribbon.mod-left.is-collapsed:hover:before {
+    border-bottom: var(--divider-width) solid var(--divider-color) !important;
+}
+ 
 
 
 
@@ -723,21 +825,46 @@ body:not(.is-mobile):not(:not(.hide-tabs)) .workspace-split.mod-vertical.mod-roo
 
 
 /* file explorer tabs */
-.workspace-split.mod-horizontal.mod-left-split .workspace-tab-header-container {
+body:not(:not(.flat-mode)) .workspace-split.mod-horizontal.mod-left-split .workspace-tab-header-container {
     border-left: 0.5px solid var(--background-modifier-border);
     border-bottom-left-radius: var(--tab-curve);
     margin-left: 2em;
 }
+/* alternate look when not in flat color mode */
+body:not(.flat-mode) .workspace-split.mod-horizontal.mod-left-split .workspace-tab-header-container .workspace-tab-header-container-inner {
+    margin-left: 2em;
+}
+body:not(.hide-file-tabs):not(.flat-mode) .workspace-split.mod-horizontal.mod-left-split .workspace-tab-header-container {
+    background-color: var(--titlebar-background-focused) !important;
+}
+/* color when not in flat color mode and workspace tabs are hidden */
+.hide-tabs:not(.flat-mode) .workspace-split.mod-horizontal.mod-left-split .workspace-tab-header-container {
+    --titlebar-background-focused: var(--background-primary) !important;
+}
+/* also affect the button before it */ .hide-tabs:not(.flat-mode) .workspace-ribbon.side-dock-ribbon.mod-left::before {
+border-bottom: 1px solid var(--background-secondary);
+}
 
+
+/* hide file explorer tabs */
 body:not(:not(.hide-file-tabs)) .workspace-split.mod-horizontal.mod-left-split .workspace-tab-header-container {
     border: none;
     margin: 2px auto;
     transition: all 0.25s !important;
 }
-
+/* change background when not in flat color mode */
+body:not(.flat-mode) .workspace-split.mod-horizontal.mod-left-split .workspace-tab-header-container  {
+    background-color: var(--background-primary);
+}
 body:not(:not(.hide-file-tabs))  .workspace-split.mod-horizontal.mod-left-split .workspace-tab-header-container:not(:hover) {
     opacity: 0;
 }
+
+/* change titlebar background when not in flat color mode and file explorer tabs are hidden */
+.hide-file-tabs:not(.flat-mode) .workspace-tab-header-container {
+    background-color: var(--background-primary) !important;
+}
+
 
 /* style tab close button */
 .workspace-tab-header-inner-close-button svg {
@@ -756,8 +883,12 @@ body:not(:not(.hide-close-tab)) .workspace-tab-header-inner-close-button:not(:ho
 /* transitions */
 .workspace-tab-header-container {
 transition: 0.05s !important;
-background-color: var(--background-primary);
 }
+/* flat mode color */
+body:not(:not(.flat-mode)) .workspace-tab-header-container {
+    background-color: var(--background-primary);
+}
+
 .workspace-tab-header-inner-close-button,
 .workspace-tab-header-inner {
     transition: 0.25s !important;
@@ -797,18 +928,20 @@ body:not(.is-mobile):not(:not(.hide-view-header)):not(.opacity-hide) .view-heade
 
 
 
+
 /* hide titlebar buttons*/
 
  
 body:not(:not(.hide-titlebar-buttons)) .titlebar-button-container:not(:hover) {
 height: 30px;
-width: 20px;
+width: 30px;
+transition-delay: all 1s !important;
 opacity: 0;
 }
 
 
 .titlebar-button-container {
-    transition: .15s !important;
+    transition: all .15s !important;
     background-color: transparent !important;
  }
  
@@ -829,6 +962,7 @@ body:not(.opacity-hide):not(:not(.hide-file-buttons)) .nav-buttons-container:not
 .workspace-leaf-content {
     background-color: var(--background-primary);
 }
+
 
 /* =============== active pane ========= */
 
@@ -856,38 +990,25 @@ body {
 /* overall frontmatter container look */
 .frontmatter-container {
     background-color: var(--background-primary-alt);
-    padding: var(--callout-title-padding);
     border: 1px solid var(--background-modifier-border);
-    border-radius: var(--radius-s);
-    font-family: var(--font-monospace);
     font-size: var(--font-small);
 }
 .frontmatter-container .frontmatter-container-header {
-    border-bottom: none;
     padding: 0px;
-    color: var(--text-faint);
-    font-size: var(--font-smaller);
+    border-bottom: none;
+    font-size: var(--font-small);
     margin-bottom: 8px;
 }
-.frontmatter-container.is-collapsed .frontmatter-container-header {
-    margin-bottom: 0px;
-}
-.frontmatter-container.is-collapsed {
-width: fit-content;
-}
 
-/* frontmatter title */
-.frontmatter-container.is-collapsed .frontmatter-container-header {
-    color: var(--text-muted);
-}
 
 /* labels and values */
 .frontmatter-section-data {
     font-size: var(--font-smaller);
+    font-family: var(--font-secondary);
 }
 .frontmatter-section-label {
     font-size: var(--font-smaller) !important;
-    font-weight: bold;
+    text-transform: capitalize;
 }
 .frontmatter-section-label:after {
     content: ':';
@@ -897,6 +1018,40 @@ width: fit-content;
 /* hide frontmatter */
 .hide-frontmatter-s .frontmatter-container {
    display: none;
+}
+
+
+/* Hover Frontmatter */
+.frontmatter-container:not(:hover) .frontmatter-section {
+    display: none !important;
+}
+.frontmatter-container:hover .frontmatter-section {
+    display: flex !important;
+}
+.frontmatter-container:hover {
+    min-width: 500px;
+    max-width: fit-content;
+    max-height: fit-content !important;
+    padding: 20px;
+    opacity: 1;
+}
+
+.frontmatter-container {
+    opacity: 0.8;
+    max-width: 400px !important;
+    width: fit-content !important;
+    max-height: 45px;
+    padding:  5px 10px;
+    border-radius: var(--radius-m);
+    transition: all 250ms  !important;
+}
+.frontmatter-container-header {
+    margin-bottom: 0px !important;
+    transition: 150ms opacity;
+}
+.frontmatter-container:hover .frontmatter-container-header {
+    display: none;
+    opacity: 0;
 }
 
 /* ======== images ======== */
@@ -1110,6 +1265,25 @@ body {
     --table-column-alt-background: var(--background-primary-alt);
 }
 
+/* ===== row number class ====== */
+.table-row-num  table {
+    counter-reset: rowNumber -1;
+  }
+
+.table-row-num  table tr::before {
+    counter-increment: rowNumber +1;
+    content: counter(rowNumber) ".";
+    text-align: left;
+    font-size: calc(var(--font-text-size) - 2px);
+    margin-right: 5px;
+    margin-left: 10px;
+    color: var(--text-faint);
+  }
+.table-row-num table .table-view-tr-header::before,
+.table-row-num table thead tr::before {
+    content: "#" !important; 
+    color: var(--text-normal);
+}
 
 /* =============== Code and Codeblocks ============= */
 
@@ -1129,13 +1303,25 @@ body {
 /* ================= highlights ============== */
 .markdown-rendered mark, .cm-highlight
  {
-    background-color: transparent !important;
-    text-decoration: underline 2.5px;
-    text-underline-offset: 4px;
-    text-decoration-color: var(--text-accent);
-    font-weight: bold;
+    padding: 0 0.35em 0 0.5em;
+    border-radius: 0.35em 0.8em;
     font-family: var(--font-secondary);
 }
+.cm-active .cm-highlight {
+    border-radius: 0;
+}
+
+mark:not([class*=hltr]), .cm-highlight {
+    background: linear-gradient(to left, hsla(var(--color-accent-hsl), 0.15), hsla(var(--color-accent-hsl), 0.4));
+    background-color: transparent !important;
+}
+.theme-light mark:not([class*=hltr]), .theme-light .cm-highlight {
+    color: hsl(var(--accent-h), var(--accent-s), 30%, 1);
+}
+.theme-dark mark:not([class*=hltr]), .theme-dark .cm-highlight {
+    color: hsl(var(--accent-h), var(--accent-s), 90%, 1);
+}
+
 .search-result-file-matched-text,
 .suggestion-highlight {
    background-color: transparent !important;
@@ -1337,7 +1523,9 @@ body {
     --callout-content-background: var(--background-primary-alt);
     --callout-title-size: 0.98em;
     --callout-bug: var(--color-pink-rgb);
+    --callout-blend-mode: normal !important;
 }
+
 .callout {
     background-color: rgba(var(--callout-color), 0.17);
     border: 1px rgba(var(--callout-color), var(--c-30)) solid;
@@ -1605,9 +1793,7 @@ body {
 .markdown-reading-view .inline-title, .inline-title {
 text-align: var(--inline-title-align);
 }
-.markdown-reading-view .inline-title {
-    text-transform: capitalize;
-}
+
 
 /* increase heading margins */
 .markdown-rendered h1, .markdown-rendered h2,
@@ -1735,6 +1921,12 @@ display: block;
 .indent-p .markdown-rendered p {
     text-indent: var(--p-indent);
 }
+.justify-p .markdown-rendered p {
+    text-align: justify !important;
+}
+body {
+    letter-spacing: var(--letter-spacing);
+}
 
 p {
     margin-block-start: var(--p-margin);
@@ -1751,17 +1943,51 @@ p {
 body {
     --link-decoration-thickness: 1.5px;
     --link-font: var(--font-secondary);
-    --link-decoration-color: hsla(var(--color-accent-hsl), 0.5);
+    --link-decoration-color: var(--link-color);
     --link-color: var(--color-accent-1);
 }
-a {
+a, .cm-hmd-internal-link, .cm-hmd-barelink {
     font-family: var(--link-font);
-    text-underline-offset: 3.5px;
     text-decoration-color: var(--link-decoration-color);
 }
 a:hover {
     text-decoration-color: var(--link-color-hover);
 }
+
+body {
+    --link-decoration-color-active: hsla(var(--interactive-accent-hsl), 0.5);
+    }
+
+    /* fade out links with aliases */
+    .cm-link-has-alias,
+    .cm-hmd-internal-link.cm-link-alias-pipe {
+        color: var(--text-faint) !important;
+    }
+    
+    /* ==== dark mode active line glow effect ==== */
+    /* links on active line */
+    .active-line-link-glow.theme-dark:not(:has(.active-sentence)) .cm-active .cm-hmd-internal-link, /* active cm-line when active sentence highlight plugin is not installed */
+    .active-line-link-glow.theme-dark .cm-hmd-internal-link:has(.active-sentence), /* active sentence for when plugin is installed */
+    .active-line-link-glow.theme-dark .cm-hmd-internal-link:hover,
+    .theme-dark .cm-hmd-barelink,
+    .link-glow.theme-dark .cm-hmd-internal-link {
+        --link-color: hsl(var(--accent-h), var(--accent-s), 88%) !important;
+        color: hsl(var(--accent-h), var(--accent-s), 88%) !important;
+        text-shadow: 0px 0px 40px hsl(var(--accent-h), var(--accent-s), 75%) , 0px 0px 10px hsl(var(--accent-h), var(--accent-s),50%) ;
+        text-decoration: underline var(--link-decoration-color-active) solid var(--link-decoration-thickness) !important;
+        opacity: 1;
+        --link-unresolved-opacity: 1;
+    }
+    .theme-dark:not(:has(.active-sentence)) .cm-active .cm-underline,
+    .theme-dark .cm-hmd-internal-link:has(.active-sentence) .cm-underline,
+    .link-glow.theme-dark .cm-hmd-internal-link .cm-underline {
+        color: hsl(var(--accent-h), var(--accent-s), 88%) !important;
+    }
+
+   
+
+    
+
 /* =============== lists ============ */
 body {
     --list-marker-color: var(--text-muted);
@@ -2646,7 +2872,7 @@ select:focus, .dropdown:focus {
 
 /* remove weird border */
 .modal {
-    border: none;
+    border: 1px solid var(--background-modifier-border);
 }
 
 /* transition animation */
@@ -2669,6 +2895,24 @@ body {
    --prompt-max-height:40vw;
 }
 
+
+/* ====== Empty State ====== */
+.empty-state-title {
+    font-size: 2em;
+    font-weight: bold;
+}
+.empty-state-action {
+    background-color: hsla(var(--color-accent-hsl), 0.1);
+    margin-bottom: 0.5em;
+    padding: 3px 10px;
+    border: 1px solid hsla(var(--color-accent-hsl), 0.5);
+    border-radius: var(--radius-s);
+}
+.empty-state-action.mod-close:hover {
+    background-color: rgba(var(--color-red-rgb), 0.1);
+    border: 1px solid rgba(var(--color-red-rgb), 0.5);
+    color: var(--color-red);
+}
 
 
 /* ====== more compact settings style ====== */
@@ -2776,7 +3020,6 @@ body {
 
 
 
-
 /* ============= backlinks ============== */
 
 /* remove collapse indicator and details for backlinks */
@@ -2817,7 +3060,6 @@ body:not(:not(.simple-backlinks)) .embedded-backlinks .tree-item-self:not([aria-
     font-size: var(--font-ui-small);
     text-decoration: var(--link-decoration);
     font-family: var(--link-font);
-    text-underline-offset: 3.5px;
     text-decoration-color: var(--link-decoration-color);
 }
 body:not(:not(.simple-backlinks)) .embedded-backlinks .tree-item-self:not([aria-label]) .tree-item-inner:hover {
@@ -2842,6 +3084,8 @@ body:not(:not(.simple-backlinks)) .embedded-backlinks .tree-item-self:not([aria-
 body:not(:not(.simple-backlinks)) .embedded-backlinks .search-empty-state {
     display: none;
 }
+
+
 
 /* =============== search results =================== */
 .search-result {
@@ -2973,7 +3217,28 @@ font-size: inherit;
     display: none !important;
 }
 
-
+/* =============== 2Hop Links Plus =================== */
+body {
+--bg-box-top: var(--color-accent-2) !important;
+--bg-box: rgba(255, 255, 255, 0.14) !important;
+}
+.twohop-links-box {
+    border-radius: var(--radius-s);
+    box-shadow: var(--shadow-s);
+    border: 1px solid var(--background-modifier-border);
+}
+.twohop-links-box-preview div {
+    color: var(--text-faint);
+}
+.clean-twohop .twohop-links-box-preview div { /* clean 2hop links class */
+    display: none;
+}
+.twohop-links-box-preview {
+    overflow: scroll;
+}
+.twohop-links-box-title {
+    text-align: center;
+}
 /* =================== Color Schemes ================== */
 
 /* color scheme variable systen */
@@ -3091,17 +3356,17 @@ body {
     
         --c-05: calc(var(--base-c-low) - 1%);
         --c-10: calc(var(--base-c-low) - 2%);
-        --c-20: calc(var(--base-c-low) - 2%);
+        --c-20: calc(var(--base-c-low) - 3.5%);
     
         --c-25: calc(var(--base-c-low) - 19%);
         --c-30: calc(var(--base-c-low) - 80%);
         --c-35: calc(var(--base-c-low) - 80%);
         --c-40: calc(var(--base-c-low) - 10%);
     
-        --c-50: calc(var(--text-base) + 45%);
+        --c-50: calc(var(--text-base) + 28%);
         --c-60: calc(var(--text-base) + 19%);
-        --c-70: calc(var(--text-base) + 26%);
-        --c-100: calc(var(--text-base) + 12%);
+        --c-70: calc(var(--text-base) + 14%);
+        --c-100: calc(var(--text-base) + 7% );
 
         --color-base-10: hsl(var(--theme-tint), calc(var(--theme-sat) / 1.2) , var(--c-10)) !important;
         --color-base-20: hsl(var(--theme-tint-secondary), calc(var(--theme-sat-secondary) * 1.2) , var(--c-20));
@@ -3123,17 +3388,17 @@ body {
 
     --c-00:  var(--base-c-bg);
     --c-05: calc(var(--base-c-bg) - 2%);
-    --c-10: calc(var(--base-c-bg) - 2%);
-    --c-20: calc(var(--base-c-bg) - 4%);
+    --c-10: calc(var(--base-c-bg) - 6%);
+    --c-20: calc(var(--base-c-bg) - 7%);
 
     --c-25: calc(var(--base-c) - 8%);
     --c-30: calc(var(--base-c) - 70%);
     --c-35: calc(var(--base-c) - 70%);
     --c-40: calc(var(--base-c) - 10%);
 
-    --c-50: calc(var(--text-base) + 30%);
+    --c-50: calc(var(--text-base) + 20%);
     --c-60: calc(var(--text-base) + 15%);
-    --c-70: calc(var(--text-base) + 20%);
+    --c-70: calc(var(--text-base) + 12%);
     --c-100: calc(var(--text-base) + 5%);
 
     --color-base-30:  hsl(var(--theme-tint), calc(var(--theme-sat-text) + 5%), 85%) !important;
@@ -3141,10 +3406,7 @@ body {
     --c-20: calc(var(--base-c-bg) - 5%);
 }
 
-.medium-contrast-light.theme-light:not(.theme-everforest):not(.theme-catpp):not(.theme-nord-s):not(.theme-gruvbox-s):not(.theme-rose-pine):not(.theme-solarized-s) {
-    --c-05: calc(var(--base-c-bg) - 4.5%);
-    --c-10: calc(var(--base-c-bg) - 4.5%);
-}
+
 
 /* high contrast  */
 
@@ -3160,7 +3422,7 @@ body {
     /* these represent hsl "l" values. */
     --c-00:  var(--base-c-high);
     --c-05: calc(var(--base-c-high) - 5%);
-    --c-10: calc(var(--base-c-high) - 5%);
+    --c-10: calc(var(--base-c-high) - 7%);
     --c-20: calc(var(--base-c-high) - 7%);
 
     --c-25: calc(var(--base-c) - 26%);
@@ -3168,7 +3430,7 @@ body {
     --c-35: calc(var(--base-c) - 28%);
     --c-40: calc(var(--base-c) - 20%);
 
-    --c-50: calc(var(--text-base) + 35%);
+    --c-50: calc(var(--text-base) + 18%);
     --c-60: calc(var(--text-base) + 12%);
     --c-70: calc(var(--text-base) + 26%);
     --c-100: calc(var(--text-base) - 1%);
@@ -3181,7 +3443,8 @@ body {
 /* ==== dark theme contrast == */
 
 /* medium contrast */
-.theme-dark:not(.low-contrast-dark):not(.high-contrast-dark), .theme-dark.medium-contrast-dark {
+.theme-dark:not(.low-contrast-dark):not(.high-contrast-dark), .theme-dark.medium-contrast-dark,
+.theme-dark {
     /* base contrast */
     /* this is the lightest "l" value */
     --base-c-m: calc(var(--base-c) - 5%);
@@ -3190,12 +3453,12 @@ body {
     /* the higher the contrast, the greater the range between values. */
     --c-00:  var(--base-c-m);
     --c-05: calc(var(--base-c-m) + 1%);
-    --c-10: calc(var(--base-c-m) + 2.5%);
-    --c-20: calc(var(--base-c-m) - 2%);
+    --c-10: calc(var(--base-c-m) + 5%);
+    --c-20: calc(var(--base-c-m) - 4%);
 
     --c-25: calc(var(--base-c-m) + 3%);
     --c-30: calc(var(--base-c-m) + 3%);
-    --c-35: calc(var(--base-c-m) + 5%);
+    --c-35: calc(var(--base-c-m) + 19%);
     --c-40: calc(var(--base-c-m) + 18%);
 
     --c-50: calc(var(--base-c-m) + 60%);
@@ -3216,38 +3479,37 @@ body {
     /* the higher the contrast, the greater the range between values. */
     --c-00:  var(--base-c-m);
     --c-05: calc(var(--base-c-m) + 1%);
-    --c-10: calc(var(--base-c-m) + 5%);
-    --c-20: calc(var(--base-c-m) - 2.7%) !important;
-
+    --c-10: calc(var(--base-c-m) + 10%);
+    --c-20: calc(var(--base-c-m) - 2.7%);
     --c-25: calc(var(--base-c-m) + 3%);
     --c-30: calc(var(--base-c-m) + 6%);
-    --c-35: calc(var(--base-c-m) + 29%);
+    --c-35: calc(var(--base-c-m) + 25%);
     --c-40: calc(var(--base-c-m) + 30%);
 
     --c-50: calc(var(--base-c-m) + 75%);
     --c-60: calc(var(--base-c-m) + 78%);
     --c-70: calc(var(--base-c-m) + 79%);
     --c-100: calc(var(--base-c-m) + 84%);
-
-
 }
+
+
 /* low contrast */
 .theme-dark.low-contrast-dark {
     /* base contrast */
     /* this is the lightest "l" value */
     --base-c: 0%;
-    --base-c-m: calc(var(--base-c) + 1%);
+    --base-c-m: calc(var(--base-c) + 5%);
 
     /* these represent hsl "l" values. */
     /* the higher the contrast, the greater the range between values. */
     --c-00:  var(--base-c-m);
     --c-05: calc(var(--base-c-m) + 1%);
-    --c-10: calc(var(--base-c-m) + 2%);
-    --c-20: calc(var(--base-c-m) + 1%) !important;
+    --c-10: calc(var(--base-c-m) + 5%);
+    --c-20: calc(var(--base-c-m) - 3%) !important;
 
     --c-25: calc(var(--base-c-m) +  2%);
     --c-30: calc(var(--base-c-m) + 3%);
-    --c-35: calc(var(--base-c-m) + 12%);
+    --c-35: calc(var(--base-c-m) + 15%);
     --c-40: calc(var(--base-c-m) + 12%);
 
     --c-50: calc(var(--base-c-m) + 47%);
@@ -3255,6 +3517,34 @@ body {
     --c-70: calc(var(--base-c-m) + 55%);
     --c-100: calc(var(--base-c-m) + 60%);
 }
+
+
+/* higher contrast (jet black) */
+.theme-dark.true-black-dark {
+    /* base contrast */
+     /* this is the lightest "l" value */
+     --base-c-m: 1% !important; 
+ 
+     /* these represent hsl "l" values. */
+     /* the higher the contrast, the greater the range between values. */
+     --c-00:  var(--base-c-m);
+     --c-05: calc(var(--base-c-m) + 2%);
+     --c-10: calc(var(--base-c-m) + 15%);
+     --c-20: calc(var(--base-c-m) + 8%) !important;
+ 
+     --c-25: calc(var(--base-c-m) + 3%);
+     --c-30: calc(var(--base-c-m) + 10%) !important;
+     --c-35: calc(var(--base-c-m) + 50%) !important;
+     --c-40: calc(var(--base-c-m) + 30%);
+ 
+     --c-50: calc(var(--base-c-m) + 79%) !important;
+     --c-60: calc(var(--base-c-m) + 80%) !important;
+     --c-70: calc(var(--base-c-m) + 82%) !important;
+     --c-100: 80% !important;
+
+ }
+ 
+ 
 
 /* == light theme == */
 /* this structure is used for all color schemes. */
@@ -3316,15 +3606,8 @@ body {
 --text-muted: var(--color-base-50) !important;
 --background-modifier-form-field: var(--color-base-10);
 --background-modifier-message: var(--color-accent-1);
+--background-modifier-border: var(--color-base-35);
 
-}
-
-/* dark themes where the secondary color is lighter than the base color */
-.theme-rose-pine.theme-dark,
-.theme-everforest.theme-dark {
-    --c-20: calc(var(--base-c) + 1%);
-    --c-25: calc(var(--base-c) + 3%);
-    
 }
 
 
@@ -3416,7 +3699,7 @@ body {
     --theme-sat-secondary: 70%;
 }
 .theme-dark.theme-solarized-s {
-    --base-c: 15%;
+    --base-c: 23%;
     --theme-sat: 20%;
     --theme-tint: 180;
     --theme-tint-secondary: 194;
@@ -3424,6 +3707,16 @@ body {
     --accent-h: 18 !important;
     --accent-s: 80% !important;
     --accent-l: 44% !important;
+}
+.theme-dark.theme-solarized-s.low-contrast-dark {
+    --base-c: 15%;
+}
+.theme-dark.theme-solarized-s.low-contrast-dark,
+.theme-dark.theme-solarized-s.medium-contrast-dark {
+    --color-red: #d86866;
+    --accent-h: 18 !important;
+    --accent-s: 80% !important;
+    --accent-l: 55% !important;
 }
 .theme-solarized-s.colorful-headings-s {
     --h1-color: var(--color-cyan);
@@ -3438,7 +3731,7 @@ body {
 .theme-rose-pine {
     --theme-tint: 32;
     --theme-sat: 57%;
-    --theme-tint-secondary: 32;
+    --theme-tint-secondary: 31.5;
     --theme-sat-secondary: 40%;
     --theme-tint-text: 248;
     --theme-sat-text: 18%;
@@ -3471,7 +3764,7 @@ body {
     --base-c: 96%;
 }
 .theme-dark.theme-rose-pine {
-    --base-c: 18%;
+    --base-c: 30%;
     --theme-tint: 245;
     --theme-tint-secondary: 248;
     --theme-sat-secondary: 13%;
@@ -3497,12 +3790,12 @@ body {
     --color-purple-rgb: 196, 167, 231;
 }
 .theme-rose-pine.theme-dark.colorful-headings-s {
-    --h1-color: var(--color-purple);
-    --h2-color: var(--color-pink);
-    --h3-color: var(--color-orange);
-    --h4-color: var(--color-yellow);
-    --h5-color: var(--color-green);
-    --h6-color: var(--color-cyan);
+    --h6-color: var(--color-purple);
+    --h1-color: var(--color-pink);
+    --h2-color: var(--color-orange);
+    --h3-color: var(--color-yellow);
+    --h4-color: var(--color-green);
+    --h5-color: var(--color-cyan);
 }
 .theme-rose-pine.theme-light.colorful-headings-s {
     --h1-color: var(--color-red);
@@ -3520,12 +3813,12 @@ body {
     --accent-s: 99% !important;
     --accent-l: 32% !important;
 
-    --theme-tint: 45;
-    --theme-sat: 52%;
-    --theme-tint-secondary: 48;
+    --theme-tint: 54;
+    --theme-sat: 55%;
+    --theme-tint-secondary: 55;
     --theme-sat-secondary: 40%;
     --theme-tint-text: 170;
-    --theme-sat-text: 12%;
+    --theme-sat-text: 15%;
 
     --color-red: rgb(234, 93, 90);
     --color-pink: rgb(248, 105, 162);
@@ -3545,15 +3838,27 @@ body {
     --color-purple-rgb: 223, 105, 186;
 }
 .theme-light.theme-everforest {
-    --base-c: 94%;
+    --base-c: 89%;
     --text-base: 25%;
+}
+.theme-light.theme-everforest.low-contrast-light {
+    --base-c: 91%;
+    --theme-sat: 50%;
+    --theme-sat-secondary: 32%;
+    --theme-tint-secondary: 55;
+    --theme-tint: 55;
+}
+.theme-light.theme-everforest.high-contrast-light {
+    --theme-tint: 55;
+    --base-c: 90%;
+    --theme-tint-secondary: 55;
 }
 .theme-dark.theme-everforest {
     --accent-h: 68 !important;
     --accent-s: 99% !important;
     --accent-l: 32% !important;
 
-    --base-c: 20%;
+    --base-c: 25%;
     --theme-tint-text: 203;
     --theme-sat-text: 15%;
     --theme-tint: 47;
@@ -3578,7 +3883,12 @@ body {
     --color-blue-rgb: 58, 148, 197;
     --color-purple-rgb: 223, 105, 186;
 }
-
+.theme-dark.theme-everforest.low-contrast-dark {
+    --base-c: 17%;
+}
+.theme-dark.theme-everforest.high-contrast-dark {
+    --base-c: 26%;
+}
 /* ==== Gruvbox Theme ==== */
 
 .theme-gruvbox-s {
@@ -3648,9 +3958,9 @@ body {
     --accent-l: 63% !important; 
     
     --theme-tint: 213;
-    --theme-sat: 20%;
+    --theme-sat: 25%;
     --theme-tint-secondary: 213;
-    --theme-sat-secondary: 25%;
+    --theme-sat-secondary: 30%;
     --theme-tint-text: 222;
     --theme-sat-text: 15%;
 
@@ -3680,19 +3990,19 @@ body {
     --base-c: 98%;
 }
 .theme-dark.theme-nord-s {
-    --base-c: 20%;
+    --base-c:30%;
     --theme-tint-text: 218;
-    --theme-sat-text: 20%;
+    --theme-sat-text: 17%;
     --theme-sat-secondary: 15%;
     --accent-h: 193 !important;
     --accent-s: 43% !important;
     --accent-l: 67% !important; 
     --color-red-rgb: 191, 97, 106;
-    --color-red: #BF616A;
+    --color-red: #dc8890;
     --color-green-rgb: 163, 190, 140;
     --color-green: #A3be8c;
     --color-orange-rgb: 208, 135, 112;
-    --color-orange: #d08770;
+    --color-orange: #db9681;
     --color-yellow-rgb: 235, 203, 139;
     --color-yellow: #ebcb8b;
     --color-cyan-rgb: 136, 192, 208;
@@ -3700,10 +4010,16 @@ body {
     --color-blue-rgb: 129, 161, 193;
     --color-blue: #81a1c1;
     --color-purple-rgb: 94, 129, 172;
-    --color-purple: #5e81AC;
+    --color-purple: #6e8fb6;
     --color-pink-rgb: 180, 142, 173;
     --color-pink: #b48ead;
-    
+}
+.theme-dark.theme-nord-s.low-contrast-dark {
+    --base-c: 28%;
+    --theme-sat-text: 18%;
+    --color-red: #e19199;
+    --color-orange: #e6a18b;
+    --color-purple: #aab2cd;
 }
 .theme-nord-s.colorful-headings-s,
 .theme-everforest.colorful-headings-s {
@@ -3742,7 +4058,8 @@ body {
 .theme-catpp:not(.red-accent):not(.orange-accent):not(.yellow-accent):not(.green-accent):not(.cyan-accent):not(.blue-accent):not(.purple-accent):not(.pink-accent) {
     --color-accent-1: var(--color-purple);
     --color-accent-2: var(--color-pink);
-    --interactive-accent: var(--color-blue);
+    --interactive-accent: var(--rose);
+    --text-on-accent: var(--background-primary) !important;
     --text-accent: var(--color-green);
     --link-color: var(--color-purple);
     --link-color-hover: var(--color-pink);
@@ -3766,6 +4083,7 @@ body {
     --color-purple-rgb: 114, 135, 253;
     --color-pink: #ea76cb;
     --color-pink-rgb: 234, 118, 203;
+    --rose: #dc8a78;
 }
 .theme-catpp.theme-light.colorful-headings-s {
     --h1-color: var(--color-purple);
@@ -3776,12 +4094,13 @@ body {
     --h6-color: var(--color-orange);
 }
 .theme-dark.theme-catpp {
-    --base-c: 18%;
+    --base-c: 23%;
 
-    --theme-tint-text: 232;
-    --theme-sat-text: 23%;
-    --theme-tint: 227;
-    --theme-sat: 40%;
+    --theme-tint-text: 230;
+    --theme-sat-text: 22%;
+    --theme-sat-secondary: 17%;
+    --theme-tint: 230;
+    --theme-sat: 57%;
 
     --accent-h: 193 !important;
     --accent-s: 43% !important;
@@ -3803,6 +4122,20 @@ body {
     --color-purple: #b7bdf8;
     --color-pink-rgb: 245, 189, 230;
     --color-pink: #f5bde6;  
+    --rose: #f4dbd6;
+}
+.theme-catpp.theme-dark.low-contrast-dark {
+    --base-c: 18%; 
+    --theme-sat-text: 17%;
+    --theme-tint-text: 228;
+    --theme-sat: 50%;
+}
+.theme-catpp.theme-dark.high-contrast-dark {
+    --base-c: 25%;
+    --theme-sat-text: 20%;
+    --theme-tint-text: 240;
+    --theme-sat: 80%;
+    --c-100: 90% !important;
 }
 .theme-catpp.theme-dark.colorful-headings-s {
     --h1-color: #7dc4e4;
@@ -3819,7 +4152,13 @@ body {
 
 
 .theme-light.theme-ayu-s {
-    --text-base: 30%;
+    --text-base: 40%;
+    --theme-tint: 210;
+    --theme-sat: 50%;
+    --theme-tint-secondary: 210;
+    --theme-sat-secondary: 25%;
+    --theme-tint-text: 210;
+    --theme-sat-text: 10%;
     --accent-h: 35 !important;
     --accent-s: 100% !important;
     --accent-l: 60% !important; 
@@ -3846,13 +4185,13 @@ body {
     --accent-h: 40 !important;
     --accent-s: 100% !important;
     --accent-l: 70% !important;
-    --base-c: 24%;
+    --base-c: 22%;
     --theme-tint-text: 223;
-    --theme-sat-text: 24%;
+    --theme-sat-text: 22%;
     --theme-tint-secondary: 223;
     --theme-sat-secondary: 25%;
-    --theme-sat: 13%;
-    --theme-tint: 40;
+    --theme-sat: 5%;
+    --theme-tint: 20;
     --color-red-rgb: 242, 135, 121;
     --color-red: rgb(242, 135, 121);
     --color-green-rgb: 213, 255, 128;
@@ -4127,6 +4466,7 @@ color: var(--text-accent);
     border-right: 1px solid var(--background-modifier-border);
     border-left: 1px solid var(--background-modifier-border);
     border-radius: var(--radius-m) var(--radius-m) 0 0 ;
+    
 }
 
 .timeline.body-3 .title * {
@@ -4174,16 +4514,38 @@ div.mk-file-context-component:last-child:has(.mk-file-context-row) {
     transform: scale(1.1) !important;
   }
 
-body:not(:not(.hover-context)) .mod-header.mk-header:not(:hover) div.mk-file-context-component:last-child  {
+body:not(:not(.hover-context)) .mk-inline-context:not(:hover) div.mk-file-context-component:last-child  {
 height: 0;
 padding: 0;
 overflow: hidden;
-opacity: 0;
+visibility: hidden;
 }
- 
+
+/* "Properties" placeholder that disappears on hover */
+/*
+body:not(:not(.hover-context)) .mod-header.mk-header:not(:hover) div.mk-file-context-component:last-child::before {
+Content: "Properties";
+display: block;
+position: absolute;
+margin-top: -20px;
+z-index: 100;
+height: fit-content;
+border-radius: var(--radius-s);
+border: 1px solid var(--background-modifier-border);
+background-color: var(--background-primary-alt);
+padding: 2px 6px !important;
+visibility: visible !important;
+overflow: visible !important;
+}
+*/ 
+
 /* hide icon placeholder in reading mode when there is no icon */
 .markdown-reading-view .mk-file-icon-placeholder {
-    display: none;
+  padding: 0 !important;
+  margin-bottom: 48px !important;
+  height: 0 !important;
+  visibility: hidden;
+  width: 0 !important;
 }
   
 /* @settings
@@ -4292,6 +4654,15 @@ settings:
             -
                 label: High Contrast
                 value: high-contrast-dark
+            -
+                label: Jet Black
+                value: true-black-dark
+    -
+        title: Flat Color Mode
+        id: flat-mode
+        description: Make the appearance flat and less colorful. Optimal for hiding elements and increasing focus!
+        type: class-toggle
+        default: true
     -
         id: advanced-heading
         title: Advanced
@@ -4590,6 +4961,12 @@ settings:
                 label: Monospace Font
                 value: var(--font-monospace)
     -
+        id: pure-md
+        title: Pure Markdown Mode
+        description: Remove as many WYSIWYG elements as possible in source mode.
+        type: class-toggle
+        default: true
+    -
         id: text-heading
         title: Text
         type: heading
@@ -4622,6 +4999,11 @@ settings:
     -
         id: indent-p
         title: Indent Paragraphs
+        type: class-toggle
+        default: false
+    -
+        id: justify-p
+        title: Justify Paragraphs
         type: class-toggle
         default: false
     -
@@ -4915,6 +5297,24 @@ settings:
         type: variable-text
         default: 'iA Writer Mono S'
     -
+        id: font-weight-default
+        title: Font Weight
+        type: variable-number-slider
+        default: 400
+        step: 50
+        min: 100
+        max: 900
+    -
+        id: letter-spacing
+        title: Letter Spacing
+        type: variable-number-slider
+        default: 0
+        step: 0.1
+        min: 0
+        max: 2
+        format: px
+       
+    -
         id: bold-italic-colors-heading
         title: Bold & Italic Colors
         type: heading
@@ -5089,6 +5489,23 @@ settings:
                 label: Monospace Font
                 value: var(--font-monospace)
     -
+        id: h1-style
+        title: Style
+        type: variable-select
+        default: Normal
+        options:
+            - Normal
+            - Italic
+    -
+        id: h1-variant
+        title: Variant
+        type: variable-select
+        default: Normal
+        options:
+            - Normal
+            - Small-caps
+            - All-small-caps
+    -
         id: h1-weight
         title: Weight
         type: variable-select
@@ -5153,35 +5570,22 @@ settings:
         type: variable-text
         default: 1.22em
     -
-        id: h1-weight
-        title: Weight
+        id: h2-style
+        title: Style
         type: variable-select
-        default: var(--h-weight-s)
-        options: 
-            -
-                label: Default Heading Weight
-                value: var(--h-weight-s)
-            -
-                label: Black
-                value: 900
-            -
-                label: Extra Bold
-                value: 800
-            -
-                label: Bold 
-                value: 700
-            -   
-                label: Semi Bold
-                value: 600
-            -
-                label: Medium
-                value: 500
-            -   
-                label: Normal
-                value: 400
-            -
-                label: Light
-                value: 300
+        default: Normal
+        options:
+            - Normal
+            - Italic
+    -
+        id: h2-variant
+        title: Variant
+        type: variable-select
+        default: Normal
+        options:
+            - Normal
+            - Small-caps
+            - All-small-caps
     -
         id: h2-weight
         title: Weight
@@ -5266,6 +5670,23 @@ settings:
                 label: Monospace Font
                 value: var(--font-monospace)
     -
+        id: h3-style
+        title: Style
+        type: variable-select
+        default: Normal
+        options:
+            - Normal
+            - Italic
+    -
+        id: h3-variant
+        title: Variant
+        type: variable-select
+        default: Normal
+        options:
+            - Normal
+            - Small-caps
+            - All-small-caps
+    -
         id: h3-weight
         title: Weight
         type: variable-select
@@ -5347,6 +5768,23 @@ settings:
             -
                 label: Monospace Font
                 value: var(--font-monospace)
+    -
+        id: h4-style
+        title: Style
+        type: variable-select
+        default: Normal
+        options:
+            - Normal
+            - Italic
+    -
+        id: h4-variant
+        title: Variant
+        type: variable-select
+        default: Normal
+        options:
+            - Normal
+            - Small-caps
+            - All-small-caps
     -
         id: h4-weight
         title: Weight
@@ -5430,6 +5868,23 @@ settings:
                 label: Monospace Font
                 value: var(--font-monospace)
     -
+        id: h5-style
+        title: Style
+        type: variable-select
+        default: Normal
+        options:
+            - Normal
+            - Italic
+    -
+        id: h5-variant
+        title: Variant
+        type: variable-select
+        default: Normal
+        options:
+            - Normal
+            - Small-caps
+            - All-small-caps
+    -
         id: h5-weight
         title: Weight
         type: variable-select
@@ -5511,6 +5966,23 @@ settings:
             -
                 label: Monospace Font
                 value: var(--font-monospace)
+    -
+        id: h6-style
+        title: Style
+        type: variable-select
+        default: Italic
+        options:
+            - Normal
+            - Italic
+    -
+        id: h6-variant
+        title: Variant
+        type: variable-select
+        default: Normal
+        options:
+            - Normal
+            - Small-caps
+            - All-small-caps
     -
         id: h6-weight
         title: Weight
@@ -5605,6 +6077,23 @@ settings:
             - right
 
     -
+        id: inline-title-style
+        title: Style
+        type: variable-select
+        default: Normal
+        options:
+            - Normal
+            - Italic
+    -
+        id: inline-title-variant
+        title: Variant
+        type: variable-select
+        default: Normal
+        options:
+            - Normal
+            - Small-caps
+            - All-small-caps
+    -
         id: inline-title-weight
         title: Font Weight
         default: '700'
@@ -5621,6 +6110,21 @@ settings:
         type: variable-text
         default: var(--font-secondary)
         description: Secondary font by default. You can reference other fonts with var(--font-text), var(--font-monospace), 'Noto Sans', and so on and so forth.
+    -
+        id: link-glow-effect-in-dark-mode
+        title: Link Glow Effect in Dark Mode
+        type: class-select
+        default: active-only
+        options:
+            -
+                value: active-only
+                label: When Typing Links
+            -
+                value: active-line-link-glow 
+                label: On Active Line/Sentence
+            -
+                value: link-glow
+                label: All Links
     -
         id: tags-heading
         title: Tags
@@ -5754,6 +6258,11 @@ settings:
     -
         id: alternate-table-columns
         title: Alternating Table Column Colors
+        type: class-toggle
+        default: false
+    -
+        id: table-row-num
+        title: Row Numbers
         type: class-toggle
         default: false
     -
@@ -6117,6 +6626,11 @@ settings:
         type: class-toggle
         default: false
     -
+        id: cursor-glow
+        title: Glowing Cursor in Dark Mode
+        type: class-toggle
+        default: true
+    -
         id: cursor-width
         title: Cursor Thickness
         description: Control the cursor thickness
@@ -6174,6 +6688,18 @@ settings:
         title: Hide Inline Contexts until Hover
         type: class-toggle
         default: true
+    -
+        id: 2hop-links-plus-heading
+        title: 2Hop Links Plus 
+        type: heading
+        level: 3
+        collapsed: true
+    -
+        id: clean-twohop
+        title: Clean 2Hop Links
+        description: A more minimalistic view for 2Hop Links.
+        type: class-toggle
+        default: false
     -
         id: modals-heading
         title: Modals
