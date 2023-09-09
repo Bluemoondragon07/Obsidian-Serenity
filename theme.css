@@ -115,7 +115,7 @@
 /* font bundles */
 body, .ia-font {
     --font-text-theme: 'iA Writer Quattro S', 'Nanum Gothic Coding', "MS PGothic",'PingFang SC', '蘋方', '蘋方 SC', "Microsoft YaHei Light", ui-sans-serif, sans-serif;
-    --font-interface: var(--font-text-theme);
+    --font-interface-theme: var(--font-text-theme);
     --font-secondary: 'iA Writer Duo S';
     --font-monospace: 'iA Writer Mono S';
 }
@@ -997,6 +997,7 @@ body {
     border: 1px solid var(--background-modifier-border);
     font-size: var(--font-small);
     display: block !important;
+    
 }
 .frontmatter-container .frontmatter-container-header {
     padding: 0px;
@@ -1018,56 +1019,88 @@ body {
     margin-right: 1em;
 }
 /* hide frontmatter */
-.hide-frontmatter-s .frontmatter-container {
+.hide-frontmatter-s .metadata-container {
    display: none;
 }
+
 /* Hover Frontmatter */
-.frontmatter-container:not(:hover) .frontmatter-section {
-    display: none !important;
+.metadata-container:not(:hover) .metadata-content, .metadata-container:not(:hover) .metadata-property, .metadata-container:not(:hover) .metadata-add-button.text-icon-button {
+    display: none;
 }
-.frontmatter-container:hover .frontmatter-section {
+.metadata-container.is-collapsed:hover .metadata-content {
+    display: unset !important;
+}
+ .metadata-container.is-collapsed:hover .metadata-properties .metadata-property  {
     display: flex !important;
 }
-.frontmatter-container:hover {
-    min-width: 500px;
-    max-width: fit-content;
-    max-height: fit-content !important;
-    padding: 20px;
-    opacity: 1;
-}
-.frontmatter-container {
-    opacity: 0.8;
-    max-width: 400px !important;
-    width: fit-content !important;
-    max-height: 45px;
-    padding:  5px 10px;
-    border-radius: var(--radius-m);
-    transition: all 250ms  !important;
-}
-.frontmatter-container-header {
-    margin-bottom: 0px !important;
-    transition: 150ms opacity;
-}
-.frontmatter-container:hover .frontmatter-container-header {
-    display: none;
-    opacity: 0;
-}
-
-
-/* ===== Properties (New Frontmatter) ========== */
 .metadata-container {
-background-color: var(--background-secondary);
-border-radius: var(--radius-m);
-border: 1px solid var(--background-modifier-border);
-padding: 1em 2.5em;
-font-size: var(--font-ui-small);
+    padding:  10px 8px;
+    position: absolute;
+    min-width: 500px;
+    margin-top: -15px !important;
+    height: fit-content;
+    border: 1px solid transparent;
+    border-radius: var(--radius-m);
+    transition: all 0.1s !important;
+    font-size: var(--font-ui-small);
+    z-index: 500;
 }
-.metadata-container.is-collapsed {
-    width: 130px;
-    padding: 0.5em 2.5em;
+.metadata-container * {
+    font-family: var(--font-interface) !important;
 }
-.metadata-properties-heading.is-collapsed {
+.is-live-preview .metadata-container {
+    margin-top: 55px !important;
+}
+
+[data-type=markdown]:has(.metadata-container) .mod-header {
+   padding-bottom: 2.5em !important;
+}
+.metadata-container:hover {
+    background-color: hsla(var(--theme-tint-secondary), calc(var(--theme-sat-secondary) * 1.2) , var(--c-20), 0.7); 
+    border: 1px solid var(--background-modifier-border);
+    backdrop-filter: blur(3px) !important;
+}
+.metadata-container:hover .metadata-properties-heading {
+    padding-left: 4px;
+}
+.metadata-properties-heading {
+    margin-bottom: 0px !important;
+    transition: 150ms all;
+}
+.metadata-properties-heading .collapse-indicator {
+    display: none;
+}
+.metadata-properties-title {
+    font-weight: bold;
+    padding: 10px 8px;
+    margin-left: -7px;
+    border: 1px transparent solid;
+}
+.metadata-container:not(:hover) .metadata-properties-title {
+    color: var(--text-accent);
+    border: 1px solid hsla(var(--color-accent-hsl), 0.2);
+    background-color: hsla(var(--color-accent-hsl), 0.1);
+    border-radius: var(--radius-m);
+    width: 100px;
+}
+
+.metadata-container:not(:hover) .metadata-properties-title::before {
+    content: "+ ";
+}
+.metadata-properties {
+    margin-top: 10px;
+}
+.metadata-container.is-collapsed:hover .metadata-property {
+    display: unset !important
+}
+.metadata-container.is-collapsed:hover .metadata-add-button.text-icon-button {
+    display: inline-flex !important;
+}
+.metadata-properties-heading {
+    padding: 0;
     margin: 0;
+    text-align: left;
+    display: block;
 }
 .metadata-properties-heading .collapse-indicator.collapse-icon {
     opacity: 1 !important;
@@ -1093,9 +1126,7 @@ font-size: var(--font-ui-small);
     background-color: var(--background-primary);
     transition: 0.25s;
 }
-.metadata-container.is-collapsed .metadata-add-button {
-    opacity: 0;
-}
+
 .metadata-property-key {
     width: fit-content;
 }
@@ -1147,17 +1178,21 @@ font-size: var(--font-ui-small);
     --icon-color: var(--color-accent-2);
 }
 
+
 /* ======== images ======== */
+body {
+    --img-side-margins: auto;
+}
 .markdown-rendered img,
 img {
     display: block;
-    margin: 1em auto;
+    margin: 1em var(--img-side-margins);
     border-radius: var(--radius-s);
 }
 
 /* dark mode filter */
 .theme-dark:not(.low-contrast):not(.high-contrast) img {
-    filter: brightness(90%) !important;
+    filter: brightness(90%);
 }
 .theme-dark.low-contrast img {
     filter: brightness(80%);
@@ -1204,7 +1239,7 @@ span[alt*="#"] .image-captions-caption {
 .theme-light .image-captions-figure,
 .theme-dark .image-captions-figure {
     padding: 0; background: transparent;
-    margin: 1em auto;
+    margin: 1em var(--img-side-margins);
     border-radius: var(--radius-s);
 }
 
@@ -6277,6 +6312,19 @@ settings:
         type: class-toggle
         title: Captions
         description: Image alts appear as captions. Alts containing a hashtag (#) will remain hidden. NOTE - This only works for internal images.
+    -
+        id: img-side-margins
+        title: Image Alignment
+        type: variable-select
+        allowEmpty: false
+        default: auto
+        options:
+            -
+                label: Center
+                value: auto
+            -
+                label: Left 
+                value: "0"
     -
         id: embeds-heading
         title: Embeds
