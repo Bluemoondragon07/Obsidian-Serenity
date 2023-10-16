@@ -1019,21 +1019,21 @@ body {
     margin-right: 1em;
 }
 /* hide frontmatter */
-.hide-frontmatter-s .metadata-container {
+.hide-frontmatter-s [data-type=markdown] .metadata-container {
    display: none;
 }
 
 /* Hover Frontmatter */
-.metadata-container:not(:hover) .metadata-content, .metadata-container:not(:hover) .metadata-property, .metadata-container:not(:hover) .metadata-add-button.text-icon-button {
+[data-type=markdown] .metadata-container:not(:hover) .metadata-content, [data-type=markdown] .metadata-container:not(:hover) .metadata-property, [data-type=markdown] .metadata-container:not(:hover) .metadata-add-button.text-icon-button {
     display: none;
 }
-.metadata-container.is-collapsed:hover .metadata-content {
+[data-type=markdown] .metadata-container.is-collapsed:hover .metadata-content {
     display: unset !important;
 }
- .metadata-container.is-collapsed:hover .metadata-properties .metadata-property  {
+[data-type=markdown] .metadata-container.is-collapsed:hover .metadata-properties .metadata-property  {
     display: flex !important;
 }
-.metadata-container {
+[data-type=markdown] .metadata-container {
     padding:  10px 8px;
     position: absolute;
     min-width: 500px;
@@ -1055,28 +1055,28 @@ body {
 [data-type=markdown]:has(.metadata-container) .mod-header {
    padding-bottom: 2.5em !important;
 }
-.metadata-container:hover {
+[data-type=markdown]  .metadata-container:hover {
     background-color: hsla(var(--theme-tint-secondary), calc(var(--theme-sat-secondary) * 1.2) , var(--c-20), 0.7); 
     border: 1px solid var(--background-modifier-border);
     backdrop-filter: blur(3px) !important;
 }
-.metadata-container:hover .metadata-properties-heading {
+[data-type=markdown] .metadata-container:hover .metadata-properties-heading {
     padding-left: 4px;
 }
-.metadata-properties-heading {
+[data-type=markdown]  .metadata-properties-heading {
     margin-bottom: 0px !important;
     transition: 150ms all;
 }
-.metadata-properties-heading .collapse-indicator {
+[data-type=markdown]  .metadata-properties-heading .collapse-indicator {
     display: none;
 }
-.metadata-properties-title {
+[data-type=markdown]  .metadata-properties-title {
     font-weight: bold;
     padding: 10px 8px;
     margin-left: -7px;
     border: 1px transparent solid;
 }
-.metadata-container:not(:hover) .metadata-properties-title {
+[data-type=markdown]  .metadata-container:not(:hover) .metadata-properties-title {
     color: var(--text-accent);
     border: 1px solid hsla(var(--color-accent-hsl), 0.2);
     background-color: hsla(var(--color-accent-hsl), 0.1);
@@ -1087,27 +1087,27 @@ body {
 .metadata-container:not(:hover) .metadata-properties-title::before {
     content: "+ ";
 }
-.metadata-properties {
+[data-type=markdown] .metadata-properties {
     margin-top: 10px;
 }
-.metadata-container.is-collapsed:hover .metadata-property {
+[data-type=markdown] .metadata-container.is-collapsed:hover .metadata-property {
     display: unset !important
 }
-.metadata-container.is-collapsed:hover .metadata-add-button.text-icon-button {
+[data-type=markdown] .metadata-container.is-collapsed:hover .metadata-add-button.text-icon-button {
     display: inline-flex !important;
 }
-.metadata-properties-heading {
+[data-type=markdown] .metadata-properties-heading {
     padding: 0;
     margin: 0;
     text-align: left;
     display: block;
 }
-.metadata-properties-heading .collapse-indicator.collapse-icon {
+[data-type=markdown] .metadata-properties-heading .collapse-indicator.collapse-icon {
     opacity: 1 !important;
     --collapse-icon-color-collapsed: var(--text-faint);
     --collapse-icon-color: var(--text-faint);
 }
-.metadata-properties-heading .collapse-icon svg.svg-icon {
+[data-type=markdown] .metadata-properties-heading .collapse-icon svg.svg-icon {
     stroke-width: 2.5px;
 }
 .metadata-add-button:hover, .metadata-property:hover {
@@ -1176,6 +1176,13 @@ body {
 }
 .metadata-property:hover {
     --icon-color: var(--color-accent-2);
+}
+
+/* make space for floating metadata in edit mode */
+[data-type=markdown] .is-live-preview .cm-contentContainer {
+margin-top: 5em;
+} [data-type=markdown] .is-live-preview .metadata-container {
+    margin-top: 0 !important;
 }
 
 
