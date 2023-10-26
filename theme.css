@@ -1052,7 +1052,7 @@ body {
     margin-top: 55px !important;
 }
 
-[data-type=markdown]:has(.metadata-container) .mod-header {
+[data-type=markdown]:has(.markdown-preview-view.show-properties .metadata-container)  .mod-header {
    padding-bottom: 2.5em !important;
 }
 [data-type=markdown]  .metadata-container:hover {
@@ -1179,11 +1179,12 @@ body {
 }
 
 /* make space for floating metadata in edit mode */
-[data-type=markdown] .is-live-preview .cm-contentContainer {
-margin-top: 5em;
-} [data-type=markdown] .is-live-preview .metadata-container {
-    margin-top: 0 !important;
+[data-type=markdown][data-mode=source] .is-live-preview.show-properties .cm-contentContainer {
+margin-top: var(--inline-title-size);
+} [data-type=markdown][data-mode=source] .is-live-preview.show-properties .metadata-container {
+    margin-top: 3rem;
 }
+
 
 
 /* ======== images ======== */
