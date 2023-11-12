@@ -1902,12 +1902,6 @@ body {
   --callout-color: var(--color-green-rgb);
   --callout-icon: lucide-arrow-right;
 }
-.callout[data-callout="n"],
-.callout[data-callout="next"],
-.callout[data-callout="arrow"] {
-  --callout-color: var(--color-green-rgb);
-  --callout-icon: lucide-arrow-right;
-}
 .callout[data-callout="nav"],
 .callout[data-callout="map"] {
   --callout-color: var(--color-orange-rgb);
