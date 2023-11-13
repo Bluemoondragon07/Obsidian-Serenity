@@ -1891,14 +1891,14 @@ body {
   --callout-icon: lucide-zap;
 }
 .callout[data-callout="help"],
-.callout[data-callout="handshake"],
-.callout[data-callout="quick"] {
+.callout[data-callout="handshake"] {
   --callout-color: var(--color-orange-rgb);
   --callout-icon: lucide-heart-handshake;
 }
 .callout[data-callout="n"],
 .callout[data-callout="next"],
-.callout[data-callout="arrow"] {
+.callout[data-callout="arrow"],
+.callout[data-callout="navigation"]{
   --callout-color: var(--color-green-rgb);
   --callout-icon: lucide-arrow-right;
 }
