@@ -1799,6 +1799,127 @@ body {
   --callout-color: var(--color-purple-rgb);
   --callout-icon: lucide-cake;
 }
+.callout[data-callout="@"],
+.callout[data-callout="person"],
+.callout[data-callout="user"] {
+  --callout-color: var(--color-blue-rgb);
+  --callout-icon: lucide-user;
+}
+.callout[data-callout="+"],
+.callout[data-callout="plus"],
+.callout[data-callout="add"] {
+  --callout-color: var(--color-green-rgb);
+  --callout-icon: lucide-plus;
+}
+.callout[data-callout="a"],
+.callout[data-callout="link"] {
+  --callout-color: var(--color-muted-rgb);
+  --callout-icon: lucide-link-2;
+}
+.callout[data-callout="beats"],
+.callout[data-callout="music"] {
+  --callout-color: var(--color-cyan-rgb);
+  --callout-icon: lucide-music-2;
+}
+.callout[data-callout="e"],
+.callout[data-callout="event"],
+.callout[data-callout="party"] {
+  --callout-color: var(--color-purple-rgb);
+  --callout-icon: lucide-party-popper;
+}
+.callout[data-callout="g"],
+.callout[data-callout="game"] {
+  --callout-color: var(--color-muted-rgb);
+  --callout-icon: lucide-gamepad-2;
+}
+.callout[data-callout="m"],
+.callout[data-callout="memo"] {
+  --callout-color: var(--color-muted-rgb);
+  --callout-icon: lucide-clipboard-edit;
+}
+.callout[data-callout="h"],
+.callout[data-callout="home"] {
+  --callout-color: var(--color-purple-rgb);
+  --callout-icon: lucide-home;
+}
+.callout[data-callout="j"],
+.callout[data-callout="junk"],
+.callout[data-callout="trash"] {
+  --callout-color: var(--color-muted-rgb);
+  --callout-icon: lucide-trash;
+}
+.callout[data-callout="o"],
+.callout[data-callout="open"],
+.callout[data-callout="unlock"] {
+  --callout-color: var(--color-purple-rgb);
+  --callout-icon: lucide-unlock;
+}
+.callout[data-callout="r"],
+.callout[data-callout="report"],
+.callout[data-callout="pulse"],
+.callout[data-callout="activity"] {
+  --callout-color: var(--color-purple-rgb);
+  --callout-icon: lucide-activity;
+}
+.callout[data-callout="s"],
+.callout[data-callout="save"],
+.callout[data-callout="download"] {
+  --callout-color: var(--color-cyan-rgb);
+  --callout-icon: lucide-download;
+}
+.callout[data-callout="t"],
+.callout[data-callout="tip"] {
+  --callout-color: var(--color-yellow-rgb);
+  --callout-icon: lucide-clipboard-check;
+}
+.callout[data-callout="<3"],
+.callout[data-callout="heart"],
+.callout[data-callout="love"] {
+  --callout-color: var(--color-red-rgb);
+  --callout-icon: lucide-heart;
+}
+.callout[data-callout="v"],
+.callout[data-callout="visibility"],
+.callout[data-callout="eye"] {
+  --callout-color: var(--color-muted-rgb);
+  --callout-icon: lucide-eye;
+}
+.callout[data-callout="q"],
+.callout[data-callout="zap"],
+.callout[data-callout="quick"] {
+  --callout-color: var(--color-orange-rgb);
+  --callout-icon: lucide-zap;
+}
+.callout[data-callout="help"],
+.callout[data-callout="handshake"] {
+  --callout-color: var(--color-orange-rgb);
+  --callout-icon: lucide-heart-handshake;
+}
+.callout[data-callout="n"],
+.callout[data-callout="next"],
+.callout[data-callout="arrow"],
+.callout[data-callout="navigation"]{
+  --callout-color: var(--color-green-rgb);
+  --callout-icon: lucide-arrow-right;
+}
+.callout[data-callout="nav"],
+.callout[data-callout="map"] {
+  --callout-color: var(--color-orange-rgb);
+  --callout-icon: lucide-map;
+}
+.callout[data-callout="y"],
+.callout[data-callout="yes"],
+.callout[data-callout="check"] {
+  --callout-color: var(--color-green-rgb);
+  --callout-icon: lucide-check;
+}
+.callout[data-callout="no"],
+.callout[data-callout="cancel"],
+.callout[data-callout="close"] {
+  --callout-color: var(--color-red-rgb);
+  --callout-icon: lucide-x;
+}
+
 
 /* code mirror formatting */
 .cm-formatting-quote {
@@ -3731,6 +3852,9 @@ body {
   --background-modifier-message: var(--color-accent-1);
 
   --text-base: 15%;
+		/* muted colors */
+    --color-muted: #797593;
+    --color-muted-rgb: 121, 117, 147;
 }
 
 /* == dark theme == */
@@ -3765,6 +3889,9 @@ body {
 --background-modifier-message: var(--color-accent-1);
 --background-modifier-border: var(--color-base-35);
 
+		/* muted colors */
+    --color-muted: #908caa;
+    --color-muted-rgb: 144, 140, 170;
 }
 
 
@@ -3903,6 +4030,7 @@ body {
     --accent-l: 67% !important;
     --text-base: 25%;
 
+    --color-muted: #797593;
     --color-red: #b4637a;
     --color-pink: #d7827e;
     --color-orange: #ea9d34;
@@ -3911,6 +4039,7 @@ body {
     --color-cyan: #56949f;
     --color-blue: #286983;
     --color-purple: rgb(144, 122, 169);
+    --color-muted-rgb: 121, 117, 147;
     --color-red-rgb: 180, 99, 122;
     --color-pink-rgb: 215, 130, 126;
     --color-orange-rgb: 234, 157, 52;
@@ -3932,6 +4061,8 @@ body {
     --accent-h: 267 !important;
     --accent-s: 57% !important;
     --accent-l: 78% !important;
+
+    --color-muted: #908caa;
     --color-red: #eb6f92;
     --color-pink: #ebbcba;
     --color-orange: #f6ac77;
@@ -3940,6 +4071,7 @@ body {
     --color-cyan: #9ccfd8;
     --color-blue: #569ebb;
     --color-purple: #c4a7e7;
+    --color-muted-rgb: 144, 140, 170;
     --color-red-rgb: 235, 111, 146;
     --color-pink-rgb: 235, 188, 186;
     --color-orange-rgb:246, 172, 119;
