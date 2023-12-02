@@ -1690,7 +1690,6 @@ body {
 }
 .callout-title-inner {
     font-weight: normal;
-    width: 100%;
 }
 .callout-content {
     font-family: var(--font-secondary);
