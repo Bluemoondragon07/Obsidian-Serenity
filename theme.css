@@ -741,8 +741,8 @@ body:not(:not(.flat-mode)) {
 
 /* hide ribbon */
 body:not(:not(.hide-ribbon)):not(.opacity-hide) .workspace-ribbon:not(:hover) {
-    width: 0px;
-    max-width: 0px;
+    width: 0.55m;
+    max-width: 0.55em;
     min-width: 0px;
     padding: 0.5px;
     margin-right: 0px;
@@ -935,8 +935,6 @@ body:not(.is-mobile):not(:not(.hide-view-header)):not(.opacity-hide) .view-heade
 
  
 body:not(:not(.hide-titlebar-buttons)) .titlebar-button-container:not(:hover) {
-height: 30px;
-width: 30px;
 transition-delay: all 1s !important;
 opacity: 0;
 }
@@ -946,6 +944,19 @@ opacity: 0;
     transition: all .15s !important;
     background-color: transparent !important;
  }
+ 
+/* hide status bar*/
+body:not(.is-mobile):not(:not(.hide-status-bar)) .status-bar:not(:hover) {
+    opacity: 0;
+}
+
+body:not(.is-mobile):not(:not(.hide-status-bar)):not(.opacity-hide) .status-bar:not(:hover) {
+    height: 1em;
+}
+
+.status-bar {
+    transition: .25s;
+}
  
 
 
@@ -958,7 +969,7 @@ body:not(.opacity-hide):not(:not(.hide-file-buttons)) .nav-buttons-container:not
     padding:2px;
  }
 .nav-buttons-container {
-    transition: 0.1s opacity, 0.5s height, 0.5s padding;
+    transition: 0.1s opacity, 0.25s height, 0.25s padding;
 }
 /* =============== sidebar ======== */
 .workspace-leaf-content {
@@ -1180,9 +1191,10 @@ body {
 
 /* make space for floating metadata in edit mode */
 [data-type=markdown][data-mode=source] .is-live-preview.show-properties .cm-contentContainer {
-margin-top: var(--inline-title-size);
-} [data-type=markdown][data-mode=source] .is-live-preview.show-properties .metadata-container {
-    margin-top: 3rem;
+margin-top: calc(3.5em + var(--inline-title-size));
+}
+ [data-type=markdown][data-mode=source] .is-live-preview.show-properties .metadata-container {
+    margin-top: 3.5rem;
 }
 
 
@@ -1681,7 +1693,6 @@ body {
 }
 .callout-title-inner {
     font-weight: normal;
-    width: 100%;
 }
 .callout-content {
     font-family: var(--font-secondary);
@@ -1873,6 +1884,7 @@ body {
   --callout-icon: lucide-clipboard-check;
 }
 .callout[data-callout="<3"],
+.callout[data-callout="like"],
 .callout[data-callout="heart"],
 .callout[data-callout="love"] {
   --callout-color: var(--color-red-rgb);
@@ -1898,7 +1910,7 @@ body {
 .callout[data-callout="n"],
 .callout[data-callout="next"],
 .callout[data-callout="arrow"],
-.callout[data-callout="navigation"]{
+.callout[data-callout="navigation"] {
   --callout-color: var(--color-green-rgb);
   --callout-icon: lucide-arrow-right;
 }
@@ -2160,8 +2172,6 @@ border-radius: var(--radius-s);
 }
 
 
-
-
 /* ============== paragraph spacing =========== */
 body {
     --p-indent: 15px;
@@ -2244,8 +2254,22 @@ body {
     }
 
    
+/* Links Focused by Keyboard */
 
+.theme-dark a:focus-visible {
+    --link-color: hsl(var(--accent-h), var(--accent-s), 88%) !important;
+    color: hsl(var(--accent-h), var(--accent-s), 88%) !important;
+    text-shadow: 0px 0px 40px hsl(var(--accent-h), var(--accent-s), 75%) , 0px 0px 10px hsl(var(--accent-h), var(--accent-s),50%) ;
+    text-decoration: underline var(--link-decoration-color-active) solid var(--link-decoration-thickness) !important;
+    opacity: 1;
+    --link-unresolved-opacity: 1;
+
+}
     
+.theme-light a:focus-visible {
+    font-weight: 800;
+    text-decoration-thickness: 4px;
+}
 
 /* =============== lists ============ */
 body {
@@ -6772,6 +6796,11 @@ settings:
         type: class-toggle
         default: true
     -
+        id: hide-status-bar
+        title: Hide Status Bar
+        type: class-toggle
+        default: true
+    -
         id: hide-backlinks
         title: Hide Backlinks Pane in Edit Mode
         type: class-toggle
@@ -7023,4 +7052,3 @@ settings:
 
 
 */
-
