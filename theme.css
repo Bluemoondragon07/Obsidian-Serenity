@@ -945,7 +945,18 @@ body:not(:not(.hide-titlebar-buttons)) .titlebar-button-container:not(:hover) {
     background-color: transparent !important;
  }
  
+/* hide status bar*/
+body:not(.is-mobile):not(:not(.hide-status-bar)) .status-bar:not(:hover) {
+    opacity: 0;
+}
 
+body:not(.is-mobile):not(:not(.hide-status-bar)):not(.opacity-hide) .status-bar:not(:hover) {
+    height: 1em;
+}
+
+.status-bar {
+    transition: .25s;
+}
 
  /* hide file explorer buttons */
 body:not(:not(.hide-file-buttons)) .nav-buttons-container:not(:hover) {
@@ -6767,6 +6778,11 @@ settings:
     -
         id: hide-view-header
         title: Hide View Header
+        type: class-toggle
+        default: true
+    -
+        id: hide-status-bar
+        title: Hide Status Bar
         type: class-toggle
         default: true
     -
