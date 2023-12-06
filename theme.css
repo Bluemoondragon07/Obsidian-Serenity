@@ -260,10 +260,12 @@ body {
     .callout:hover,
     .math-block:hover,
     .table-wrapper:hover,
+    .table-wrapper:focus-within,
     .media-embed:hover,
     img:hover,
     .markdown-source-view .inline-title:hover,
-    .markdown-source-view .metadata-container:hover),
+    .markdown-source-view .metadata-container:hover,
+    .markdown-source-view .metadata-container:focus-within),
 .active-line-highlight.opacity-hover .cm-line:hover,
 .source-line-effect .markdown-source-view:not(.is-live-preview) .cm-line,
 .preview-line-effect .markdown-source-view.is-live-preview .cm-line {
