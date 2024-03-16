@@ -6,10 +6,11 @@
 
 <br>
 
-> Important Notice Regarding Network Fonts
-> Since themes are no longer allowed to use assets over the network, Serenity's style settings for additional fonts no longer work out of the box.
-> BUT...
-> If you would like to restore these fonts, you can use [this snippet](https://github.com/Bluemoondragon07/Obsidian-Serenity/blob/main/0%20SNIPPET%20-%20Restore%20network%20font%20list) on your vault, and the fonts will work again.
+ # Important Notice Regarding Network Fonts
+
+ Since themes are no longer allowed to use assets over the network, Serenity's style settings for additional fonts no longer work out of the box.
+ BUT...
+ If you would like to restore these fonts, you can use [this snippet](https://github.com/Bluemoondragon07/Obsidian-Serenity/blob/main/0%20SNIPPET%20-%20Restore%20network%20font%20list) on your vault, and the fonts will work again.
 
 <details> <summary> Features </summary>
 
