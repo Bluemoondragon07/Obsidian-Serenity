@@ -1055,18 +1055,22 @@ body {
 }
 
 /* Hover Frontmatter */
-body:not(.normal-prop) [data-type=markdown] .metadata-container:not(:hover) .metadata-content, body:not(.normal-prop) [data-type=markdown] .metadata-container:not(:hover) .metadata-property, body:not(.normal-prop) [data-type=markdown] .metadata-container:not(:hover) .metadata-add-button.text-icon-button {
+body:not(.normal-prop) [data-type=markdown] .metadata-container:not(:hover):not(:has(:focus)) .metadata-content, body:not(.normal-prop) [data-type=markdown] .metadata-container:not(:hover):not(:has(:focus))  .metadata-property, body:not(.normal-prop) [data-type=markdown] .metadata-container:not(:hover):not(:has(:focus))  .metadata-add-button.text-icon-button {
     display: none;
 }
-body:not(.normal-prop) [data-type=markdown] .metadata-container.is-collapsed:hover .metadata-content {
+body:not(.normal-prop) [data-type=markdown] .metadata-container.is-collapsed:hover .metadata-content,
+body:not(.normal-prop) [data-type=markdown] .metadata-container.is-collapsed:has(:focus) .metadata-content {
     display: unset !important;
 }
-body:not(.normal-prop) [data-type=markdown] .metadata-container.is-collapsed:hover .metadata-properties .metadata-property  {
+body:not(.normal-prop) [data-type=markdown] .metadata-container.is-collapsed:hover .metadata-properties .metadata-property,
+body:not(.normal-prop) [data-type=markdown] .metadata-container:has(:focus) .metadata-properties .metadata-property  {
     display: flex !important;
 }
 
+
 /* === uncollapsed (hover) appearance for hover properties === */
-body:not(.normal-prop) [data-type=markdown] .metadata-container {
+body:not(.normal-prop) [data-type=markdown] .metadata-container,
+body:not(.normal-prop) [data-type=markdown] .metadata-container:has(:focus) {
     padding:  10px 8px;
     position: absolute;
     min-width: 500px;
@@ -1097,11 +1101,13 @@ body:not(.normal-prop) [data-type=markdown] .metadata-container {
 [data-type=markdown]:has(.markdown-preview-view.show-properties .metadata-container)  .mod-header {
    padding-bottom: 2.5em !important;
 }
-body:not(.normal-prop) [data-type=markdown]  .metadata-container:hover {
+body:not(.normal-prop) [data-type=markdown]  .metadata-container:hover,
+body:not(.normal-prop) [data-type=markdown]  .metadata-container:has(:focus) {
     background-color: hsla(var(--theme-tint-secondary), calc(var(--theme-sat-secondary) * 1.2) , var(--c-20), 0.7); 
     border: 1px solid var(--background-modifier-border);
     backdrop-filter: blur(3px) !important;
 }
+
 [data-type=markdown] .metadata-container:hover .metadata-properties-heading {
     padding-left: 4px;
 }
@@ -1129,7 +1135,7 @@ body:not(.normal-prop) [data-type=markdown]  .metadata-container:hover {
 }
 
 /* with hover properties on */
-body:not(.normal-prop)  [data-type=markdown]  .metadata-container:not(:hover) .metadata-properties-title {
+body:not(.normal-prop)  [data-type=markdown]  .metadata-container:not(:hover):not(:has(:focus)) .metadata-properties-title {
     color: var(--text-accent);
     border: 1px solid hsla(var(--color-accent-hsl), 0.2);
     background-color: hsla(var(--color-accent-hsl), 0.1);
@@ -1148,7 +1154,7 @@ background-color: transparent;
 
 
 /* plus sign stylization */
-body:not(.normal-prop) .metadata-container:not(:hover) .metadata-properties-title::before,
+body:not(.normal-prop) .metadata-container:not(:hover):not(:has(:focus)) .metadata-properties-title::before,
 .normal-prop .metadata-container:hover .metadata-properties-title::before {
     content: "+ ";
 }
@@ -3026,11 +3032,11 @@ a.tag:hover, [data-property-key=tags i] .multi-select-pill:hover {
     background-color: var(--tag-rb-hover) !important;
 }
 
-.theme-light a.tag, .theme-light .cm-hashtag, .theme-light [data-property-key=tags i] .multi-select-pill {
+.theme-light a.tag, .theme-light .cm-hashtag, .theme-light [data-property-key=tags i] .multi-select-pill, .theme-light .suggestion .suggestion-item {
     color: var(--tag-rb-text-light) !important;
     --pill-color-remove: var(--tag-rb-text-light) !important;
 }
-.theme-dark a.tag, .theme-dark .cm-hashtag, .theme-dark [data-property-key=tags i] .multi-select-pill {
+.theme-dark a.tag, .theme-dark .cm-hashtag, .theme-dark [data-property-key=tags i] .multi-select-pill, .theme-dark .suggestion .suggestion-item {
     color: var(--tag-rb-text-dark) !important;
     --pill-color-remove: var(--tag-rb-text-dark) !important;
 }
@@ -3038,7 +3044,8 @@ a.tag:hover, [data-property-key=tags i] .multi-select-pill:hover {
  a.tag:nth-child(7n+1), /*reading mode*/
 :is(.cm-hashtag:nth-child(14n+1), /*live preview*/
 .cm-hashtag:nth-child(14n+2)),
-[data-property-key=tags i] .multi-select-pill:nth-child(7n+1) /* properties */ {
+[data-property-key=tags i] .multi-select-pill:nth-child(7n+1), /* properties */
+.suggestion .suggestion-item:nth-child(7n+1) {
     --tag-rb-text-light: hsl(var(--accent-h), 60%, 30%);
     --tag-rb-text-dark: hsl(var(--accent-h), 40%, 80%);
     --tag-rb: hsl(var(--accent-h), 50%, 60%, var(--tag-opacity));
@@ -3048,7 +3055,8 @@ a.tag:hover, [data-property-key=tags i] .multi-select-pill:hover {
 a.tag:nth-child(7n+2),
 :is(.cm-hashtag:nth-child(14n+3),
 .cm-hashtag:nth-child(14n+4)),
-[data-property-key=tags i] .multi-select-pill:nth-child(7n+2) {
+[data-property-key=tags i] .multi-select-pill:nth-child(7n+2),
+.suggestion .suggestion-item:nth-child(7n+2) {
     --tag-rb-text-light: hsl(calc(var(--accent-h) + 51), 60%, 30%);
     --tag-rb-text-dark: hsl(calc(var(--accent-h) + 51), 40%, 80%);
     --tag-rb: hsl(calc(var(--accent-h) + 51), 50%, 60%, var(--tag-opacity));
@@ -3058,7 +3066,8 @@ a.tag:nth-child(7n+2),
  a.tag:nth-child(7n+3),
   :is(.cm-hashtag:nth-child(14n+5),
 .cm-hashtag:nth-child(14n+6)),
-[data-property-key=tags i] .multi-select-pill:nth-child(7n+3) {
+[data-property-key=tags i] .multi-select-pill:nth-child(7n+3),
+.suggestion .suggestion-item:nth-child(7n+3) {
     --tag-rb-text-light: hsl(calc(var(--accent-h) + 102), 60%, 30%);
     --tag-rb-text-dark: hsl(calc(var(--accent-h) + 102), 40%, 80%);
     --tag-rb: hsl(calc(var(--accent-h) + 102), 50%, 60%, var(--tag-opacity));
@@ -3068,7 +3077,8 @@ a.tag:nth-child(7n+2),
 a.tag:nth-child(7n+4),
   :is(.cm-hashtag:nth-child(14n+7),
 .cm-hashtag:nth-child(14n+8)),
-[data-property-key=tags i] .multi-select-pill:nth-child(7n+4) {
+[data-property-key=tags i] .multi-select-pill:nth-child(7n+4),
+.suggestion .suggestion-item:nth-child(7n+4) {
     --tag-rb-text-light: hsl(calc(var(--accent-h) + 153), 60%, 30%);
     --tag-rb-text-dark: hsl(calc(var(--accent-h) + 153), 40%, 80%);
     --tag-rb: hsl(calc(var(--accent-h) + 153), 50%, 60%, var(--tag-opacity));
@@ -3078,7 +3088,8 @@ a.tag:nth-child(7n+4),
 a.tag:nth-child(7n+5),
   :is(.cm-hashtag:nth-child(14n+9),
 .cm-hashtag:nth-child(14n+10)),
-[data-property-key=tags i] .multi-select-pill:nth-child(7n+5) {
+[data-property-key=tags i] .multi-select-pill:nth-child(7n+5),
+.suggestion .suggestion-item:nth-child(7n+5) {
     --tag-rb-text-light: hsl(calc(var(--accent-h) + 204), 60%, 30%);
     --tag-rb-text-dark: hsl(calc(var(--accent-h) + 204), 40%, 80%);
     --tag-rb: hsl(calc(var(--accent-h) + 204), 50%, 60%, var(--tag-opacity));
@@ -3088,7 +3099,8 @@ a.tag:nth-child(7n+5),
 a.tag:nth-child(7n+6),
   :is(.cm-hashtag:nth-child(14n+11),
 .cm-hashtag:nth-child(14n+12)),
-[data-property-key=tags i] .multi-select-pill:nth-child(7n+6) {
+[data-property-key=tags i] .multi-select-pill:nth-child(7n+6),
+.suggestion .suggestion-item:nth-child(7n+6) {
     --tag-rb-text-light: hsl(calc(var(--accent-h) + 255), 60%, 30%);
     --tag-rb-text-dark: hsl(calc(var(--accent-h) + 255), 40%, 80%);
     --tag-rb: hsl(calc(var(--accent-h) + 255), 50%, 60%, var(--tag-opacity));
@@ -3098,7 +3110,8 @@ a.tag:nth-child(7n+6),
 a.tag:nth-child(7n+7),
   :is(.cm-hashtag:nth-child(14n+13),
 .cm-hashtag:nth-child(14n+14)),
-[data-property-key=tags i] .multi-select-pill:nth-child(7n+7) {
+[data-property-key=tags i] .multi-select-pill:nth-child(7n+7),
+.suggestion .suggestion-item:nth-child(7n+7) {
     --tag-rb-text-light: hsl(calc(var(--accent-h) + 306), 60%, 30%);
     --tag-rb-text-dark: hsl(calc(var(--accent-h) + 306), 40%, 80%);
     --tag-rb: hsl(calc(var(--accent-h) + 306), 50%, 60%, var(--tag-opacity));
@@ -3108,6 +3121,23 @@ a.tag:nth-child(7n+7),
 /* remove borders on property tags */
 [data-property-key=tags i] .multi-select-pill {
     bordeR: none !important;
+}
+
+/* ======= property selection tags ("tags") ======= */
+.suggestion .suggestion-item {
+    background-color: var(--tag-rb);
+    border-radius: var(--tag-radius);
+    width: fit-content;
+    margin-bottom: 0.4em;
+    padding: var(--tag-padding-y) var(--tag-padding-x);
+    transition: 1s border;
+} .suggestion .suggestion-item.is-selected {
+    background-color: var(--tag-rb-hover);
+}
+.theme-light .suggestion .suggestion-item.is-selected {
+border: 2px solid var(--tag-rb-text-dark);
+} .theme-dark .suggestion .suggestion-item.is-selected {
+    border: 2px solid var(--tag-rb-text-light);
 }
 
 /* ========================= mobile ============================= */
