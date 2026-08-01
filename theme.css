@@ -1768,8 +1768,8 @@ body {
 }
 
 .callout {
-    background-color: rgba(var(--callout-color), 0.17);
-    border: 1px rgba(var(--callout-color), var(--c-30)) solid;
+    background-color: color-mix(in srgb, var(--callout-color) 17%, transparent);
+    border: 1px color-mix(in srgb, var(--callout-color) calc(var(--c-30) * 100%), transparent) solid;
 }
 .callout p {
     margin: 0px !important;
@@ -1779,7 +1779,7 @@ body {
     border-radius: var(--callout-radius) var(--callout-radius) 0px 0px;
 }
 .callout.is-collapsible:not(.is-collapsed) .callout-title {
-    border-bottom: 1px rgba(var(--callout-color), var(--c-30)) solid;
+    border-bottom: 1px color-mix(in srgb, var(--callout-color) calc(var(--c-30) * 100%), transparent) solid;
 }
 .callout.is-collapsed .callout-title {
     border-radius: var(--callout-radius);
@@ -2948,25 +2948,25 @@ body {
 }
 
 [data-task="0"] {
-    background-color: rgba(var(--color-red-rgb), var(--speech-opacity));
+    background-color: color-mix(in srgb, var(--color-red-rgb) calc(var(--speech-opacity) * 100%), transparent);
 }
 [data-task="1"] {
-    background-color: rgba(var(--color-orange-rgb), var(--speech-opacity));
+    background-color: color-mix(in srgb, var(--color-orange-rgb) calc(var(--speech-opacity) * 100%), transparent);
 }
 [data-task="2"] {
-    background-color: rgba(var(--color-yellow-rgb), var(--speech-opacity));
+    background-color: color-mix(in srgb, var(--color-yellow-rgb) calc(var(--speech-opacity) * 100%), transparent);
 }
 [data-task="3"] {
-    background-color: rgba(var(--color-green-rgb), var(--speech-opacity));
+    background-color: color-mix(in srgb, var(--color-green-rgb) calc(var(--speech-opacity) * 100%), transparent);
 }
 [data-task="4"] {
-    background-color: rgba(var(--color-cyan-rgb), var(--speech-opacity));
+    background-color: color-mix(in srgb, var(--color-cyan-rgb) calc(var(--speech-opacity) * 100%), transparent);
 }
 [data-task="5"] {
-    background-color: rgba(var(--color-blue-rgb), var(--speech-opacity));
+    background-color: color-mix(in srgb, var(--color-blue-rgb) calc(var(--speech-opacity) * 100%), transparent);
 }
 [data-task="6"] {
-    background-color: rgba(var(--color-purple-rgb), var(--speech-opacity));
+    background-color: color-mix(in srgb, var(--color-purple-rgb) calc(var(--speech-opacity) * 100%), transparent);
 }
 [data-task="7"] {
     background-color: rgba(var(--color-pink-rgb), var(--speech-opacity));
@@ -2975,10 +2975,10 @@ body {
     background-color: rgba(var(--callout-quote), var(--speech-opacity));
 }
 [data-task="9"] {
-    background-color: rgba(var(--color-orange-rgb), var(--speech-opacity));
+    background-color: color-mix(in srgb, var(--color-orange-rgb) calc(var(--speech-opacity) * 100%), transparent);
 }
 [data-task="9"] {
-    background: linear-gradient(to right, rgba(var(--color-orange-rgb), var(--speech-opacity)), rgba(var(--color-yellow-rgb), var(--speech-opacity)));
+    background: linear-gradient(to right, color-mix(in srgb, var(--color-orange-rgb) calc(var(--speech-opacity) * 100%), transparent), color-mix(in srgb, var(--color-yellow-rgb) calc(var(--speech-opacity) * 100%), transparent));
 }
 
 /* edit mode appearance */
@@ -3347,8 +3347,8 @@ position: relative;
     border-radius: var(--radius-s);
 }
 .empty-state-action.mod-close:hover {
-    background-color: rgba(var(--color-red-rgb), 0.1);
-    border: 1px solid rgba(var(--color-red-rgb), 0.5);
+    background-color: color-mix(in srgb, var(--color-red-rgb) 10%, transparent);
+    border: 1px solid color-mix(in srgb, var(--color-red-rgb) 50%, transparent);
     color: var(--color-red);
 }
 
@@ -4015,7 +4015,7 @@ body {
   --text-base: 15%;
 		/* muted colors */
     --color-muted: #797593;
-    --color-muted-rgb: 121, 117, 147;
+    --color-muted-rgb: rgb(121, 117, 147);
 }
 
 /* == dark theme == */
@@ -4052,7 +4052,7 @@ body {
 
 		/* muted colors */
     --color-muted: #908caa;
-    --color-muted-rgb: 144, 140, 170;
+    --color-muted-rgb: rgb(144, 140, 170);
 }
 
 
@@ -4063,7 +4063,7 @@ body {
     --accent-s: 70%;
     --accent-l: 66%;
     --color-red: #f45757;
-    --color-red-rgb: 244, 87, 87;
+    --color-red-rgb: rgb(244, 87, 87);
 }
 .theme-normal.blue-accent {
     --color-accent-hsl: 193, 85%, 50% !important;
@@ -4119,17 +4119,17 @@ body {
     --accent-l: 40% !important;
 
     --color-red: #dc322f;
-    --color-green-rgb: 133, 153, 0;
+    --color-green-rgb: rgb(133, 153, 0);
     --color-green: #859900;
-    --color-orange-rgb: 203, 75, 22;
+    --color-orange-rgb: rgb(203, 75, 22);
     --color-orange: #cb4b16;
-    --color-yellow-rgb: 181, 137, 0;
+    --color-yellow-rgb: rgb(181, 137, 0);
     --color-yellow: #b58900;
-    --color-cyan-rgb: 42, 161, 152;
+    --color-cyan-rgb: rgb(42, 161, 152);
     --color-cyan: #2aa198;
-    --color-blue-rgb: 38, 139, 210;
+    --color-blue-rgb: rgb(38, 139, 210);
     --color-blue: #268bd2;
-    --color-purple-rgb:108, 113, 196;
+    --color-purple-rgb:rgb(108, 113, 196);
     --color-purple: #6c71c4;
     --color-pink-rgb: 211, 54, 130;
     --color-pink: #d33682;
@@ -4200,15 +4200,15 @@ body {
     --color-cyan: #56949f;
     --color-blue: #286983;
     --color-purple: rgb(144, 122, 169);
-    --color-muted-rgb: 121, 117, 147;
-    --color-red-rgb: 180, 99, 122;
+    --color-muted-rgb: rgb(121, 117, 147);
+    --color-red-rgb: rgb(180, 99, 122);
     --color-pink-rgb: 215, 130, 126;
-    --color-orange-rgb: 234, 157, 52;
-    --color-yellow-rgb: 230, 180, 50;
-    --color-green-rgb: 113, 151, 86; 
-    --color-cyan-rgb: 86, 148, 159;
-    --color-blue-rgb: 40, 105, 131;
-    --color-purple-rgb: 144, 122, 169;
+    --color-orange-rgb: rgb(234, 157, 52);
+    --color-yellow-rgb: rgb(230, 180, 50);
+    --color-green-rgb: rgb(113, 151, 86); 
+    --color-cyan-rgb: rgb(86, 148, 159);
+    --color-blue-rgb: rgb(40, 105, 131);
+    --color-purple-rgb: rgb(144, 122, 169);
 }
 .theme-light.low-contrast-light.theme-rose-pine {
     --base-c: 96%;
@@ -4232,15 +4232,15 @@ body {
     --color-cyan: #9ccfd8;
     --color-blue: #569ebb;
     --color-purple: #c4a7e7;
-    --color-muted-rgb: 144, 140, 170;
-    --color-red-rgb: 235, 111, 146;
+    --color-muted-rgb: rgb(144, 140, 170);
+    --color-red-rgb: rgb(235, 111, 146);
     --color-pink-rgb: 235, 188, 186;
-    --color-orange-rgb:246, 172, 119;
-    --color-yellow-rgb: 246, 206, 119;
-    --color-green-rgb: 184, 216, 156;
-    --color-cyan-rgb: 156, 207, 216;
-    --color-blue-rgb: 49, 116, 143;
-    --color-purple-rgb: 196, 167, 231;
+    --color-orange-rgb:rgb(246, 172, 119);
+    --color-yellow-rgb: rgb(246, 206, 119);
+    --color-green-rgb: rgb(184, 216, 156);
+    --color-cyan-rgb: rgb(156, 207, 216);
+    --color-blue-rgb: rgb(49, 116, 143);
+    --color-purple-rgb: rgb(196, 167, 231);
 }
 .theme-rose-pine.theme-dark.colorful-headings-s {
     --h6-color: var(--color-purple);
@@ -4281,14 +4281,14 @@ body {
     --color-cyan: rgb(53, 167, 124);
     --color-blue: rgb(58, 148, 197);
     --color-purple: rgb(223, 105, 186);
-    --color-red-rgb: 247, 84, 82;
+    --color-red-rgb: rgb(247, 84, 82);
     --color-pink-rgb: 248, 105, 162;
-    --color-orange-rgb: 245, 125, 38;
-    --color-yellow-rgb: 223, 160, 0;
-    --color-green-rgb:141, 161, 1; 
-    --color-cyan-rgb: 53, 167, 124;
-    --color-blue-rgb: 58, 148, 197;
-    --color-purple-rgb: 223, 105, 186;
+    --color-orange-rgb: rgb(245, 125, 38);
+    --color-yellow-rgb: rgb(223, 160, 0);
+    --color-green-rgb:rgb(141, 161, 1); 
+    --color-cyan-rgb: rgb(53, 167, 124);
+    --color-blue-rgb: rgb(58, 148, 197);
+    --color-purple-rgb: rgb(223, 105, 186);
 }
 .theme-light.theme-everforest {
     --base-c: 89%;
@@ -4327,14 +4327,14 @@ body {
     --color-cyan: rgb(53, 167, 124);
     --color-blue: rgb(58, 148, 197);
     --color-purple: rgb(223, 105, 186);
-    --color-red-rgb: 247, 84, 82;
+    --color-red-rgb: rgb(247, 84, 82);
     --color-pink-rgb: 248, 105, 162;
-    --color-orange-rgb: 245, 125, 38;
-    --color-yellow-rgb: 223, 160, 0;
-    --color-green-rgb:141, 161, 1; 
-    --color-cyan-rgb: 53, 167, 124;
-    --color-blue-rgb: 58, 148, 197;
-    --color-purple-rgb: 223, 105, 186;
+    --color-orange-rgb: rgb(245, 125, 38);
+    --color-yellow-rgb: rgb(223, 160, 0);
+    --color-green-rgb:rgb(141, 161, 1); 
+    --color-cyan-rgb: rgb(53, 167, 124);
+    --color-blue-rgb: rgb(58, 148, 197);
+    --color-purple-rgb: rgb(223, 105, 186);
 }
 .theme-dark.theme-everforest.low-contrast-dark {
     --base-c: 17%;
@@ -4356,19 +4356,19 @@ body {
     --theme-tint-text: 27;
     --theme-sat-text: 20%;
     
-    --color-red-rgb:251, 73, 52;
+    --color-red-rgb:rgb(251, 73, 52);
     --color-red: hsl(6, 64%, 52%);
-    --color-green-rgb: 184, 186, 38;
+    --color-green-rgb: rgb(184, 186, 38);
     --color-green: #9d9f12;
-    --color-orange-rgb: 255, 135, 55;
+    --color-orange-rgb: rgb(255, 135, 55);
     --color-orange: hsl(24, 87%, 47%);
-    --color-yellow-rgb: 215, 153, 33;
+    --color-yellow-rgb: rgb(215, 153, 33);
     --color-yellow: #fabd2f;
-    --color-cyan-rgb: 142, 192, 124;
+    --color-cyan-rgb: rgb(142, 192, 124);
     --color-cyan: #649751;
-    --color-blue-rgb: 131, 165, 152;
+    --color-blue-rgb: rgb(131, 165, 152);
     --color-blue: #5b8374;
-    --color-purple-rgb: 211, 134, 155;
+    --color-purple-rgb: rgb(211, 134, 155);
     --color-purple: hsl(344, 37%, 59%);
     --color-pink-rgb: 241, 168, 203;
     --color-pink: #d383aa;
@@ -4422,19 +4422,19 @@ body {
     --color-base-70: hsl(222, 10%, 51%);
     --color-base-100: hsl(219, 15%, 34%); */
 
-    --color-red-rgb: 191, 97, 106;
+    --color-red-rgb: rgb(191, 97, 106);
     --color-red: #BF616A;
-    --color-green-rgb: 163, 190, 140;
+    --color-green-rgb: rgb(163, 190, 140);
     --color-green: #A3be8c;
-    --color-orange-rgb: 208, 135, 112;
+    --color-orange-rgb: rgb(208, 135, 112);
     --color-orange: #d08770;
-    --color-yellow-rgb: 235, 203, 139;
+    --color-yellow-rgb: rgb(235, 203, 139);
     --color-yellow: #ebcb8b;
-    --color-cyan-rgb: 136, 192, 208;
+    --color-cyan-rgb: rgb(136, 192, 208);
     --color-cyan: #88c0d0;
-    --color-blue-rgb: 129, 161, 193;
+    --color-blue-rgb: rgb(129, 161, 193);
     --color-blue: hsl(210, 34%, 63%);
-    --color-purple-rgb: 94, 129, 172;
+    --color-purple-rgb: rgb(94, 129, 172);
     --color-purple: #5e81AC;
     --color-pink-rgb: 180, 142, 173;
     --color-pink: #b48ead;
@@ -4450,19 +4450,19 @@ body {
     --accent-h: 193 !important;
     --accent-s: 43% !important;
     --accent-l: 67% !important; 
-    --color-red-rgb: 191, 97, 106;
+    --color-red-rgb: rgb(191, 97, 106);
     --color-red: #dc8890;
-    --color-green-rgb: 163, 190, 140;
+    --color-green-rgb: rgb(163, 190, 140);
     --color-green: #A3be8c;
-    --color-orange-rgb: 208, 135, 112;
+    --color-orange-rgb: rgb(208, 135, 112);
     --color-orange: #db9681;
-    --color-yellow-rgb: 235, 203, 139;
+    --color-yellow-rgb: rgb(235, 203, 139);
     --color-yellow: #ebcb8b;
-    --color-cyan-rgb: 136, 192, 208;
+    --color-cyan-rgb: rgb(136, 192, 208);
     --color-cyan: hsl(193, 43%, 67%);
-    --color-blue-rgb: 129, 161, 193;
+    --color-blue-rgb: rgb(129, 161, 193);
     --color-blue: #81a1c1;
-    --color-purple-rgb: 94, 129, 172;
+    --color-purple-rgb: rgb(94, 129, 172);
     --color-purple: #6e8fb6;
     --color-pink-rgb: 180, 142, 173;
     --color-pink: #b48ead;
@@ -4501,7 +4501,7 @@ body {
     --theme-sat-secondary: 35%;
     --theme-tint-text: 234;
     --theme-sat-text: 24%;
-    --background-modifier-hover: rgba(var(--color-purple-rgb), 0.25);
+    --background-modifier-hover: color-mix(in srgb, var(--color-purple-rgb) 25%, transparent);
     --checkbox-color: var(--color-green);
     --checkbox-color-hover: var(--color-cyan);
     --accent-h: 231 !important;
@@ -4521,19 +4521,19 @@ body {
 .theme-light.theme-catpp {
     --base-c: 94%;
     --color-red: hsl(347, 87%, 44%);
-    --color-red-rgb: 210, 15, 57;
+    --color-red-rgb: rgb(210, 15, 57);
     --color-orange: #dd7878;
-    --color-orange-rgb: 220, 138, 120;
+    --color-orange-rgb: rgb(220, 138, 120);
     --color-yellow:#df8e1d;
-    --color-yellow-rgb: 223, 142, 29;
+    --color-yellow-rgb: rgb(223, 142, 29);
     --color-green: #179299;
-    --color-green-rgb: 23, 146, 153;
+    --color-green-rgb: rgb(23, 146, 153);
     --color-cyan: #04a5e5;
-    --color-cyan-rgb: 4, 165, 229;
+    --color-cyan-rgb: rgb(4, 165, 229);
     --color-blue: #1e66f5;
-    --color-blue-rgb: 30, 102, 245;
+    --color-blue-rgb: rgb(30, 102, 245);
     --color-purple: #637afa;
-    --color-purple-rgb: 114, 135, 253;
+    --color-purple-rgb: rgb(114, 135, 253);
     --color-pink: #ea76cb;
     --color-pink-rgb: 234, 118, 203;
     --rose: #dc8a78;
@@ -4559,19 +4559,19 @@ body {
     --accent-s: 43% !important;
     --accent-l: 67% !important; 
     
-    --color-red-rgb: 238, 153, 160;
+    --color-red-rgb: rgb(238, 153, 160);
     --color-red: #ee99a0;
-    --color-green-rgb:166, 218, 149;
+    --color-green-rgb:rgb(166, 218, 149);
     --color-green: #a6da95;
-    --color-orange-rgb:245, 169, 127;
+    --color-orange-rgb:rgb(245, 169, 127);
     --color-orange: #f5a97f;
-    --color-yellow-rgb: 238, 212, 159;
+    --color-yellow-rgb: rgb(238, 212, 159);
     --color-yellow: #eed49f;
-    --color-cyan-rgb: 145, 215, 227;
+    --color-cyan-rgb: rgb(145, 215, 227);
     --color-cyan: #91d7e3;
-    --color-blue-rgb:138, 173, 244;
+    --color-blue-rgb:rgb(138, 173, 244);
     --color-blue: #8aadf4;
-    --color-purple-rgb: 183, 189, 248;
+    --color-purple-rgb: rgb(183, 189, 248);
     --color-purple: #b7bdf8;
     --color-pink-rgb: 245, 189, 230;
     --color-pink: #f5bde6;  
@@ -4616,19 +4616,19 @@ body {
     --accent-s: 100% !important;
     --accent-l: 60% !important; 
     --base-c: 100%;
-    --color-red-rgb: 240, 113, 113;
+    --color-red-rgb: rgb(240, 113, 113);
     --color-red: rgb(240, 113, 113);
-    --color-green-rgb: 156, 208, 0;
+    --color-green-rgb: rgb(156, 208, 0);
     --color-green: rgb(141, 187, 0);
-    --color-orange-rgb: 250, 141, 62;
+    --color-orange-rgb: rgb(250, 141, 62);
     --color-orange: rgb(250, 141, 62);
-    --color-yellow-rgb: 242, 174, 73;
+    --color-yellow-rgb: rgb(242, 174, 73);
     --color-yellow: rgb(242, 174, 73);
-    --color-cyan-rgb: 76, 191, 153;
+    --color-cyan-rgb: rgb(76, 191, 153);
     --color-cyan: rgb(76, 191, 153);
-    --color-blue-rgb: 85, 180, 212;
+    --color-blue-rgb: rgb(85, 180, 212);
     --color-blue: rgb(85, 180, 212);
-    --color-purple-rgb: 71, 138, 204;
+    --color-purple-rgb: rgb(71, 138, 204);
     --color-purple: rgb(71, 138, 204);
     --color-pink-rgb: 180, 142, 173;
     --color-pink: hsl(270, 45%, 64%);
@@ -4645,19 +4645,19 @@ body {
     --theme-sat-secondary: 25%;
     --theme-sat: 20%;
     --theme-tint: 40;
-    --color-red-rgb: 242, 135, 121;
+    --color-red-rgb: rgb(242, 135, 121);
     --color-red: rgb(242, 135, 121);
-    --color-green-rgb: 213, 255, 128;
+    --color-green-rgb: rgb(213, 255, 128);
     --color-green: rgb(213, 255, 128);
-    --color-orange-rgb: 255, 173, 102;
+    --color-orange-rgb: rgb(255, 173, 102);
     --color-orange: rgb(255, 173, 102);
-    --color-yellow-rgb: 255, 209, 115;
+    --color-yellow-rgb: rgb(255, 209, 115);
     --color-yellow: rgb(255, 209, 115);
-    --color-cyan-rgb: 149, 230, 203;
+    --color-cyan-rgb: rgb(149, 230, 203);
     --color-cyan: rgb(149, 230, 203);
-    --color-blue-rgb: 92, 207, 230;
+    --color-blue-rgb: rgb(92, 207, 230);
     --color-blue: #5ccfe6;
-    --color-purple-rgb: 128, 191, 255;
+    --color-purple-rgb: rgb(128, 191, 255);
     --color-purple: rgb(128, 191, 255);
     --color-pink-rgb: 223, 191, 255;
     --color-pink: rgb(223, 191, 255);
@@ -4678,51 +4678,51 @@ body {
 .red-accent {
     --color-accent: var(--color-red) !important;
     --color-accent-1: var(--color-red) !important;
-    --color-accent-2: rgba(var(--color-red-rgb), 0.8) !important;
-    --link-decoration-color: rgba(var(--color-red-rgb), 0.4);
-    --link-unresolved-decoration-color: rgba(var(--color-red-rgb), 0.4);
+    --color-accent-2: color-mix(in srgb, var(--color-red-rgb) 80%, transparent) !important;
+    --link-decoration-color: color-mix(in srgb, var(--color-red-rgb) 40%, transparent);
+    --link-unresolved-decoration-color: color-mix(in srgb, var(--color-red-rgb) 40%, transparent);
 }
 .orange-accent {
     --color-accent: var(--color-orange !important);
     --color-accent-1: var(--color-orange) !important;
-    --color-accent-2: rgba(var(--color-orange-rgb), 0.8) !important;
-    --link-decoration-color: rgba(var(--color-orange-rgb), 0.4);
-    --link-unresolved-decoration-color: rgba(var(--color-orange-rgb), 0.4);
+    --color-accent-2: color-mix(in srgb, var(--color-orange-rgb) 80%, transparent) !important;
+    --link-decoration-color: color-mix(in srgb, var(--color-orange-rgb) 40%, transparent);
+    --link-unresolved-decoration-color: color-mix(in srgb, var(--color-orange-rgb) 40%, transparent);
 }
 .yellow-accent {
     --color-accent: var(--color-yellow) !important;
     --color-accent-1: var(--color-yellow) !important;
-    --color-accent-2: rgba(var(--color-yellow-rgb), 0.8) !important;
-    --link-decoration-color: rgba(var(--color-yellow-rgb), 0.4);
-    --link-unresolved-decoration-color: rgba(var(--color-yellow-rgb), 0.4);
+    --color-accent-2: color-mix(in srgb, var(--color-yellow-rgb) 80%, transparent) !important;
+    --link-decoration-color: color-mix(in srgb, var(--color-yellow-rgb) 40%, transparent);
+    --link-unresolved-decoration-color: color-mix(in srgb, var(--color-yellow-rgb) 40%, transparent);
 }
 .green-accent {
     --color-accent: var(--color-green) !important;
     --color-accent-1: var(--color-green) !important;
-    --color-accent-2: rgba(var(--color-green-rgb), 0.8) !important;
-    --link-decoration-color: rgba(var(--color-green-rgb), 0.4);
-    --link-unresolved-decoration-color: rgba(var(--color-green-rgb), 0.4);
+    --color-accent-2: color-mix(in srgb, var(--color-green-rgb) 80%, transparent) !important;
+    --link-decoration-color: color-mix(in srgb, var(--color-green-rgb) 40%, transparent);
+    --link-unresolved-decoration-color: color-mix(in srgb, var(--color-green-rgb) 40%, transparent);
 }
 .cyan-accent {
     --color-accent: var(--color-cyan) !important;
     --color-accent-1: var(--color-cyan) !important;
-    --color-accent-2: rgba(var(--color-cyan-rgb), 0.8) !important;
-    --link-decoration-color: rgba(var(--color-cyan-rgb), 0.4);
-    --link-unresolved-decoration-color: rgba(var(--color-cyan-rgb), 0.4);
+    --color-accent-2: color-mix(in srgb, var(--color-cyan-rgb) 80%, transparent) !important;
+    --link-decoration-color: color-mix(in srgb, var(--color-cyan-rgb) 40%, transparent);
+    --link-unresolved-decoration-color: color-mix(in srgb, var(--color-cyan-rgb) 40%, transparent);
 }
 .blue-accent {
     --color-accent: var(--color-blue) !important;
     --color-accent-1: var(--color-blue) !important;
-    --color-accent-2: rgba(var(--color-blue-rgb), 0.8) !important;
-    --link-decoration-color: rgba(var(--color-blue-rgb), 0.4);
-    --link-unresolved-decoration-color: rgba(var(--color-blue-rgb), 0.4);
+    --color-accent-2: color-mix(in srgb, var(--color-blue-rgb) 80%, transparent) !important;
+    --link-decoration-color: color-mix(in srgb, var(--color-blue-rgb) 40%, transparent);
+    --link-unresolved-decoration-color: color-mix(in srgb, var(--color-blue-rgb) 40%, transparent);
 }
 .purple-accent {
     --color-accent: var(--color-purple) !important;
     --color-accent-1: var(--color-purple) !important;
-    --color-accent-2: rgba(var(--color-purple-rgb), 0.8) !important;
-    --link-decoration-color: rgba(var(--color-purple-rgb), 0.4);
-    --link-unresolved-decoration-color: rgba(var(--color-purple-rgb), 0.4);
+    --color-accent-2: color-mix(in srgb, var(--color-purple-rgb) 80%, transparent) !important;
+    --link-decoration-color: color-mix(in srgb, var(--color-purple-rgb) 40%, transparent);
+    --link-unresolved-decoration-color: color-mix(in srgb, var(--color-purple-rgb) 40%, transparent);
 }
 .pink-accent {
     --color-accent: var(--color-pink) !important;
