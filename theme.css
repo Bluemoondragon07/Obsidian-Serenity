@@ -213,9 +213,10 @@ body {
 }
 
 /* make edit mode use a different readable line length than reading mode */
-  .markdown-source-view:not(.screenplay).mod-cm6.is-readable-line-width .cm-sizer,
-  .markdown-source-view:not(.is-mobile).mod-cm6.is-readable-line-width .cm-content,
-  .markdown-source-view:not(.is-mobile).mod-cm6.is-readable-line-width .cm-line  {
+/* Table cells have nested editors; leave their widths and padding to Obsidian. */
+  .markdown-source-view:not(.screenplay).mod-cm6.is-readable-line-width .cm-sizer:not(.table-cell-wrapper *),
+  .markdown-source-view:not(.is-mobile).mod-cm6.is-readable-line-width .cm-content:not(.table-cell-wrapper *),
+  .markdown-source-view:not(.is-mobile).mod-cm6.is-readable-line-width .cm-line:not(.table-cell-wrapper *)  {
     width: var(--editing-file-line-width) !important; 
     max-width: 100%;
     padding: 0;
